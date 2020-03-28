@@ -1,0 +1,61 @@
+import React, {PropsWithChildren, ReactNode} from 'react';
+import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
+
+export type ViewProps = PropsWithChildren<{
+    toolbar?: ReactNode;
+    footer?: ReactNode;
+}>;
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%'
+    },
+    content: {
+        overflow: 'auto',
+        flex: 'auto'
+    },
+    toolbar: {
+        borderBottomColor: theme.palette.divider,
+        borderBottomStyle: 'solid',
+        borderBottomWidth: 1
+    },
+    footer: {
+        borderTopColor: theme.palette.divider,
+        borderTopStyle: 'solid',
+        borderTopWidth: 1
+    },
+}));
+
+function View(props: ViewProps) {
+    const classes = useStyles();
+
+    const content = (
+        <div className={classes.content}>
+            {props.children}
+        </div>
+    );
+
+    const toolbar = props.toolbar && (
+        <div className={classes.toolbar}>
+            {props.toolbar}
+        </div>
+    );
+
+    const footer = props.footer && (
+        <div className={classes.footer}>
+            {props.footer}
+        </div>
+    );
+
+    return (
+        <div className={classes.root}>
+            {toolbar}
+            {content}
+            {footer}
+        </div>
+    );
+}
+
+export default View;
