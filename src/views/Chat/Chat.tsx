@@ -1,7 +1,6 @@
 import React from "react";
-import SendMessageToolbar from "../../components/SendMessageToolbar";
 import MessageList from "../../components/MessageList";
-import ListItemToolbar from "../../layout/ListItemToolbar";
+import ListItemToolbar from "../../components/ListItemToolbar";
 import { useParams } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {IconButton} from "@material-ui/core";
@@ -11,6 +10,10 @@ import View from "../../layout/View";
 import {selectContactById} from "../../components/ContactList/contactsSlice";
 import NotFound from "../NotFound";
 import {messagesSearchQuery, selectContactMessages} from "../../components/MessageList/messagesSlice";
+import PopoverAction from "../../components/PopoverAction";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 
 function Chat() {
     const { id: contactId } = useParams();
@@ -20,14 +23,29 @@ function Chat() {
 
     if (!contact) return <NotFound/>;
 
-    const endAction = (
-        <Tooltip title="Attachments">
-            <IconButton
-                edge="end"
+    const renderPopover = (onClose: VoidFunction) => (
+        <List>
+            <ListItem button
+                      onClick={onClose}
             >
-                <Attachment/>
-            </IconButton>
-        </Tooltip>
+                <ListItemText
+                    primary={"delete messages"}
+                />
+            </ListItem>
+        </List>
+    );
+
+    const endAction = (
+        <>
+            <Tooltip title="Attachments">
+                <IconButton>
+                    <Attachment/>
+                </IconButton>
+            </Tooltip>
+            <PopoverAction
+                renderPopover={renderPopover}
+            />
+        </>
     );
 
     const handleSearch = (value: string) => {
@@ -67,7 +85,6 @@ function Chat() {
     return (
         <View
             toolbar={toolbar}
-            footer={<SendMessageToolbar/>}
         >
             <MessageList/>
         </View>

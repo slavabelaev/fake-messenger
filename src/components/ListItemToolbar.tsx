@@ -5,7 +5,7 @@ import ListItemText, {ListItemTextProps} from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import {Search} from "@material-ui/icons";
 import Toolbar from "@material-ui/core/Toolbar";
-import SearchInputBase, {SearchInputBaseProps} from "../components/SearchInputBase";
+import SearchInputBase, {SearchInputBaseProps} from "./SearchInputBase";
 import {Tooltip} from "@material-ui/core";
 import {Link} from "react-router-dom";
 

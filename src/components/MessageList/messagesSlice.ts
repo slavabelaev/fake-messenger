@@ -1,10 +1,11 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Message} from "../../models/Message";
 import {Dispatch} from "react";
-import {findMessages} from "../../services/messageService";
+import {deleteMessages, findMessages, insertMessage} from "../../services/messageService";
 import {Contact} from "../../models/Contact";
 import {RootState} from "../../app/rootReducer";
 import {ErrorResponse, FindAllResponse} from "../../interfaces/Service";
+import {User} from "../../models/User";
 
 export interface ContactMessagesState {
     items: Message[];
@@ -59,6 +60,18 @@ const messagesSlice = createSlice({
         }>) {
             const { contactId, searchQuery } = action.payload;
             state[contactId].searchQuery = searchQuery;
+        },
+        add(state, action: PayloadAction<Message>) {
+            const contactId = action.payload.createdBy as NonNullable<Message['createdBy']>;
+            const message = action.payload;
+            state[contactId].items.push(message);
+        },
+        deleteMany(state, action: PayloadAction<{
+            contactId: Contact['id'];
+            messageIds: Message['id'][];
+        }>) {
+            const { contactId, messageIds } = action.payload;
+            state[contactId].items = state[contactId].items.filter(item => !messageIds.includes(item.id));
         }
     }
 });
@@ -72,10 +85,32 @@ export const {
     request: messagesRequest,
     success: messagesSuccess,
     failure: messagesFailure,
-    setSearchQuery: messagesSearchQuery
+    setSearchQuery: messagesSearchQuery,
+    add: addMessage,
+    deleteMany: deleteManyMessages
 } = messagesSlice.actions;
 
-export const fetchMessages = (contactId: Contact['id']) => (dispatch: Dispatch<any>) => {
+export const insertMessageAsync = (createdBy: User['id'], messageText: Message['text']) => (dispatch: Dispatch<any>) => {
+    insertMessage(createdBy, messageText)
+        .then(response => {
+            const successResponse = response as Message;
+            const action = addMessage(successResponse);
+            dispatch(action);
+        })
+};
+
+export const deleteMessagesAsync = (contactId: Contact['id'], messageIds: Message['id'][]) => (dispatch: Dispatch<any>) => {
+    deleteMessages(messageIds)
+        .then((response) => {
+            const failedResponse = response as ErrorResponse;
+            if (failedResponse.errors) throw Error();
+            const action = deleteManyMessages({contactId, messageIds});
+            dispatch(action);
+        })
+        .catch(console.log)
+};
+
+export const fetchMessagesAsync = (contactId: Contact['id']) => (dispatch: Dispatch<any>) => {
     dispatch(messagesRequest({contactId}));
     findMessages()
         .then(response => {

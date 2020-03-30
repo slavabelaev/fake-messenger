@@ -10,6 +10,7 @@ import {ContactListItemProps} from "./ContactListItem";
 import {CHAT_ROUTE_PATH} from "../../views/Chat";
 
 export const mapContactToItemProps = (contact: Contact): ContactListItemProps => ({
+    key: contact.id,
     fullName: `${contact.firstName} ${contact.lastName}`,
     avatarSrc: contact.avatarUrl,
     lastMessage: contact.lastMessage.text,

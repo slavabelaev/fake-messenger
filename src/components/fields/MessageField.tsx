@@ -1,11 +1,11 @@
 import React from 'react';
-import TextField from "@material-ui/core/TextField";
+import TextField, {TextFieldProps} from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import {AttachFile, InsertEmoticon} from "@material-ui/icons";
 import {Tooltip} from "@material-ui/core";
 
-export interface MessageFieldProps {}
+export type MessageFieldProps = TextFieldProps & {};
 
 function MessageField(props: MessageFieldProps) {
     const startAdornment = (
@@ -43,11 +43,12 @@ function MessageField(props: MessageFieldProps) {
 
     return (
         <TextField
+            {...props}
             variant="outlined"
             size="small"
+            placeholder="Enter message"
             multiline
             rowsMax={2}
-            placeholder="Enter message"
             InputProps={{
                 startAdornment,
                 endAdornment

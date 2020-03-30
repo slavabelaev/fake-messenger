@@ -7,17 +7,20 @@ export interface MessageListProps {
     getItem: (index: number) => MessageListItemProps;
 }
 
-function MessageList(props: MessageListProps) {
+function MessageList({
+    itemCount,
+    getItem
+}: MessageListProps) {
     const renderItem = (_: null, index: number) => (
         <MessageListItem
             key={index}
-            {...props.getItem(index)}
+            {...getItem(index)}
         />
     );
 
     return (
         <List>
-            {Array(props.itemCount).fill(null).map(renderItem)}
+            {Array(itemCount).fill(null).map(renderItem)}
         </List>
     );
 }

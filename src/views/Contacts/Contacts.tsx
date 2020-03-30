@@ -1,6 +1,6 @@
 import React from 'react';
 import ContactList from "../../components/ContactList";
-import ListItemToolbar from "../../layout/ListItemToolbar";
+import ListItemToolbar from "../../components/ListItemToolbar";
 import {Settings} from "@material-ui/icons";
 import {IconButton} from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";

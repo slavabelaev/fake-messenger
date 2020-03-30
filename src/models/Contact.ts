@@ -1,10 +1,7 @@
-import {Model} from "../interfaces/Model";
 import {Message} from "./Message";
+import {User} from "./User";
 
-export interface Contact extends Model {
-    firstName: string;
-    lastName: string;
-    avatarUrl: string;
+export interface Contact extends User {
     lastMessage: Message;
     lastVisitAt: Date;
     isOnline: boolean;

@@ -1,12 +1,15 @@
 import React from "react";
-import {createStyles, Theme, Toolbar} from "@material-ui/core";
+import {createStyles, IconButtonProps, Theme, Toolbar} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {Send} from "@material-ui/icons";
-import MessageField from "./fields/MessageField";
+import MessageField, {MessageFieldProps} from "../fields/MessageField";
 import {makeStyles} from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 
-export interface SendMessageToolbarProps {}
+export interface SendMessageToolbarProps {
+    onSubmit?: IconButtonProps['onClick'];
+    MessageFieldProps?: MessageFieldProps;
+}
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     sendButton: {
@@ -22,6 +25,7 @@ function SendMessageToolbar(props: SendMessageToolbarProps) {
             <IconButton
                 className={classes.sendButton}
                 edge="end"
+                onClick={props.onSubmit}
             >
                 <Send />
             </IconButton>
@@ -29,7 +33,9 @@ function SendMessageToolbar(props: SendMessageToolbarProps) {
     );
 
     const messageField = (
-        <MessageField/>
+        <MessageField
+            {...props.MessageFieldProps}
+        />
     );
 
     return (

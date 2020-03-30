@@ -1,39 +1,57 @@
-import React from 'react';
-import {ListItem, ListItemTextProps} from "@material-ui/core";
+import React, {Key} from 'react';
+import {CheckboxProps, ListItem, ListItemTextProps} from "@material-ui/core";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 
 export interface MessageListItemProps {
+    key?: Key;
+    variant?: 'default' | 'checkbox';
     text: ListItemTextProps['secondary'];
+    createdAt: Date;
+    CheckboxProps?: CheckboxProps;
 }
 
-function MessageListItem(props: MessageListItemProps) {
+function MessageListItem({
+    key,
+    variant = 'default',
+    text,
+    createdAt,
+    CheckboxProps
+}: MessageListItemProps) {
     const primary = (
         <Typography
             variant="body2"
-            component="span"
         >
-            {props.text}
+            {text}
         </Typography>
     );
 
     const secondary = (
         <Typography
             variant="caption"
-            component="span"
         >
-            14:25
+            {createdAt.toLocaleTimeString().substring(0, 5)}
         </Typography>
 
     );
 
+    const listItemIcon = variant === 'checkbox' && (
+        <ListItemIcon>
+            <Checkbox
+                {...CheckboxProps}
+            />
+        </ListItemIcon>
+    );
+
     return (
-        <ListItem dense>
-            <ListItemAvatar>
-                <Checkbox/>
-            </ListItemAvatar>
+        <ListItem
+            key={key}
+            dense
+            selected={CheckboxProps?.checked}
+        >
+            {listItemIcon}
             <ListItemText
                 primary={primary}
                 secondary={secondary}

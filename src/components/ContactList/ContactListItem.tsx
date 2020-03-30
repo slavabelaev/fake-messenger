@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Key} from "react";
 import {AvatarProps, createStyles, ListItem, ListItemTextProps, Theme} from "@material-ui/core";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -10,6 +10,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {NavLink} from "react-router-dom";
 
 export interface ContactListItemProps {
+    key?: Key;
     avatarSrc: AvatarProps['src'];
     fullName: ListItemTextProps['primary'];
     lastMessage: ListItemTextProps['secondary'];
@@ -29,6 +30,7 @@ function ContactListItem(props: ContactListItemProps) {
     const classes = useStyles();
     return (
         <ListItem
+            key={props.key}
             button
             component={NavLink}
             activeClassName="Mui-selected"
