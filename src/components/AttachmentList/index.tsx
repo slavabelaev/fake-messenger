@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import {fetchAttachments} from "./attachmentsSlice";
 
 const mapAttachmentToItemProps = (attachment: Attachment): AttachmentListItemProps => ({
+    key: attachment.id,
     name: attachment.name,
     size: attachment.size,
     lastModified: attachment.lastModified,

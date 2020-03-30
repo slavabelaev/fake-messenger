@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react';
+import React, {Key, ReactElement} from 'react';
 import {AvatarProps, createStyles, Theme} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import ListItem from "@material-ui/core/ListItem";
@@ -19,6 +19,7 @@ import {
 import {makeStyles} from "@material-ui/core/styles";
 
 export interface AttachmentListItemProps {
+    key?: Key;
     name: File['name'];
     size: File['size'];
     type: File['type'];

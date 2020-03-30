@@ -2,24 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2bced0f8-5b67-4547-8bea-bcee85b3aa46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/PopoverAction.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/SendMessageToolbar/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/User.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ContactList/ContactListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContactList/ContactListItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ContactList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContactList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MessageList/MessageList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageList/MessageList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MessageList/MessageListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageList/MessageListItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MessageList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MessageList/messagesSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageList/messagesSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SendMessageToolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SendMessageToolbar/SendMessageToolbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/fields/MessageField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/fields/MessageField.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layout/ListItemToolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListItemToolbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/Contact.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Contact.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/Message.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Message.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/messageService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/messageService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Chat/Chat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Chat/Chat.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Contacts/Contacts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contacts/Contacts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AttachmentList/AttachmentListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentList/AttachmentListItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AttachmentList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentList/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SettingList/SettingListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SettingList/SettingListItem.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +82,7 @@
       <workItem from="1585087007038" duration="35120000" />
       <workItem from="1585305810967" duration="15519000" />
       <workItem from="1585419351186" duration="10208000" />
-      <workItem from="1585573368996" duration="16304000" />
+      <workItem from="1585573368996" duration="16555000" />
     </task>
     <servers />
   </component>
