@@ -32,15 +32,15 @@ const getMessagesFilter = (searchQuery: string) => (item: Message) => {
 };
 
 function MessageListContainer({ chatId }: MessageListContainerProps) {
-    const { error, searchQuery, items, loading } = useSelector(selectChatMessages(chatId));
+    const { error, searchQuery, messages: allMessages, loading } = useSelector(selectChatMessages(chatId));
     const [checkedIds, setCheckedIds] = useState<Message['id'][]>([]);
     const messagesFilter = getMessagesFilter(searchQuery);
-    const messages = searchQuery ? items.filter(messagesFilter) : items;
+    const messages = searchQuery ? allMessages.filter(messagesFilter) : allMessages;
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!items.length) fetchMessagesAsync(chatId)(dispatch);
-    }, [items.length, dispatch, chatId]);
+        if (!allMessages.length) fetchMessagesAsync(chatId)(dispatch);
+    }, [allMessages.length, dispatch, chatId]);
 
     if (loading) return <Loading/>;
     if (error) return <ErrorMessage/>;
@@ -64,7 +64,7 @@ function MessageListContainer({ chatId }: MessageListContainerProps) {
         };
     };
 
-    const messageList = items.length ? (
+    const messageList = allMessages.length ? (
         <MessageList
             itemCount={messages.length}
             getItem={getItem}

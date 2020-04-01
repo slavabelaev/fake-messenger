@@ -8,7 +8,7 @@ import {ErrorResponse, FindAllResponse} from "../../interfaces/Service";
 import {User} from "../../models/User";
 
 export interface ChatMessagesState {
-    items: Message[];
+    messages: Message[];
     searchQuery: string;
     loading: boolean;
     error: boolean;
@@ -20,7 +20,7 @@ export interface MessagesState {
 
 const initialState: MessagesState = {};
 const itemInitialState: ChatMessagesState = {
-    items: [],
+    messages: [],
     searchQuery: '',
     loading: false,
     error: false
@@ -40,12 +40,12 @@ const chatsSlice = createSlice({
         },
         success(state, action: PayloadAction<{
             chatId: Chat['id'];
-            items: Message[];
+            messages: Message[];
         }>) {
-            const { chatId, items } = action.payload;
+            const { chatId, messages } = action.payload;
             state[chatId].error = false;
             state[chatId].loading = false;
-            state[chatId].items = items;
+            state[chatId].messages = messages;
         },
         failure(state, action: PayloadAction<{
             chatId: Chat['id'];
@@ -64,14 +64,14 @@ const chatsSlice = createSlice({
         add(state, action: PayloadAction<Message>) {
             const chatId = action.payload.createdBy as NonNullable<Message['createdBy']>;
             const message = action.payload;
-            state[chatId].items.push(message);
+            state[chatId].messages.push(message);
         },
         deleteMany(state, action: PayloadAction<{
             chatId: Chat['id'];
             messageIds: Message['id'][];
         }>) {
             const { chatId, messageIds } = action.payload;
-            state[chatId].items = state[chatId].items.filter(item => !messageIds.includes(item.id));
+            state[chatId].messages = state[chatId].messages.filter(item => !messageIds.includes(item.id));
         }
     }
 });
@@ -119,7 +119,7 @@ export const fetchMessagesAsync = (chatId: Chat['id']) => (dispatch: Dispatch<an
             const successResponse = response as FindAllResponse<Message>;
             const action = messagesSuccess({
                 chatId,
-                items: successResponse.items
+                messages: successResponse.items
             });
             dispatch(action);
         })
