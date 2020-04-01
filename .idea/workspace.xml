@@ -2,39 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2bced0f8-5b67-4547-8bea-bcee85b3aa46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/ListItemSwitch.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/SettingList/settings/DarkThemeSwitch.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/SettingList/settingsSlice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ThemeProvider/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ThemeProvider/theme.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layout/ErrorMessage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layout/Loading.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/forms/EditProfile.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/layout/LayoutToolbar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/rootReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/rootReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/theme.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachmentList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ContactList/ContactListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContactList/ContactListItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ContactList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContactList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MessageList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SendMessageToolbar/SendMessageToolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SendMessageToolbar/SendMessageToolbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SendMessageToolbar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SendMessageToolbar/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SettingList/SettingList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SettingList/SettingList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SettingList/SettingListItem.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/fields/MessageField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/fields/MessageField.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layout/ErrorBoundary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/ErrorBoundary.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layout/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layout/View.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/View.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/serviceWorker.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/serviceWorker.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Attachments/Attachments.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Attachments/Attachments.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Chat/Chat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Chat/Chat.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Contacts/Contacts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contacts/Contacts.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/NotFound/NotFound.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/NotFound/NotFound.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/NotFound/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/NotFound/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Welcome/Welcome.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Welcome/Welcome.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/AuthUser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/AuthUser.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/User.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/fakerService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/fakerService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Profile/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Settings/Settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Settings/Settings.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,10 +50,10 @@
       <recent name="E:\react\redux-saga\src\interfaces" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\react\redux-saga\src\layout" />
       <recent name="E:\react\redux-saga\src\components" />
       <recent name="E:\react\redux-saga\src\context\ThemeContext" />
       <recent name="E:\react\redux-saga\src\components\SendMessageToolbar" />
-      <recent name="E:\react\redux-saga\src\layout" />
       <recent name="E:\react\redux-saga\src\app" />
     </key>
   </component>
@@ -111,7 +86,7 @@
       <workItem from="1585087007038" duration="35120000" />
       <workItem from="1585305810967" duration="15519000" />
       <workItem from="1585419351186" duration="10208000" />
-      <workItem from="1585573368996" duration="33402000" />
+      <workItem from="1585573368996" duration="36327000" />
     </task>
     <servers />
   </component>
@@ -139,10 +114,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="279" y="58" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585139706244" />
-    <state x="474" y="168" width="711" height="546" key="find.popup" timestamp="1585664564074">
+    <state x="474" y="168" width="711" height="546" key="find.popup" timestamp="1585702321658">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="474" y="168" width="711" height="546" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1585664564074" />
+    <state x="474" y="168" width="711" height="546" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1585702321658" />
     <state x="425" y="187" key="run.anything.popup" timestamp="1585587226927">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

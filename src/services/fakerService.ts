@@ -12,15 +12,21 @@ export interface FakerService {
 }
 
 export const fakerService: FakerService = {
-    contact: () => ({
-        id: faker.random.uuid(),
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        avatarUrl: faker.image.avatar(),
-        lastMessage: fakerService.message(),
-        isOnline: faker.random.boolean(),
-        lastVisitAt: faker.date.recent(0)
-    }),
+    contact: () => {
+        const firstName = faker.name.firstName();
+        const lastName = faker.name.lastName();
+        return ({
+            id: faker.random.uuid(),
+            firstName,
+            lastName,
+            email: faker.internet.email(firstName, lastName),
+            phoneNumber: faker.phone.phoneNumber(),
+            avatarUrl: faker.image.avatar(),
+            lastMessage: fakerService.message(),
+            isOnline: faker.random.boolean(),
+            lastVisitAt: faker.date.recent(0),
+        })
+    },
     message: () => ({
         id: faker.random.uuid(),
         text: faker.lorem.text(),
@@ -36,11 +42,17 @@ export const fakerService: FakerService = {
         lastModified: faker.date.past().getMilliseconds(),
         imageUrl: faker.image.avatar()
     }),
-    authUser: () => ({
-        id: faker.random.uuid(),
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        avatarUrl: faker.image.avatar(),
-        isOnline: faker.random.boolean()
-    })
+    authUser: () => {
+        const firstName = faker.name.firstName();
+        const lastName = faker.name.lastName();
+        return ({
+            id: faker.random.uuid(),
+            firstName,
+            lastName,
+            email: faker.internet.email(firstName, lastName),
+            phoneNumber: faker.phone.phoneNumber(),
+            avatarUrl: faker.image.avatar(),
+            isOnline: faker.random.boolean()
+        })
+    }
 };

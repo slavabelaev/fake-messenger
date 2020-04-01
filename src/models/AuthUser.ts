@@ -1,8 +1,5 @@
-import {Model} from "../interfaces/Model";
+import {User} from "./User";
 
-export interface AuthUser extends Model {
-    firstName: string;
-    lastName: string;
-    avatarUrl: string;
+export interface AuthUser extends User {
     isOnline: boolean;
 }
