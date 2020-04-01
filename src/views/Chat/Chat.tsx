@@ -8,7 +8,7 @@ import {IconButton} from "@material-ui/core";
 import {Attachment} from "@material-ui/icons";
 import Tooltip from "@material-ui/core/Tooltip";
 import View from "../../layout/View";
-import {selectContactById} from "../../components/ContactList/contactsSlice";
+import {getContactByIdSelector} from "../../components/ContactList/contactsSlice";
 import NotFound from "../NotFound";
 import {messagesSearchQuery, selectChatMessages} from "../../components/MessageList/chatsSlice";
 import PopoverAction from "../../components/PopoverAction";
@@ -22,9 +22,10 @@ import {CONTACT_PROFILE_ROUTE_PATH} from "../ContactProfile";
 import {CHAT_ATTACHMENTS_ROUTE_PATH} from "../Attachments";
 
 function Chat() {
-    const { id: chatId } = useParams();
+    const { id: chatId = '' } = useParams();
     const { searchQuery } = useSelector(selectChatMessages(chatId));
-    const contact = useSelector(selectContactById(chatId));
+    const contactSelector = getContactByIdSelector(chatId);
+    const contact = useSelector(contactSelector);
     const dispatch = useDispatch();
 
     if (!chatId || !contact) return <NotFound/>;

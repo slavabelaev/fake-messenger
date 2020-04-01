@@ -1,23 +1,21 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createEntityAdapter, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Contact} from "../../models/Contact";
 import {findContacts} from "../../services/contactService";
 import {Dispatch} from "react";
 import {ErrorResponse, FindAllResponse} from "../../interfaces/Service";
 import {RootState} from "../../app/rootReducer";
 
-export interface ContactsState {
-    items: Contact[];
+const contactsAdapter = createEntityAdapter<Contact>();
+
+const initialState = contactsAdapter.getInitialState<{
     searchQuery: string;
     loading: boolean;
     error: boolean;
-}
-
-const initialState: ContactsState = {
-    items: [],
+}>({
     searchQuery: '',
     loading: false,
     error: false
-};
+});
 
 const contactsSlice = createSlice({
     name: 'contacts',
@@ -30,7 +28,7 @@ const contactsSlice = createSlice({
         success(state, action: PayloadAction<Contact[]>) {
             state.error = false;
             state.loading = false;
-            state.items = action.payload;
+            contactsAdapter.addMany(state, action.payload);
         },
         failure(state) {
             state.error = true;
@@ -41,21 +39,33 @@ const contactsSlice = createSlice({
         },
         switchFavorite(state, action: PayloadAction<Contact['id']>) {
             const contactId = action.payload;
-            const index = state.items.findIndex(item => item.id === contactId);
-            state.items[index].isFavorite = !state.items[index].isFavorite;
+            const isFavorite = state.entities[contactId]?.isFavorite;
+            contactsAdapter.updateOne(state, {
+                id: contactId,
+                changes: {
+                    isFavorite: !isFavorite
+                }
+            });
         },
         switchNotifications(state, action: PayloadAction<Contact['id']>) {
             const contactId = action.payload;
-            const index = state.items.findIndex(item => item.id === contactId);
-            state.items[index].notificationsEnabled = !state.items[index].notificationsEnabled;
+            const notificationsEnabled = state.entities[contactId]?.notificationsEnabled;
+            contactsAdapter.updateOne(state, {
+                id: contactId,
+                changes: {
+                    notificationsEnabled: !notificationsEnabled
+                }
+            });
         }
     }
 });
 
-export const selectContactById = (id?: Contact['id']) => (state: RootState): Contact | undefined => {
-    if (!id) return undefined;
-    return state.contacts?.items?.find(item => item.id === id);
-};
+export const {
+    selectAll: selectAllContacts,
+    selectById: selectContactById
+} = contactsAdapter.getSelectors((state: RootState) => state.contacts);
+export const selectContactsState = (state: RootState) => state.contacts;
+export const getContactByIdSelector = (id: Contact['id']) => (state: RootState) => selectContactById(state, id);
 
 export const {
     request: contactsRequest,

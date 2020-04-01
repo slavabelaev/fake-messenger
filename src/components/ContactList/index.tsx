@@ -1,8 +1,7 @@
 import React, {useEffect} from "react";
 import ContactList from "./ContactList";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../app/rootReducer";
-import {fetchContacts} from "./contactsSlice";
+import {fetchContacts, selectAllContacts, selectContactsState} from "./contactsSlice";
 import {Contact} from "../../models/Contact";
 import {ContactListItemProps} from "./ContactListItem";
 import {CHAT_ROUTE_PATH} from "../../views/Chat";
@@ -31,9 +30,10 @@ const getContactsFilter = (searchQuery: string) => (item: Contact) => {
 };
 
 function ContactListContainer() {
-    const { items, searchQuery, error, loading } = useSelector(({ contacts }: RootState) => contacts);
+    const allContacts = useSelector(selectAllContacts);
+    const {error, loading, searchQuery} = useSelector(selectContactsState);
     const filter = getContactsFilter(searchQuery);
-    const contacts = searchQuery ? items.filter(filter) : items;
+    const contacts = searchQuery ? allContacts.filter(filter) : allContacts;
     const dispatch = useDispatch();
 
     useEffect(() => {
