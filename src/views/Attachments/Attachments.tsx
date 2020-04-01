@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {createStyles, Theme, Toolbar} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Tabs from "@material-ui/core/Tabs";
@@ -17,7 +17,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }));
 
+const FILES_TAB_VALUE = 0;
+
 function Attachments(props: AttachmentsProps) {
+    const [tabsValue, setTabsValue] = useState(FILES_TAB_VALUE);
     const classes = useStyles();
 
     const toolbar = (
@@ -35,10 +38,11 @@ function Attachments(props: AttachmentsProps) {
 
     const tabs = (
         <Tabs
-            value={0}
+            value={tabsValue}
             indicatorColor="primary"
             textColor="primary"
             variant="fullWidth"
+            onChange={(event, value) => setTabsValue(value)}
         >
             <Tab label="Files" />
             <Tab label="Links" />

@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useEffect} from "react";
+import formatDistance from "date-fns/formatDistance";
 import MessageList from "../../components/MessageList";
 import ListItemToolbar from "../../components/ListItemToolbar";
 import { useParams } from "react-router-dom";
@@ -14,12 +15,22 @@ import PopoverAction from "../../components/PopoverAction";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import Typography from "@material-ui/core/Typography";
 
 function Chat() {
     const { id: contactId } = useParams();
     const { searchQuery } = useSelector(selectContactMessages(contactId));
     const contact = useSelector(selectContactById(contactId));
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        //if (!contentRef) return;
+        //console.log('contentRef', contentRef);
+        // const scrollElement = contentRef.current as HTMLDivElement;
+        // scrollElement.scrollTo({
+        //     top: scrollElement.scrollHeight
+        // });
+    });
 
     if (!contact) return <NotFound/>;
 
@@ -66,11 +77,21 @@ function Chat() {
         dispatch(action);
     };
 
+    const statusText = contact?.isOnline
+        ? (
+            <Typography
+                variant="inherit"
+                color="primary"
+            >
+                Online
+            </Typography>
+        )
+        : formatDistance(new Date(), contact?.lastVisitAt);
     const toolbar = (
         <ListItemToolbar
             avatarSrc={contact?.avatarUrl}
             primary={`${contact?.firstName} ${contact?.lastName}`}
-            secondary="Online"
+            secondary={statusText}
             endAction={endAction}
             SearchInputBaseProps={{
                 placeholder: 'Search messages',

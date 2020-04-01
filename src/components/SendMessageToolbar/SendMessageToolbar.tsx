@@ -7,11 +7,16 @@ import {makeStyles} from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 
 export interface SendMessageToolbarProps {
-    onSubmit?: IconButtonProps['onClick'];
+    IconButtonProps?: IconButtonProps;
     MessageFieldProps?: MessageFieldProps;
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
+    messageField: {
+        marginTop: theme.spacing(1.5),
+        marginBottom: theme.spacing(1.5),
+        flex: 'auto'
+    },
     sendButton: {
         marginLeft: theme.spacing(1)
     }
@@ -25,7 +30,7 @@ function SendMessageToolbar(props: SendMessageToolbarProps) {
             <IconButton
                 className={classes.sendButton}
                 edge="end"
-                onClick={props.onSubmit}
+                {...props.IconButtonProps}
             >
                 <Send />
             </IconButton>
@@ -33,9 +38,13 @@ function SendMessageToolbar(props: SendMessageToolbarProps) {
     );
 
     const messageField = (
-        <MessageField
-            {...props.MessageFieldProps}
-        />
+        <div className={classes.messageField}>
+            <MessageField
+                {...props.MessageFieldProps}
+                multiline
+                rowsMax={3}
+            />
+        </div>
     );
 
     return (

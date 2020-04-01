@@ -5,13 +5,13 @@ import {Provider} from "react-redux";
 import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 import {store} from "./app/store";
-import {CssBaseline, ThemeProvider} from "@material-ui/core";
-import {theme} from "./app/theme";
+import {CssBaseline} from "@material-ui/core";
+import ThemeProvider from "./components/ThemeProvider";
 
 function Root() {
     return (
         <Provider store={store}>
-            <ThemeProvider theme={theme}>
+            <ThemeProvider>
                 <Router>
                     <React.StrictMode>
                         <CssBaseline/>

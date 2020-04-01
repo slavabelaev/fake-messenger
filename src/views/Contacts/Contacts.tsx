@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ContactList from "../../components/ContactList";
 import ListItemToolbar from "../../components/ListItemToolbar";
 import {Settings} from "@material-ui/icons";
@@ -10,25 +10,24 @@ import {PROFILE_ROUTE_PATH} from "../Profile";
 import View from "../../layout/View";
 import {useDispatch, useSelector} from "react-redux";
 import {authSelector} from "../../app/authSlice";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Typography from "@material-ui/core/Typography";
 import { contactsSearchQuery } from '../../components/ContactList/contactsSlice';
+import ErrorMessage from "../../layout/ErrorMessage";
+import Loading from "../../layout/Loading";
+import Typography from "@material-ui/core/Typography";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 
 export interface ContactsProps {}
 
+const CHATS_TAB_VALUE = 0;
+
 function Contacts(props: ContactsProps) {
+    const [tabsValue, setTabsValue] = useState(CHATS_TAB_VALUE);
     const { error, loading, user } = useSelector(authSelector);
     const dispatch = useDispatch();
 
-    if (loading) return (
-        <CircularProgress />
-    );
-
-    if (error) return (
-        <Typography color="error">
-            Error
-        </Typography>
-    );
+    if (loading || !user) return <Loading />;
+    if (error) return <ErrorMessage/>;
 
     const settingsButton = (
         <Tooltip title="Settings">
@@ -42,12 +41,6 @@ function Contacts(props: ContactsProps) {
         </Tooltip>
     );
 
-    if (!user) return (
-        <Typography>
-            No Data
-        </Typography>
-    );
-
     const handleSearch = (value: string) => {
         const action = contactsSearchQuery(value);
         dispatch(action);
@@ -58,20 +51,50 @@ function Contacts(props: ContactsProps) {
         dispatch(action);
     };
 
+    const tabs = (
+        <Tabs
+            variant="fullWidth"
+            textColor="primary"
+            indicatorColor="primary"
+            value={tabsValue}
+            onChange={(event, value) => setTabsValue(value)}
+        >
+            <Tab
+                label="Chats"
+            />
+            <Tab
+                label="Contacts"
+            />
+        </Tabs>
+    );
+
+    const statusText = user.isOnline
+        ? (
+            <Typography
+                variant="inherit"
+                color="primary"
+            >
+                Online
+            </Typography>
+        )
+        : 'Offline';
     const toolbar = (
-        <ListItemToolbar
-            primary={`${user.firstName} ${user.lastName}`}
-            secondary={user.isOnline ? 'Online' : 'Offline'}
-            avatarSrc={user.avatarUrl}
-            avatarTo={PROFILE_ROUTE_PATH}
-            endAction={settingsButton}
-            SearchInputBaseProps={{
-                placeholder: 'Search contacts',
-                onChange: handleSearch,
-                onClear: handleReset,
-                onBack: handleReset
-            }}
-        />
+        <div>
+            <ListItemToolbar
+                primary={`${user.firstName} ${user.lastName}`}
+                secondary={statusText}
+                avatarSrc={user.avatarUrl}
+                avatarTo={PROFILE_ROUTE_PATH}
+                endAction={settingsButton}
+                SearchInputBaseProps={{
+                    placeholder: 'Search ' + (tabsValue === 0 ? 'chats' : 'contacts'),
+                    onChange: handleSearch,
+                    onClear: handleReset,
+                    onBack: handleReset
+                }}
+            />
+            {tabs}
+        </div>
     );
 
     return (

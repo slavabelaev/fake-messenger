@@ -1,9 +1,8 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
+import {Redirect} from "react-router-dom";
 import MessageList, {MessageListProps} from "./MessageList";
 import {useDispatch, useSelector} from "react-redux";
 import {Message} from "../../models/Message";
-import {Typography} from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import {deleteMessagesAsync, fetchMessagesAsync, selectContactMessages} from "./messagesSlice";
 import {MessageListItemProps} from "./MessageListItem";
 import {useParams} from 'react-router-dom';
@@ -13,6 +12,9 @@ import {Delete} from "@material-ui/icons";
 import Tooltip from "@material-ui/core/Tooltip";
 import SendMessageToolbar from "../SendMessageToolbar";
 import View from "../../layout/View";
+import ErrorMessage from "../../layout/ErrorMessage";
+import Loading from "../../layout/Loading";
+import {NOT_FOUND_ROUTE_PATH} from "../../views/NotFound";
 
 export interface MessageListContainerProps {}
 
@@ -23,7 +25,8 @@ const mapMessageToItemProps = (message: Message): MessageListItemProps => ({
 });
 
 const getMessagesFilter = (searchQuery: string) => (item: Message) => {
-    return item.text.toLowerCase().includes(searchQuery)
+    const query = searchQuery.toLowerCase();
+    return item.text.toLowerCase().includes(query);
 };
 
 function MessageListContainer(props: MessageListContainerProps) {
@@ -38,15 +41,9 @@ function MessageListContainer(props: MessageListContainerProps) {
         if (contactId && !items.length) fetchMessagesAsync(contactId)(dispatch);
     }, [items.length, dispatch, contactId]);
 
-    if (loading) return (
-        <CircularProgress/>
-    );
-
-    if (error) return (
-        <Typography color="error">
-            Error
-        </Typography>
-    );
+    if (loading) return <Loading/>;
+    if (error) return <ErrorMessage/>;
+    if (!contactId) return <Redirect to={NOT_FOUND_ROUTE_PATH}/>;
 
     const getItem: MessageListProps['getItem'] = (index) => {
         const message = messages[index];
@@ -75,7 +72,6 @@ function MessageListContainer(props: MessageListContainerProps) {
     ) : null;
 
     const handleDelete = () => {
-        if (!contactId) return;
         deleteMessagesAsync(contactId, checkedIds)(dispatch);
         setCheckedIds([]);
     };

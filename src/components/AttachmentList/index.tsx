@@ -4,9 +4,9 @@ import {Attachment} from "../../models/Attachment";
 import {AttachmentListItemProps} from "./AttachmentListItem";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
-import {CircularProgress} from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
 import {fetchAttachments} from "./attachmentsSlice";
+import ErrorMessage from "../../layout/ErrorMessage";
+import Loading from "../../layout/Loading";
 
 const mapAttachmentToItemProps = (attachment: Attachment): AttachmentListItemProps => ({
     key: attachment.id,
@@ -27,15 +27,8 @@ function AttachmentListContainer(props: AttachmentListContainerProps) {
         fetchAttachments()(dispatch);
     }, [dispatch]);
 
-    if (loading) return (
-        <CircularProgress />
-    );
-
-    if (error) return (
-        <Typography color="error">
-            Error
-        </Typography>
-    );
+    if (loading) return <Loading/>;
+    if (error) return <ErrorMessage/>;
 
     return (
         <AttachmentList

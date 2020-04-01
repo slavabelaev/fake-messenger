@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import Typography from "@material-ui/core/Typography";
+import ErrorMessage from "./ErrorMessage";
 
 class ErrorBoundary extends Component {
     state = {
@@ -11,12 +11,7 @@ class ErrorBoundary extends Component {
     }
 
     render() {
-        if (this.state.error) return (
-            <Typography color="error">
-                This is error
-            </Typography>
-        );
-
+        if (this.state.error) return <ErrorMessage/>;
         return this.props.children;
     }
 }

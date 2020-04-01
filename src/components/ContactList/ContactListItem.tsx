@@ -8,12 +8,14 @@ import IconButton from "@material-ui/core/IconButton";
 import {MoreVert} from "@material-ui/icons";
 import {makeStyles} from "@material-ui/core/styles";
 import {NavLink} from "react-router-dom";
+import Badge from "@material-ui/core/Badge";
 
 export interface ContactListItemProps {
     key?: Key;
     avatarSrc: AvatarProps['src'];
     fullName: ListItemTextProps['primary'];
     lastMessage: ListItemTextProps['secondary'];
+    isOnline: boolean;
     to?: string;
 }
 
@@ -37,9 +39,20 @@ function ContactListItem(props: ContactListItemProps) {
             to={props.to || '/'}
         >
             <ListItemAvatar>
-                <Avatar
-                    src={props.avatarSrc}
-                />
+                <Badge
+                    variant="dot"
+                    overlap="circle"
+                    anchorOrigin={{
+                        horizontal: 'right',
+                        vertical: 'bottom'
+                    }}
+                    color="primary"
+                    invisible={!props.isOnline}
+                >
+                    <Avatar
+                        src={props.avatarSrc}
+                    />
+                </Badge>
             </ListItemAvatar>
             <ListItemText
                 primary={props.fullName}

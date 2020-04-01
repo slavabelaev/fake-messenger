@@ -7,6 +7,7 @@ import SendMessageToolbar from "./SendMessageToolbar";
 function SendMessageToolbarContainer() {
     const { id: contactId } = useParams();
     const [message, setMessage] = useState<string>('');
+    const isEmptyMessage = !Boolean(message);
     const dispatch = useDispatch();
 
     const handleSubmitMessage = () => {
@@ -17,10 +18,18 @@ function SendMessageToolbarContainer() {
 
     return (
         <SendMessageToolbar
-            onSubmit={handleSubmitMessage}
+            IconButtonProps={{
+                onClick: handleSubmitMessage,
+                disabled: isEmptyMessage
+            }}
             MessageFieldProps={{
                 value: message,
-                onKeyUp: event => event.keyCode === 13 && event.ctrlKey && handleSubmitMessage(),
+                onKeyUp: event => {
+                    return !isEmptyMessage &&
+                    event.keyCode === 13 &&
+                    event.ctrlKey &&
+                    handleSubmitMessage()
+                },
                 onChange: event => setMessage(event.target.value)
             }}
         />

@@ -32,7 +32,9 @@ function View(props: ViewProps) {
     const classes = useStyles();
 
     const content = (
-        <div className={classes.content}>
+        <div
+            className={classes.content}
+        >
             {props.children}
         </div>
     );

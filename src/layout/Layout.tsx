@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
+import {Link} from "react-router-dom";
 
 export type LayoutProps = PropsWithChildren<{
     title: TypographyProps['children'];
@@ -44,7 +45,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         overflow: 'auto'
     },
     appTitle: {
-        marginRight: 'auto'
+        marginRight: 'auto',
+        textDecoration: 'none'
     },
     avatar: {
         width: theme.spacing(4),
@@ -64,6 +66,9 @@ function Layout(props: LayoutProps) {
                 <Typography
                     className={classes.appTitle}
                     variant="h6"
+                    color="inherit"
+                    component={Link}
+                    to="/"
                 >
                     {props.title}
                 </Typography>

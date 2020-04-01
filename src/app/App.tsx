@@ -5,8 +5,8 @@ import Contacts from "../views/Contacts";
 import Attachments from "../views/Attachments";
 import {useDispatch, useSelector} from "react-redux";
 import {authSelector, signIn} from "./authSlice";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Typography from "@material-ui/core/Typography";
+import ErrorMessage from "../layout/ErrorMessage";
+import Loading from "../layout/Loading";
 
 function App() {
     const dispatch = useDispatch();
@@ -16,17 +16,10 @@ function App() {
         signIn('someLogin', 'secretPassword')(dispatch);
     }, [dispatch]);
 
-    if (loading) return (
-        <CircularProgress />
-    );
+    if (loading || !user) return <Loading/>;
+    if (error) return <ErrorMessage/>;
 
-    if (error) return (
-        <Typography color="error">
-            Error
-        </Typography>
-    );
-
-    return user && (
+    return (
         <Layout
             title="Fake Messenger"
             leftSide={<Contacts/>}

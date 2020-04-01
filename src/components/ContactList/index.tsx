@@ -2,25 +2,27 @@ import React, {useEffect} from "react";
 import ContactList from "./ContactList";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
-import {Typography} from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import {fetchContacts} from "./contactsSlice";
 import {Contact} from "../../models/Contact";
 import {ContactListItemProps} from "./ContactListItem";
 import {CHAT_ROUTE_PATH} from "../../views/Chat";
+import ErrorMessage from "../../layout/ErrorMessage";
+import Loading from "../../layout/Loading";
 
 export const mapContactToItemProps = (contact: Contact): ContactListItemProps => ({
     key: contact.id,
     fullName: `${contact.firstName} ${contact.lastName}`,
     avatarSrc: contact.avatarUrl,
     lastMessage: contact.lastMessage.text,
+    isOnline: contact.isOnline,
     to: CHAT_ROUTE_PATH.replace(':id', contact.id)
 });
 
 const getContactsFilter = (searchQuery: string) => (item: Contact) => {
+    const query = searchQuery.toLowerCase();
     return (
-        item.firstName.toLowerCase().includes(searchQuery) ||
-        item.lastName.toLowerCase().includes(searchQuery)
+        item.firstName.toLowerCase().includes(query) ||
+        item.lastName.toLowerCase().includes(query)
     )
 };
 
@@ -34,15 +36,8 @@ function ContactListContainer() {
         fetchContacts()(dispatch);
     }, [dispatch]);
 
-    if (error) return (
-        <Typography>
-            Error on fetch contacts
-        </Typography>
-    );
-
-    if (loading) return (
-        <CircularProgress />
-    );
+    if (loading) return <Loading/>;
+    if (error) return <ErrorMessage/>;
 
     return (
         <ContactList

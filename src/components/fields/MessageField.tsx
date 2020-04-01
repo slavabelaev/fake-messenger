@@ -47,8 +47,6 @@ function MessageField(props: MessageFieldProps) {
             variant="outlined"
             size="small"
             placeholder="Enter message"
-            multiline
-            rowsMax={2}
             InputProps={{
                 startAdornment,
                 endAdornment
