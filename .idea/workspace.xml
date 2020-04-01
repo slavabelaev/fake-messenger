@@ -2,19 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2bced0f8-5b67-4547-8bea-bcee85b3aa46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/models/Chat.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/MessageList/MessageStatus.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/rootReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/rootReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachmentLinkList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentLinkList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachmentList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentList/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ContactList/ContactListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContactList/ContactListItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ContactList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContactList/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ListItemToolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListItemToolbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MessageList/MessageListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageList/MessageListItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MessageList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MessageList/messagesSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageList/chatsSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SendMessageToolbar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SendMessageToolbar/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Attachments/AttachmentRoutes.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Attachments/Attachments.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Attachments/Attachments.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Chat/Chat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Chat/Chat.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Chat/ChatRoutes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Chat/ChatRoutes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/ContactProfile/ContactProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ContactProfile/ContactProfile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/fakerService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/fakerService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,11 +51,11 @@
       <recent name="E:\react\redux-saga\src\interfaces" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\react\redux-saga\src\components\MessageList" />
       <recent name="E:\react\redux-saga\src\views\ContactProfile" />
       <recent name="E:\react\redux-saga\src\layout" />
       <recent name="E:\react\redux-saga\src\components" />
       <recent name="E:\react\redux-saga\src\context\ThemeContext" />
-      <recent name="E:\react\redux-saga\src\components\SendMessageToolbar" />
     </key>
   </component>
   <component name="RunManager" selected="npm.npm start">
@@ -92,7 +87,7 @@
       <workItem from="1585087007038" duration="35120000" />
       <workItem from="1585305810967" duration="15519000" />
       <workItem from="1585419351186" duration="10208000" />
-      <workItem from="1585573368996" duration="50572000" />
+      <workItem from="1585573368996" duration="52707000" />
     </task>
     <servers />
   </component>
@@ -116,22 +111,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1585219343789" />
-    <state width="1515" height="196" key="GridCell.Tab.0.bottom" timestamp="1585746565909">
+    <state width="1515" height="196" key="GridCell.Tab.0.bottom" timestamp="1585753666815">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="196" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585746565909" />
-    <state width="1515" height="196" key="GridCell.Tab.0.center" timestamp="1585746565909">
+    <state width="1515" height="196" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585753666815" />
+    <state width="1515" height="196" key="GridCell.Tab.0.center" timestamp="1585753666814">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="196" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585746565909" />
-    <state width="1515" height="196" key="GridCell.Tab.0.left" timestamp="1585746565908">
+    <state width="1515" height="196" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585753666814" />
+    <state width="1515" height="196" key="GridCell.Tab.0.left" timestamp="1585753666814">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="196" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585746565908" />
-    <state width="1515" height="196" key="GridCell.Tab.0.right" timestamp="1585746565909">
+    <state width="1515" height="196" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585753666814" />
+    <state width="1515" height="196" key="GridCell.Tab.0.right" timestamp="1585753666814">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="196" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585746565909" />
+    <state width="1515" height="196" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585753666814" />
     <state x="279" y="58" key="SettingsEditor" timestamp="1585139706244">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

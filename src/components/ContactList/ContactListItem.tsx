@@ -9,12 +9,17 @@ import {MoreVert} from "@material-ui/icons";
 import {makeStyles} from "@material-ui/core/styles";
 import {NavLink} from "react-router-dom";
 import Badge from "@material-ui/core/Badge";
+import MessageStatus, {MessageStatusProps} from "../MessageList/MessageStatus";
 
 export interface ContactListItemProps {
     key?: Key;
     avatarSrc: AvatarProps['src'];
     fullName: ListItemTextProps['primary'];
-    lastMessage: ListItemTextProps['secondary'];
+    lastMessage?: {
+        text: ListItemTextProps['secondary'];
+        delivered: MessageStatusProps['delivered'];
+        read: MessageStatusProps['read'];
+    };
     isOnline: boolean;
     isFavorite?: boolean;
     to?: string;
@@ -22,7 +27,8 @@ export interface ContactListItemProps {
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     messageText: {
-        display: 'block',
+        display: 'flex',
+        alignItems: 'center',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis'
@@ -57,9 +63,14 @@ function ContactListItem(props: ContactListItemProps) {
             </ListItemAvatar>
             <ListItemText
                 primary={props.fullName}
-                secondary={
+                secondary={props.lastMessage &&
                     <span className={classes.messageText}>
-                        {props.lastMessage}
+                        <MessageStatus
+                            delivered={props.lastMessage.delivered}
+                            read={props.lastMessage.read}
+                            gutterRight
+                        />
+                        {props.lastMessage.text}
                     </span>
                 }
             />

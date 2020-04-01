@@ -19,9 +19,11 @@ export interface UserToolbarProps {
 }
 
 type ViewName = 'search' | 'default';
+const ESCAPE_KEY_CODE = 27;
 
 function ListItemToolbar(props: UserToolbarProps) {
     const [viewName, setViewName] = useState<ViewName>('default');
+
     const handleBack = () => {
         const onBack = props.SearchInputBaseProps?.onBack;
         setViewName('default');
@@ -31,6 +33,7 @@ function ListItemToolbar(props: UserToolbarProps) {
     const searchView = () => (
         <SearchInputBase
             {...props.SearchInputBaseProps}
+            onKeyUp={event => event.keyCode === ESCAPE_KEY_CODE && handleBack()}
             onBack={handleBack}
         />
     );

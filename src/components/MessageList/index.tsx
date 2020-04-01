@@ -21,6 +21,8 @@ export interface MessageListContainerProps {
 const mapMessageToItemProps = (message: Message): MessageListItemProps => ({
     key: message.id,
     text: message?.text,
+    delivered: message.delivered,
+    read: message.read,
     createdAt: message.createdAt
 });
 

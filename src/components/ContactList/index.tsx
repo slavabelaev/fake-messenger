@@ -13,7 +13,11 @@ export const mapContactToItemProps = (contact: Contact): ContactListItemProps =>
     key: contact.id,
     fullName: `${contact.firstName} ${contact.lastName}`,
     avatarSrc: contact.avatarUrl,
-    lastMessage: contact.lastMessage.text,
+    lastMessage: {
+        text: contact.lastMessage.text,
+        delivered: contact.lastMessage.delivered,
+        read: contact.lastMessage.read
+    },
     isOnline: contact.isOnline,
     to: CHAT_ROUTE_PATH.replace(':id', contact.id)
 });

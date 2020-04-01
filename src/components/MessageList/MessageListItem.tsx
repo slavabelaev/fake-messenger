@@ -1,25 +1,40 @@
 import React, {Key} from 'react';
-import {CheckboxProps, ListItem, ListItemTextProps} from "@material-ui/core";
+import {CheckboxProps, createStyles, ListItem, ListItemTextProps, Theme} from "@material-ui/core";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import {makeStyles} from "@material-ui/core/styles";
+import MessageStatus, {MessageStatusProps} from "./MessageStatus";
 
 export interface MessageListItemProps {
     key?: Key;
     variant?: 'default' | 'checkbox';
     text: ListItemTextProps['secondary'];
+    delivered?: MessageStatusProps['delivered'];
+    read?: MessageStatusProps['read'];
     createdAt: Date;
     CheckboxProps?: CheckboxProps;
 }
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+    status: {
+        display: 'inline-flex',
+        alignItems: 'center'
+    }
+}));
 
 function MessageListItem({
     key,
     variant = 'default',
     text,
+    delivered,
+    read,
     createdAt,
     CheckboxProps
 }: MessageListItemProps) {
+    const classes = useStyles();
+
     const primary = (
         <Typography
             variant="body2"
@@ -45,6 +60,14 @@ function MessageListItem({
         </ListItemIcon>
     );
 
+    const messageStatus = (
+        <MessageStatus
+            delivered={delivered}
+            read={read}
+            gutterRight
+        />
+    );
+
     return (
         <ListItem
             key={key}
@@ -54,7 +77,12 @@ function MessageListItem({
             {listItemIcon}
             <ListItemText
                 primary={primary}
-                secondary={secondary}
+                secondary={
+                    <span className={classes.status}>
+                        {messageStatus}
+                        {secondary}
+                    </span>
+                }
             />
         </ListItem>
     );

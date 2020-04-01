@@ -32,13 +32,16 @@ export const fakerService: FakerService = {
             notificationsEnabled: true
         })
     },
-    message: () => ({
-        id: faker.random.uuid(),
-        text: faker.lorem.text(),
-        createdAt: faker.date.recent(0),
-        delivered: faker.random.boolean(),
-        read: faker.random.boolean()
-    }),
+    message: () => {
+        const delivered = faker.random.boolean();
+        return ({
+            id: faker.random.uuid(),
+            text: faker.lorem.text(),
+            createdAt: faker.date.recent(0),
+            delivered,
+            read: delivered && faker.random.boolean()
+        })
+    },
     attachment: () => ({
         id: faker.random.uuid(),
         type: faker.system.fileType(),
