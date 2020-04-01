@@ -5,14 +5,14 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import {makeStyles} from "@material-ui/core/styles";
-import MessageStatus, {MessageStatusProps} from "./MessageStatus";
+import MessageReadStatus, {MessageReadStatusProps} from "./MessageReadStatus";
 
 export interface MessageListItemProps {
     key?: Key;
     variant?: 'default' | 'checkbox';
     text: ListItemTextProps['secondary'];
-    delivered?: MessageStatusProps['delivered'];
-    read?: MessageStatusProps['read'];
+    delivered?: MessageReadStatusProps['delivered'];
+    read?: MessageReadStatusProps['read'];
     createdAt: Date;
     CheckboxProps?: CheckboxProps;
 }
@@ -61,7 +61,7 @@ function MessageListItem({
     );
 
     const messageStatus = (
-        <MessageStatus
+        <MessageReadStatus
             delivered={delivered}
             read={read}
             gutterRight

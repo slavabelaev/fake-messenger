@@ -3,7 +3,7 @@ import {Check} from "@material-ui/icons";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {createStyles, Theme} from "@material-ui/core";
 
-export interface MessageStatusProps {
+export interface MessageReadStatusProps {
     delivered?: boolean;
     read?: boolean;
     gutterRight?: boolean;
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
 }));
 
-function MessageStatus(props: MessageStatusProps) {
+function MessageReadStatus(props: MessageReadStatusProps) {
     const classes = useStyles();
     const className = [
         classes.root,
@@ -47,4 +47,4 @@ function MessageStatus(props: MessageStatusProps) {
     );
 }
 
-export default MessageStatus;
+export default MessageReadStatus;
