@@ -1,5 +1,4 @@
-import React, {Key, ReactElement} from "react";
-import bytes from "bytes";
+import React, {Key} from "react";
 import {AvatarProps, createStyles, Theme} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import ListItem from "@material-ui/core/ListItem";
@@ -7,73 +6,69 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
-import {
-    Audiotrack,
-    MoreVert,
-    PlayCircleOutline,
-    Image,
-    TextFields,
-    Message,
-    FontDownload,
-    Attachment
-} from "@material-ui/icons";
+import {OpenInNew, Image} from "@material-ui/icons";
 import {makeStyles} from "@material-ui/core/styles";
 
-export interface AttachmentListItemProps {
+export interface AttachmentLinkListItemProps {
     key?: Key;
-    name: File['name'];
-    size: File['size'];
-    type: File['type'];
-    lastModified: File['lastModified'];
+    primary: string;
+    secondary: string;
+    to: string;
     avatarSrc?: AvatarProps['src'];
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
-    primary: {
+    singleLine: {
         display: 'block',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap'
     }
 }));
 
-const typeIcons: {[key: string]: ReactElement} = {
-    'video': <PlayCircleOutline/>,
-    'audio': <Audiotrack/>,
-    'image': <Image/>,
-    'font': <FontDownload/>,
-    'text': <TextFields/>,
-    'message': <Message />
-};
-
-function AttachmentListItem(props: AttachmentListItemProps) {
+function AttachmentLinkListItem(props: AttachmentLinkListItemProps) {
     const classes = useStyles();
 
     return (
-        <ListItem dense>
+        <ListItem
+            key={props.key}
+            dense
+            button
+            component="a"
+            target="_blank"
+            href={props.to}
+        >
             <ListItemAvatar>
                 <Avatar
                     variant="rounded"
                     //src={props.avatarSrc}
-                    children={typeIcons[props.type] || <Attachment/>}
+                    children={<Image/>}
                 />
             </ListItemAvatar>
             <ListItemText
                 primary={
-                    <span className={classes.primary}>
-                        {props.name}
+                    <span className={classes.singleLine}>
+                        {props.primary}
                     </span>
                 }
-                secondary={bytes(props.size)}
+                secondary={
+                    <span className={classes.singleLine}>
+                        {props.secondary}
+                    </span>
+                }
             />
             <ListItemSecondaryAction>
                 <IconButton
                     edge="end"
+                    component="a"
+                    target="_blank"
+                    href={props.to}
                 >
-                    <MoreVert/>
+                    <OpenInNew/>
                 </IconButton>
             </ListItemSecondaryAction>
         </ListItem>
     );
 }
 
-export default AttachmentListItem;
+export default AttachmentLinkListItem;

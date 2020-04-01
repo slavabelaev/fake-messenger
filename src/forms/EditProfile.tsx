@@ -73,6 +73,19 @@ function EditProfile(props: EditProfileProps) {
                 <TextField
                     variant="outlined"
                     size="small"
+                    label="Date of Birth"
+                    type="date"
+                    InputLabelProps={{
+                        shrink: true
+                    }}
+                    defaultValue={user?.dateOfBirth.toISOString().split('T')[0]}
+                    fullWidth
+                />
+            </Grid>
+            <Grid item xs={12}>
+                <TextField
+                    variant="outlined"
+                    size="small"
                     label="Email"
                     defaultValue={user?.email}
                     fullWidth

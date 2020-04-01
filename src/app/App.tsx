@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import Routes from "./Routes";
 import Layout from "../layout/Layout";
 import Contacts from "../views/Contacts";
-import Attachments from "../views/Attachments";
 import {useDispatch, useSelector} from "react-redux";
 import {authSelector, signIn} from "./authSlice";
 import ErrorMessage from "../layout/ErrorMessage";
@@ -23,7 +22,6 @@ function App() {
         <Layout
             title="Fake Messenger"
             leftSide={<Contacts/>}
-            rightSide={<Attachments/>}
         >
             <Routes />
         </Layout>

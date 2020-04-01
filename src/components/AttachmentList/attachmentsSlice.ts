@@ -3,6 +3,7 @@ import {Attachment} from "../../models/Attachment";
 import {findAttachments} from "../../services/attachmentService";
 import {Dispatch} from "react";
 import {ErrorResponse, FindAllResponse} from "../../interfaces/Service";
+import {RootState} from "../../app/rootReducer";
 
 export interface AttachmentsState {
     items: Attachment[];
@@ -35,6 +36,8 @@ const attachmentsSlice = createSlice({
         },
     }
 });
+
+export const selectAttachments = (state: RootState) => state.attachments;
 
 export const {
     request: attachmentsRequest,

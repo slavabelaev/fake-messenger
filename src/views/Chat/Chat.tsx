@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import formatDistance from "date-fns/formatDistance";
 import MessageList from "../../components/MessageList";
 import ListItemToolbar from "../../components/ListItemToolbar";
-import { useParams } from "react-router-dom";
+import {useParams, useLocation, Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {IconButton} from "@material-ui/core";
 import {Attachment} from "@material-ui/icons";
@@ -16,6 +16,10 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
+import Layout from "../../layout";
+import ChatRoutes from "./ChatRoutes";
+import {CONTACT_PROFILE_ROUTE_PATH} from "../ContactProfile";
+import {CHAT_ATTACHMENTS_ROUTE_PATH} from "../Attachments";
 
 function Chat() {
     const { id: contactId } = useParams();
@@ -23,16 +27,7 @@ function Chat() {
     const contact = useSelector(selectContactById(contactId));
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        //if (!contentRef) return;
-        //console.log('contentRef', contentRef);
-        // const scrollElement = contentRef.current as HTMLDivElement;
-        // scrollElement.scrollTo({
-        //     top: scrollElement.scrollHeight
-        // });
-    });
-
-    if (!contact) return <NotFound/>;
+    if (!contactId || !contact) return <NotFound/>;
 
     const renderPopover = (onClose: VoidFunction) => (
         <List>
@@ -49,7 +44,10 @@ function Chat() {
     const endAction = (
         <>
             <Tooltip title="Attachments">
-                <IconButton>
+                <IconButton
+                    component={Link}
+                    to={CHAT_ATTACHMENTS_ROUTE_PATH.replace(':id', contactId)}
+                >
                     <Attachment/>
                 </IconButton>
             </Tooltip>
@@ -87,9 +85,11 @@ function Chat() {
             </Typography>
         )
         : formatDistance(new Date(), contact?.lastVisitAt);
+    const pathToProfile = CONTACT_PROFILE_ROUTE_PATH.replace(':id', contactId);
     const toolbar = (
         <ListItemToolbar
             avatarSrc={contact?.avatarUrl}
+            avatarTo={pathToProfile}
             primary={`${contact?.firstName} ${contact?.lastName}`}
             secondary={statusText}
             endAction={endAction}
@@ -103,12 +103,20 @@ function Chat() {
         />
     );
 
-    return (
+    const content = (
         <View
             toolbar={toolbar}
         >
             <MessageList/>
         </View>
+    );
+
+    return (
+        <Layout
+            rightSide={<ChatRoutes/>}
+        >
+            {content}
+        </Layout>
     )
 }
 

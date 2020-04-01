@@ -4,7 +4,7 @@ import {Attachment} from "../../models/Attachment";
 import {AttachmentListItemProps} from "./AttachmentListItem";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
-import {fetchAttachments} from "./attachmentsSlice";
+import {fetchAttachments, selectAttachments} from "./attachmentsSlice";
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
 
@@ -20,7 +20,7 @@ const mapAttachmentToItemProps = (attachment: Attachment): AttachmentListItemPro
 export interface AttachmentListContainerProps {}
 
 function AttachmentListContainer(props: AttachmentListContainerProps) {
-    const { error, items, loading } = useSelector((state: RootState) => state.attachments);
+    const { error, items, loading } = useSelector(selectAttachments);
     const dispatch = useDispatch();
 
     useEffect(() => {

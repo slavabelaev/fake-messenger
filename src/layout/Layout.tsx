@@ -1,15 +1,10 @@
 import React, {PropsWithChildren, ReactNode} from "react";
 import ErrorBoundary from "./ErrorBoundary";
-import {AppBar, createStyles, Theme, TypographyProps} from "@material-ui/core";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+import {createStyles, Theme, TypographyProps} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
-import Avatar from "@material-ui/core/Avatar";
-import {Link} from "react-router-dom";
 
 export type LayoutProps = PropsWithChildren<{
-    title: TypographyProps['children'];
+    title?: TypographyProps['children'];
     leftSide?: ReactNode;
     rightSide?: ReactNode;
 }>
@@ -22,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     content: {
         display: 'flex',
-        height: 'calc(100% - 66px)'
+        height: '100%'
     },
     leftSide: {
         minWidth: 360,
@@ -57,33 +52,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 function Layout(props: LayoutProps) {
     const classes = useStyles();
 
-    const appBar = (
-        <AppBar
-            position="static"
-            elevation={0}
-        >
-            <Toolbar>
-                <Typography
-                    className={classes.appTitle}
-                    variant="h6"
-                    color="inherit"
-                    component={Link}
-                    to="/"
-                >
-                    {props.title}
-                </Typography>
-                <IconButton
-                    edge="end"
-                    size="small"
-                >
-                    <Avatar
-                        className={classes.avatar}
-                    />
-                </IconButton>
-            </Toolbar>
-        </AppBar>
-    );
-
     const leftSide = props.leftSide && (
         <aside className={classes.leftSide}>
             {props.leftSide}
@@ -106,7 +74,7 @@ function Layout(props: LayoutProps) {
 
     return (
         <div className={classes.root}>
-            {appBar}
+            {/*{appBar}*/}
             <div className={classes.content}>
                 {leftSide}
                 {main}

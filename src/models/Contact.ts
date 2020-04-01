@@ -5,5 +5,7 @@ export interface Contact extends User {
     lastMessage: Message;
     lastVisitAt: Date;
     isOnline: boolean;
+    isFavorite: boolean;
+    notificationsEnabled: boolean;
 }
 

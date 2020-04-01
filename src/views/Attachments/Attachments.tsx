@@ -6,8 +6,14 @@ import Tab from "@material-ui/core/Tab";
 import IconButton from "@material-ui/core/IconButton";
 import {MoreVert} from "@material-ui/icons";
 import {makeStyles} from "@material-ui/core/styles";
-import AttachmentsGrid from "../../components/AttachmentList";
 import View from "../../layout/View";
+import {Link, useParams} from "react-router-dom";
+import {
+    CHAT_ATTACHMENTS_FILES_ROUTE_PATH,
+    CHAT_ATTACHMENTS_LINKS_ROUTE_PATH,
+} from "./index";
+import ErrorMessage from "../../layout/ErrorMessage";
+import AttachmentRoutes from "./AttachmentRoutes";
 
 export interface AttachmentsProps {}
 
@@ -20,8 +26,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const FILES_TAB_VALUE = 0;
 
 function Attachments(props: AttachmentsProps) {
+    const {id: contactId} = useParams();
     const [tabsValue, setTabsValue] = useState(FILES_TAB_VALUE);
     const classes = useStyles();
+
+    if (!contactId) return <ErrorMessage text="Failed fetch contact id" />;
 
     const toolbar = (
         <Toolbar>
@@ -44,8 +53,16 @@ function Attachments(props: AttachmentsProps) {
             variant="fullWidth"
             onChange={(event, value) => setTabsValue(value)}
         >
-            <Tab label="Files" />
-            <Tab label="Links" />
+            <Tab
+                label="Files"
+                component={Link}
+                to={CHAT_ATTACHMENTS_FILES_ROUTE_PATH.replace(':id', contactId)}
+            />
+            <Tab
+                label="Links"
+                component={Link}
+                to={CHAT_ATTACHMENTS_LINKS_ROUTE_PATH.replace(':id', contactId)}
+            />
         </Tabs>
     );
 
@@ -60,7 +77,7 @@ function Attachments(props: AttachmentsProps) {
         <View
             toolbar={toolbarWithTabs}
         >
-            <AttachmentsGrid/>
+            <AttachmentRoutes/>
         </View>
     )
 }

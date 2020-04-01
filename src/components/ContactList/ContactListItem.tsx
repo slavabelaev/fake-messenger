@@ -16,6 +16,7 @@ export interface ContactListItemProps {
     fullName: ListItemTextProps['primary'];
     lastMessage: ListItemTextProps['secondary'];
     isOnline: boolean;
+    isFavorite?: boolean;
     to?: string;
 }
 

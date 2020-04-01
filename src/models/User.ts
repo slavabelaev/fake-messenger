@@ -6,4 +6,5 @@ export interface User extends Model {
     avatarUrl: string;
     email: string;
     phoneNumber: string;
+    dateOfBirth: Date;
 }

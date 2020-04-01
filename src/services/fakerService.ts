@@ -3,11 +3,13 @@ import faker from "faker";
 import {Message} from "../models/Message";
 import {Attachment} from "../models/Attachment";
 import {AuthUser} from "../models/AuthUser";
+import {AttachmentLink} from "../models/AttachmentLink";
 
 export interface FakerService {
     contact: () => Contact;
     message: () => Message;
     attachment: () => Attachment;
+    attachmentLink: () => AttachmentLink;
     authUser: () => AuthUser;
 }
 
@@ -25,6 +27,9 @@ export const fakerService: FakerService = {
             lastMessage: fakerService.message(),
             isOnline: faker.random.boolean(),
             lastVisitAt: faker.date.recent(0),
+            dateOfBirth: faker.date.past(faker.random.number({ min: 18, max: 65 })),
+            isFavorite: false,
+            notificationsEnabled: true
         })
     },
     message: () => ({
@@ -42,6 +47,14 @@ export const fakerService: FakerService = {
         lastModified: faker.date.past().getMilliseconds(),
         imageUrl: faker.image.avatar()
     }),
+    attachmentLink: () => ({
+        id: faker.random.uuid(),
+        title: faker.company.companyName(),
+        description: faker.lorem.sentence(),
+        createdAt: faker.date.past(),
+        imageUrl: faker.image.avatar(),
+        url: faker.internet.url()
+    }),
     authUser: () => {
         const firstName = faker.name.firstName();
         const lastName = faker.name.lastName();
@@ -52,7 +65,8 @@ export const fakerService: FakerService = {
             email: faker.internet.email(firstName, lastName),
             phoneNumber: faker.phone.phoneNumber(),
             avatarUrl: faker.image.avatar(),
-            isOnline: faker.random.boolean()
+            isOnline: faker.random.boolean(),
+            dateOfBirth: faker.date.past(faker.random.number({ min: 18, max: 65 }))
         })
     }
 };
