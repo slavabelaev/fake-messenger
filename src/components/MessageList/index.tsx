@@ -1,11 +1,9 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {Redirect} from "react-router-dom";
 import MessageList, {MessageListProps} from "./MessageList";
 import {useDispatch, useSelector} from "react-redux";
 import {Message} from "../../models/Message";
-import {deleteMessagesAsync, fetchMessagesAsync, selectContactMessages} from "./messagesSlice";
+import {deleteMessagesAsync, fetchMessagesAsync, selectChatMessages} from "./chatsSlice";
 import {MessageListItemProps} from "./MessageListItem";
-import {useParams} from 'react-router-dom';
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import {Delete} from "@material-ui/icons";
@@ -14,9 +12,11 @@ import SendMessageToolbar from "../SendMessageToolbar";
 import View from "../../layout/View";
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
-import {NOT_FOUND_ROUTE_PATH} from "../../views/NotFound";
+import {Chat} from "../../models/Chat";
 
-export interface MessageListContainerProps {}
+export interface MessageListContainerProps {
+    chatId: Chat['id'];
+}
 
 const mapMessageToItemProps = (message: Message): MessageListItemProps => ({
     key: message.id,
@@ -29,21 +29,19 @@ const getMessagesFilter = (searchQuery: string) => (item: Message) => {
     return item.text.toLowerCase().includes(query);
 };
 
-function MessageListContainer(props: MessageListContainerProps) {
-    const { id: contactId } = useParams();
-    const { error, searchQuery, items, loading } = useSelector(selectContactMessages(contactId));
+function MessageListContainer({ chatId }: MessageListContainerProps) {
+    const { error, searchQuery, items, loading } = useSelector(selectChatMessages(chatId));
     const [checkedIds, setCheckedIds] = useState<Message['id'][]>([]);
     const messagesFilter = getMessagesFilter(searchQuery);
     const messages = searchQuery ? items.filter(messagesFilter) : items;
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (contactId && !items.length) fetchMessagesAsync(contactId)(dispatch);
-    }, [items.length, dispatch, contactId]);
+        if (!items.length) fetchMessagesAsync(chatId)(dispatch);
+    }, [items.length, dispatch, chatId]);
 
     if (loading) return <Loading/>;
     if (error) return <ErrorMessage/>;
-    if (!contactId) return <Redirect to={NOT_FOUND_ROUTE_PATH}/>;
 
     const getItem: MessageListProps['getItem'] = (index) => {
         const message = messages[index];
@@ -72,7 +70,7 @@ function MessageListContainer(props: MessageListContainerProps) {
     ) : null;
 
     const handleDelete = () => {
-        deleteMessagesAsync(contactId, checkedIds)(dispatch);
+        deleteMessagesAsync(chatId, checkedIds)(dispatch);
         setCheckedIds([]);
     };
 
@@ -90,7 +88,9 @@ function MessageListContainer(props: MessageListContainerProps) {
             </Tooltip>
         </Toolbar>
     ) : (
-        <SendMessageToolbar/>
+        <SendMessageToolbar
+            chatId={chatId}
+        />
     );
 
     return (

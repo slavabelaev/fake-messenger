@@ -3,10 +3,10 @@ import AttachmentList from "./AttachmentList";
 import {Attachment} from "../../models/Attachment";
 import {AttachmentListItemProps} from "./AttachmentListItem";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../app/rootReducer";
 import {fetchAttachments, selectAttachments} from "./attachmentsSlice";
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
+import {Chat} from "../../models/Chat";
 
 const mapAttachmentToItemProps = (attachment: Attachment): AttachmentListItemProps => ({
     key: attachment.id,
@@ -17,9 +17,11 @@ const mapAttachmentToItemProps = (attachment: Attachment): AttachmentListItemPro
     avatarSrc: attachment.imageUrl
 });
 
-export interface AttachmentListContainerProps {}
+export interface AttachmentListContainerProps {
+    chatId: Chat['id'];
+}
 
-function AttachmentListContainer(props: AttachmentListContainerProps) {
+function AttachmentListContainer({ chatId }: AttachmentListContainerProps) {
     const { error, items, loading } = useSelector(selectAttachments);
     const dispatch = useDispatch();
 

@@ -1,6 +1,6 @@
 import {combineReducers} from "@reduxjs/toolkit";
 import contactsReducer from "../components/ContactList/contactsSlice";
-import messagesReducer from "../components/MessageList/messagesSlice";
+import chatsReducer from "../components/MessageList/chatsSlice";
 import attachmentsReducer from "../components/AttachmentList/attachmentsSlice";
 import authSlice from "./authSlice";
 import settingsReducer from "../components/SettingList/settingsSlice";
@@ -8,7 +8,7 @@ import attachmentLinksReducer from "../components/AttachmentLinkList/attachmentL
 
 export const rootReducer = combineReducers({
     contacts: contactsReducer,
-    messages: messagesReducer,
+    chats: chatsReducer,
     attachments: attachmentsReducer,
     attachmentLinks: attachmentLinksReducer,
     auth: authSlice,

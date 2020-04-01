@@ -7,15 +7,14 @@ import IconButton from "@material-ui/core/IconButton";
 import {MoreVert} from "@material-ui/icons";
 import {makeStyles} from "@material-ui/core/styles";
 import View from "../../layout/View";
-import {Link, useParams} from "react-router-dom";
+import {Link, Route, Switch, useParams} from "react-router-dom";
 import {
     CHAT_ATTACHMENTS_FILES_ROUTE_PATH,
     CHAT_ATTACHMENTS_LINKS_ROUTE_PATH,
 } from "./index";
 import ErrorMessage from "../../layout/ErrorMessage";
-import AttachmentRoutes from "./AttachmentRoutes";
-
-export interface AttachmentsProps {}
+import AttachmentList from "../../components/AttachmentList";
+import AttachmentLinkList from "../../components/AttachmentLinkList";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     title: {
@@ -25,12 +24,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const FILES_TAB_VALUE = 0;
 
-function Attachments(props: AttachmentsProps) {
-    const {id: contactId} = useParams();
+function Attachments() {
+    const {id: chatId} = useParams();
     const [tabsValue, setTabsValue] = useState(FILES_TAB_VALUE);
     const classes = useStyles();
 
-    if (!contactId) return <ErrorMessage text="Failed fetch contact id" />;
+    if (!chatId) return <ErrorMessage text="Failed fetch chat id" />;
 
     const toolbar = (
         <Toolbar>
@@ -56,12 +55,12 @@ function Attachments(props: AttachmentsProps) {
             <Tab
                 label="Files"
                 component={Link}
-                to={CHAT_ATTACHMENTS_FILES_ROUTE_PATH.replace(':id', contactId)}
+                to={CHAT_ATTACHMENTS_FILES_ROUTE_PATH.replace(':id', chatId)}
             />
             <Tab
                 label="Links"
                 component={Link}
-                to={CHAT_ATTACHMENTS_LINKS_ROUTE_PATH.replace(':id', contactId)}
+                to={CHAT_ATTACHMENTS_LINKS_ROUTE_PATH.replace(':id', chatId)}
             />
         </Tabs>
     );
@@ -73,11 +72,27 @@ function Attachments(props: AttachmentsProps) {
         </div>
     );
 
+    const content = (
+        <Switch>
+            <Route
+                path={CHAT_ATTACHMENTS_FILES_ROUTE_PATH}
+                render={() => <AttachmentList chatId={chatId}/>}
+            />
+            <Route
+                path={CHAT_ATTACHMENTS_LINKS_ROUTE_PATH}
+                render={() => <AttachmentLinkList chatId={chatId}/>}
+            />
+            <Route
+                render={() => <AttachmentList chatId={chatId}/>}
+            />
+        </Switch>
+    );
+
     return (
         <View
             toolbar={toolbarWithTabs}
         >
-            <AttachmentRoutes/>
+            {content}
         </View>
     )
 }

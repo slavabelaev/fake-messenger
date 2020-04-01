@@ -8,7 +8,7 @@ function ChatRoutes() {
         <Switch>
             <Route path={CONTACT_PROFILE_ROUTE_PATH} component={ContactProfile} />
             <Route path={CHAT_ATTACHMENTS_ROUTE_PATH} component={Attachments} />
-            <Route component={Attachments} />
+            <Route component={ContactProfile} />
         </Switch>
     );
 }

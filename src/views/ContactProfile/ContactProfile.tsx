@@ -11,6 +11,7 @@ import FavoriteContactSwitch from "./FavoriteContactSwitch";
 import Divider from "@material-ui/core/Divider";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import NotificationsContactSwitch from "./NotificationsContactSwitch";
+import Link from "@material-ui/core/Link";
 
 export interface ContactProfileProps {}
 
@@ -45,11 +46,19 @@ function ContactProfile(props: ContactProfileProps) {
                 </ListSubheader>
                 <DetailListItem
                     primary="Phone number"
-                    secondary={contact?.phoneNumber}
+                    secondary={
+                        <Link href={`tel: ${contact?.phoneNumber}`}>
+                            {contact?.phoneNumber}
+                        </Link>
+                    }
                 />
                 <DetailListItem
                     primary="Email"
-                    secondary={contact?.email}
+                    secondary={
+                        <Link href={`mailto: ${contact?.email}`}>
+                            {contact?.email}
+                        </Link>
+                    }
                 />
                 <DetailListItem
                     primary="Date of Birth"

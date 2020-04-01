@@ -1,8 +1,8 @@
-import React, {useEffect} from "react";
+import React from "react";
 import formatDistance from "date-fns/formatDistance";
 import MessageList from "../../components/MessageList";
 import ListItemToolbar from "../../components/ListItemToolbar";
-import {useParams, useLocation, Link} from "react-router-dom";
+import {useParams, Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {IconButton} from "@material-ui/core";
 import {Attachment} from "@material-ui/icons";
@@ -10,7 +10,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import View from "../../layout/View";
 import {selectContactById} from "../../components/ContactList/contactsSlice";
 import NotFound from "../NotFound";
-import {messagesSearchQuery, selectContactMessages} from "../../components/MessageList/messagesSlice";
+import {messagesSearchQuery, selectChatMessages} from "../../components/MessageList/chatsSlice";
 import PopoverAction from "../../components/PopoverAction";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -22,12 +22,12 @@ import {CONTACT_PROFILE_ROUTE_PATH} from "../ContactProfile";
 import {CHAT_ATTACHMENTS_ROUTE_PATH} from "../Attachments";
 
 function Chat() {
-    const { id: contactId } = useParams();
-    const { searchQuery } = useSelector(selectContactMessages(contactId));
-    const contact = useSelector(selectContactById(contactId));
+    const { id: chatId } = useParams();
+    const { searchQuery } = useSelector(selectChatMessages(chatId));
+    const contact = useSelector(selectContactById(chatId));
     const dispatch = useDispatch();
 
-    if (!contactId || !contact) return <NotFound/>;
+    if (!chatId || !contact) return <NotFound/>;
 
     const renderPopover = (onClose: VoidFunction) => (
         <List>
@@ -46,7 +46,7 @@ function Chat() {
             <Tooltip title="Attachments">
                 <IconButton
                     component={Link}
-                    to={CHAT_ATTACHMENTS_ROUTE_PATH.replace(':id', contactId)}
+                    to={CHAT_ATTACHMENTS_ROUTE_PATH.replace(':id', chatId)}
                 >
                     <Attachment/>
                 </IconButton>
@@ -58,18 +58,16 @@ function Chat() {
     );
 
     const handleSearch = (value: string) => {
-        if (!contactId) return;
         const action = messagesSearchQuery({
-            contactId,
+            chatId,
             searchQuery: value
         });
         dispatch(action);
     };
 
     const handleReset = () => {
-        if (!contactId) return;
         const action = messagesSearchQuery({
-            contactId,
+            chatId,
             searchQuery: ''
         });
         dispatch(action);
@@ -85,7 +83,7 @@ function Chat() {
             </Typography>
         )
         : formatDistance(new Date(), contact?.lastVisitAt);
-    const pathToProfile = CONTACT_PROFILE_ROUTE_PATH.replace(':id', contactId);
+    const pathToProfile = CONTACT_PROFILE_ROUTE_PATH.replace(':id', chatId);
     const toolbar = (
         <ListItemToolbar
             avatarSrc={contact?.avatarUrl}
@@ -107,7 +105,9 @@ function Chat() {
         <View
             toolbar={toolbar}
         >
-            <MessageList/>
+            <MessageList
+                chatId={chatId}
+            />
         </View>
     );
 

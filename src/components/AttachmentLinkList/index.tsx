@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchAttachmentLinks, selectAttachmentLinks} from "./attachmentLinksSlice";
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
+import {Chat} from "../../models/Chat";
 
 const mapLinkToItemProps = (link: AttachmentLink): AttachmentLinkListItemProps => ({
     key: link.id,
@@ -15,9 +16,11 @@ const mapLinkToItemProps = (link: AttachmentLink): AttachmentLinkListItemProps =
     to: link.url,
 });
 
-export interface LinkListContainerProps {}
+export interface LinkListContainerProps {
+    chatId: Chat['id'];
+}
 
-function LinkListContainer(props: LinkListContainerProps) {
+function LinkListContainer({ chatId }: LinkListContainerProps) {
     const { error, items, loading } = useSelector(selectAttachmentLinks);
     const dispatch = useDispatch();
 

@@ -2,12 +2,12 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Message} from "../../models/Message";
 import {Dispatch} from "react";
 import {deleteMessages, findMessages, insertMessage} from "../../services/messageService";
-import {Contact} from "../../models/Contact";
+import {Chat} from "../../models/Chat";
 import {RootState} from "../../app/rootReducer";
 import {ErrorResponse, FindAllResponse} from "../../interfaces/Service";
 import {User} from "../../models/User";
 
-export interface ContactMessagesState {
+export interface ChatMessagesState {
     items: Message[];
     searchQuery: string;
     loading: boolean;
@@ -15,70 +15,70 @@ export interface ContactMessagesState {
 }
 
 export interface MessagesState {
-    [contactId: string]: ContactMessagesState
+    [chatId: string]: ChatMessagesState
 }
 
 const initialState: MessagesState = {};
-const itemInitialState: ContactMessagesState = {
+const itemInitialState: ChatMessagesState = {
     items: [],
     searchQuery: '',
     loading: false,
     error: false
 };
 
-const messagesSlice = createSlice({
-    name: 'messages',
+const chatsSlice = createSlice({
+    name: 'chats',
     initialState,
     reducers: {
         request(state, action: PayloadAction<{
-            contactId: Contact['id'];
+            chatId: Chat['id'];
         }>) {
-            const { contactId } = action.payload;
-            if (!state[contactId]) state[contactId] = {...itemInitialState};
-            state[contactId].loading = true;
-            state[contactId].error = false;
+            const { chatId } = action.payload;
+            if (!state[chatId]) state[chatId] = {...itemInitialState};
+            state[chatId].loading = true;
+            state[chatId].error = false;
         },
         success(state, action: PayloadAction<{
-            contactId: Contact['id'];
+            chatId: Chat['id'];
             items: Message[];
         }>) {
-            const { contactId, items } = action.payload;
-            state[contactId].error = false;
-            state[contactId].loading = false;
-            state[contactId].items = items;
+            const { chatId, items } = action.payload;
+            state[chatId].error = false;
+            state[chatId].loading = false;
+            state[chatId].items = items;
         },
         failure(state, action: PayloadAction<{
-            contactId: Contact['id'];
+            chatId: Chat['id'];
         }>) {
-            const { contactId } = action.payload;
-            state[contactId].error = true;
-            state[contactId].loading = false;
+            const { chatId } = action.payload;
+            state[chatId].error = true;
+            state[chatId].loading = false;
         },
         setSearchQuery(state, action: PayloadAction<{
-            contactId: Contact['id'];
+            chatId: Chat['id'];
             searchQuery: string;
         }>) {
-            const { contactId, searchQuery } = action.payload;
-            state[contactId].searchQuery = searchQuery;
+            const { chatId, searchQuery } = action.payload;
+            state[chatId].searchQuery = searchQuery;
         },
         add(state, action: PayloadAction<Message>) {
-            const contactId = action.payload.createdBy as NonNullable<Message['createdBy']>;
+            const chatId = action.payload.createdBy as NonNullable<Message['createdBy']>;
             const message = action.payload;
-            state[contactId].items.push(message);
+            state[chatId].items.push(message);
         },
         deleteMany(state, action: PayloadAction<{
-            contactId: Contact['id'];
+            chatId: Chat['id'];
             messageIds: Message['id'][];
         }>) {
-            const { contactId, messageIds } = action.payload;
-            state[contactId].items = state[contactId].items.filter(item => !messageIds.includes(item.id));
+            const { chatId, messageIds } = action.payload;
+            state[chatId].items = state[chatId].items.filter(item => !messageIds.includes(item.id));
         }
     }
 });
 
-export const selectContactMessages = (id?: Contact['id']) => (state: RootState): ContactMessagesState => {
+export const selectChatMessages = (id?: Chat['id']) => (state: RootState): ChatMessagesState => {
     if (!id) return itemInitialState;
-    return state.messages[id] || itemInitialState;
+    return state.chats[id] || itemInitialState;
 };
 
 export const {
@@ -88,7 +88,7 @@ export const {
     setSearchQuery: messagesSearchQuery,
     add: addMessage,
     deleteMany: deleteManyMessages
-} = messagesSlice.actions;
+} = chatsSlice.actions;
 
 export const insertMessageAsync = (createdBy: User['id'], messageText: Message['text']) => (dispatch: Dispatch<any>) => {
     insertMessage(createdBy, messageText)
@@ -99,35 +99,35 @@ export const insertMessageAsync = (createdBy: User['id'], messageText: Message['
         })
 };
 
-export const deleteMessagesAsync = (contactId: Contact['id'], messageIds: Message['id'][]) => (dispatch: Dispatch<any>) => {
+export const deleteMessagesAsync = (chatId: Chat['id'], messageIds: Message['id'][]) => (dispatch: Dispatch<any>) => {
     deleteMessages(messageIds)
         .then((response) => {
             const failedResponse = response as ErrorResponse;
             if (failedResponse.errors) throw Error();
-            const action = deleteManyMessages({contactId, messageIds});
+            const action = deleteManyMessages({chatId, messageIds});
             dispatch(action);
         })
         .catch(console.log)
 };
 
-export const fetchMessagesAsync = (contactId: Contact['id']) => (dispatch: Dispatch<any>) => {
-    dispatch(messagesRequest({contactId}));
+export const fetchMessagesAsync = (chatId: Chat['id']) => (dispatch: Dispatch<any>) => {
+    dispatch(messagesRequest({chatId}));
     findMessages()
         .then(response => {
             const failedResponse = response as ErrorResponse;
             if (failedResponse.errors) throw new Error();
             const successResponse = response as FindAllResponse<Message>;
             const action = messagesSuccess({
-                contactId,
+                chatId,
                 items: successResponse.items
             });
             dispatch(action);
         })
         .catch(_ => {
-            dispatch(messagesFailure({contactId}));
+            dispatch(messagesFailure({chatId}));
         })
 };
 
-const messagesReducer = messagesSlice.reducer;
+const chatsReducer = chatsSlice.reducer;
 
-export default messagesReducer;
+export default chatsReducer;
