@@ -1,4 +1,4 @@
-import {createEntityAdapter, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createEntityAdapter, createSelector, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Contact} from "../../models/Contact";
 import {findContacts} from "../../services/contactService";
 import {Dispatch} from "react";
@@ -16,6 +16,8 @@ const initialState = contactsAdapter.getInitialState<{
     loading: false,
     error: false
 });
+
+export type ContactsState = typeof initialState;
 
 const contactsSlice = createSlice({
     name: 'contacts',
@@ -60,12 +62,31 @@ const contactsSlice = createSlice({
     }
 });
 
+
+export const contactsSelector = (state: RootState) => state.contacts;
 export const {
     selectAll: selectAllContacts,
     selectById: selectContactById
-} = contactsAdapter.getSelectors((state: RootState) => state.contacts);
-export const selectContactsState = (state: RootState) => state.contacts;
+} = contactsAdapter.getSelectors<RootState>(contactsSelector);
 export const getContactByIdSelector = (id: Contact['id']) => (state: RootState) => selectContactById(state, id);
+export const selectFoundContacts = createSelector(
+    contactsSelector,
+    ({ searchQuery, entities }) => {
+        const query = searchQuery.toLowerCase();
+        const searchResults = [];
+        for (let id in entities) {
+            const entity = entities[id];
+            if (!entity) continue;
+            const match =
+                entity.firstName.toLowerCase().includes(query) ||
+                entity.lastName.toLowerCase().includes(query);
+            if (!match) continue;
+            searchResults.push(entity);
+        }
+        return searchResults;
+    }
+);
+
 
 export const {
     request: contactsRequest,

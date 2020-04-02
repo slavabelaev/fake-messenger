@@ -15,7 +15,7 @@ function PopoverAction(props: PopoverButtonProps) {
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget);
     const handleClose = () => setAnchorEl(null);
 
-    const iconButton = (
+    const iconButton = props.renderButton ? props.renderButton(handleClick) : (
         <Tooltip title="Details">
             <IconButton
                 edge="end"

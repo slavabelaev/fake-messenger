@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AuthUser} from "../models/AuthUser";
-import {signInWithLoginAndPassword} from "../services/authService";
+import {AuthUser, UserProfile} from "../models/AuthUser";
+import {signInWithLoginAndPassword, updateUserProfile} from "../services/authService";
 import {ErrorResponse} from "../interfaces/Service";
 import {Dispatch} from "react";
 import {RootState} from "./rootReducer";
@@ -34,6 +34,13 @@ const authSlice = createSlice({
             state.error = true;
             state.loading = false;
         },
+        update(state, action: PayloadAction<UserProfile>) {
+            const changes = action.payload;
+            state.user = state.user ? {
+                ...state.user,
+                ...changes
+            } : null;
+        }
     }
 });
 
@@ -42,10 +49,12 @@ export const authSelector = (state: RootState) => state.auth;
 export const {
     request: authRequest,
     success: authSuccess,
-    failure: authFailure
+    failure: authFailure,
+    update: updateProfile
 } = authSlice.actions;
 
 export const signIn = (login: string, password: string) => (dispatch: Dispatch<any>) => {
+    dispatch(authRequest());
     signInWithLoginAndPassword(login, password)
         .then((response) => {
             const failureResponse = response as ErrorResponse;
@@ -54,7 +63,22 @@ export const signIn = (login: string, password: string) => (dispatch: Dispatch<a
             const action = authSuccess(successResponse);
             dispatch(action);
         })
-        .catch(err => {
+        .catch(error => {
+            const action = authFailure();
+            dispatch(action);
+        })
+};
+
+export const updateUserProfileAsync = (changes: UserProfile) => async (dispatch: Dispatch<any>) => {
+    dispatch(authRequest());
+    updateUserProfile(changes)
+        .then(response => {
+            const failedResponse = response as ErrorResponse;
+            if (failedResponse.errors) throw new Error();
+            const action = updateProfile(changes);
+            dispatch(action);
+        })
+        .catch(error => {
             const action = authFailure();
             dispatch(action);
         })

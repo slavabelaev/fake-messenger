@@ -1,11 +1,13 @@
 import React from 'react';
 import TextField, {TextFieldProps} from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import IconButton from "@material-ui/core/IconButton";
+import IconButton, {IconButtonProps} from "@material-ui/core/IconButton";
 import {AttachFile, InsertEmoticon} from "@material-ui/icons";
 import {Tooltip} from "@material-ui/core";
 
-export type MessageFieldProps = TextFieldProps & {};
+export type MessageFieldProps = TextFieldProps & {
+    onEmojiOpen?: IconButtonProps['onClick'];
+};
 
 function MessageField(props: MessageFieldProps) {
     const startAdornment = (
@@ -14,6 +16,7 @@ function MessageField(props: MessageFieldProps) {
                 <IconButton
                     edge="start"
                     size="small"
+                    onClick={props.onEmojiOpen}
                 >
                     <InsertEmoticon />
                 </IconButton>

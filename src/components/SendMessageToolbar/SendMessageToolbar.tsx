@@ -1,14 +1,15 @@
-import React from "react";
-import {createStyles, IconButtonProps, Theme, Toolbar} from "@material-ui/core";
+import React, {useState} from "react";
+import {createStyles, Theme, Toolbar} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {Send} from "@material-ui/icons";
-import MessageField, {MessageFieldProps} from "../fields/MessageField";
+import MessageField from "./MessageField";
 import {makeStyles} from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
+import EmojiList from "../EmojiList";
+import Container from "@material-ui/core/Container";
 
 export interface SendMessageToolbarProps {
-    IconButtonProps?: IconButtonProps;
-    MessageFieldProps?: MessageFieldProps;
+    onSubmit?: (message: string) => void;
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -19,18 +20,31 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     sendButton: {
         marginLeft: theme.spacing(1)
+    },
+    emojiList: {
+        maxHeight: 140,
+        overflow: 'auto'
     }
 }));
 
-function SendMessageToolbar(props: SendMessageToolbarProps) {
+function SendMessageToolbar({ onSubmit }: SendMessageToolbarProps) {
     const classes = useStyles();
+    const [emojiOpen, setEmojiOpen] = useState(false);
+    const [message, setMessage] = useState<string>('');
+    const handleEmojiOpen = () => setEmojiOpen(!emojiOpen);
+    const handleSubmit = () => {
+        onSubmit && onSubmit(message);
+        setMessage('');
+        setEmojiOpen(false);
+    };
 
     const sendButton = (
         <Tooltip title="Send">
             <IconButton
                 className={classes.sendButton}
                 edge="end"
-                {...props.IconButtonProps}
+                disabled={!message}
+                onClick={handleSubmit}
             >
                 <Send />
             </IconButton>
@@ -40,18 +54,37 @@ function SendMessageToolbar(props: SendMessageToolbarProps) {
     const messageField = (
         <div className={classes.messageField}>
             <MessageField
-                {...props.MessageFieldProps}
+                value={message}
+                onKeyUp={(event) => (
+                    message &&
+                    event.keyCode === 13 &&
+                    event.ctrlKey &&
+                    handleSubmit()
+                )}
+                onChange={event => setMessage(event.target.value)}
+                onEmojiOpen={handleEmojiOpen}
                 multiline
                 rowsMax={3}
             />
         </div>
     );
 
+    const emojiList = emojiOpen && (
+        <Container className={classes.emojiList}>
+            <EmojiList
+                onClick={emoji => setMessage(message + emoji)}
+            />
+        </Container>
+    );
+
     return (
-        <Toolbar>
-            {messageField}
-            {sendButton}
-        </Toolbar>
+        <div>
+            {emojiList}
+            <Toolbar>
+                {messageField}
+                {sendButton}
+            </Toolbar>
+        </div>
     )
 }
 
