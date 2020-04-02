@@ -5,7 +5,7 @@ import {Send} from "@material-ui/icons";
 import MessageField from "./MessageField";
 import {makeStyles} from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
-import EmojiList from "../EmojiList";
+import EmojiList from "./EmojiList";
 import Container from "@material-ui/core/Container";
 
 export interface SendMessageToolbarProps {
