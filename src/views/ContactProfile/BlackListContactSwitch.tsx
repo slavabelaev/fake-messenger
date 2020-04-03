@@ -3,29 +3,29 @@ import ListItemSwitch from "../../components/ListItemSwitch";
 import {Contact} from "../../models/Contact";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    contactsSwitchFavorite,
+    contactsSwitchBlackList,
     getContactByIdSelector
 } from "../../components/ContactList/contactsSlice";
 
-export interface FavoriteContactSwitchProps {
+export interface BlackListContactSwitchProps {
     contactId: Contact['id'];
 }
 
-function FavoriteContactSwitch({ contactId }: FavoriteContactSwitchProps) {
+function BlackListContactSwitch({ contactId }: BlackListContactSwitchProps) {
     const contactSelector = getContactByIdSelector(contactId);
     const contact = useSelector(contactSelector);
     const dispatch = useDispatch();
-    const isFavorite = contact?.isFavorite || false;
+    const inBlackList = contact?.inBlackList || false;
     return (
         <ListItemSwitch
-            primary="Favorite"
-            checked={isFavorite}
+            primary="Black List"
+            checked={inBlackList}
             onChange={checked => {
-                const action = contactsSwitchFavorite(contactId);
+                const action = contactsSwitchBlackList(contactId);
                 dispatch(action);
             }}
         />
     );
 }
 
-export default FavoriteContactSwitch;
+export default BlackListContactSwitch;

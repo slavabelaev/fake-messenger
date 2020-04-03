@@ -7,7 +7,7 @@ import {getContactByIdSelector} from "../../components/ContactList/contactsSlice
 import {List} from "@material-ui/core";
 import ErrorMessage from "../../layout/ErrorMessage";
 import DetailListItem from "../../components/DetailListItem";
-import FavoriteContactSwitch from "./FavoriteContactSwitch";
+import BlackListContactSwitch from "./BlackListContactSwitch";
 import Divider from "@material-ui/core/Divider";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import NotificationsContactSwitch from "./NotificationsContactSwitch";
@@ -33,7 +33,7 @@ function ContactProfile(props: ContactProfileProps) {
             toolbar={toolbar}
         >
             <List>
-                <FavoriteContactSwitch
+                <BlackListContactSwitch
                     contactId={contactId}
                 />
                 <NotificationsContactSwitch

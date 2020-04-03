@@ -43,11 +43,11 @@ const contactsSlice = createSlice({
         },
         switchFavorite(state, action: PayloadAction<Contact['id']>) {
             const contactId = action.payload;
-            const isFavorite = state.entities[contactId]?.isFavorite;
+            const inBlackList = state.entities[contactId]?.inBlackList;
             contactsAdapter.updateOne(state, {
                 id: contactId,
                 changes: {
-                    isFavorite: !isFavorite
+                    inBlackList: !inBlackList
                 }
             });
         },
@@ -98,7 +98,7 @@ export const {
     addOne: addOneContact,
     removeOne: removeContactById,
     setSearchQuery: contactsSearchQuery,
-    switchFavorite: contactsSwitchFavorite,
+    switchFavorite: contactsSwitchBlackList,
     switchNotifications: contactsSwitchNotifications,
 } = contactsSlice.actions;
 

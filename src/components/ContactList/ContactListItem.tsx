@@ -11,6 +11,8 @@ import MessageReadStatus, {MessageReadStatusProps} from "../MessageList/MessageR
 import PopoverAction from "../PopoverAction";
 import List from "@material-ui/core/List";
 import MenuListItem from "../MenuListItem";
+import {Label, TurnedIn} from "@material-ui/icons";
+import IconButton from "@material-ui/core/IconButton";
 
 export interface ContactListItemProps {
     key?: Key;
@@ -22,7 +24,7 @@ export interface ContactListItemProps {
         read: MessageReadStatusProps['read'];
     };
     isOnline: boolean;
-    isFavorite?: boolean;
+    inBlackList?: boolean;
     to?: string;
     onDelete?: VoidFunction;
 }

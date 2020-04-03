@@ -28,7 +28,7 @@ export const fakerService: FakerService = {
             isOnline: faker.random.boolean(),
             lastVisitAt: faker.date.recent(0),
             dateOfBirth: faker.date.past(faker.random.number({ min: 18, max: 65 })),
-            isFavorite: false,
+            inBlackList: false,
             notificationsEnabled: true
         })
     },
