@@ -13,6 +13,7 @@ import View from "../../layout/View";
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
 import {Chat} from "../../models/Chat";
+import {Container} from "@material-ui/core";
 
 export interface MessageListContainerProps {
     chatId: Chat['id'];
@@ -32,7 +33,7 @@ const getMessagesFilter = (searchQuery: string) => (item: Message) => {
 };
 
 function MessageListContainer({ chatId }: MessageListContainerProps) {
-    const { error, searchQuery, messages: allMessages, loading } = useSelector(selectChatMessages(chatId));
+    const { error, searchQuery, checkModeEnabled, messages: allMessages, loading } = useSelector(selectChatMessages(chatId));
     const [checkedIds, setCheckedIds] = useState<Message['id'][]>([]);
     const messagesFilter = getMessagesFilter(searchQuery);
     const messages = searchQuery ? allMessages.filter(messagesFilter) : allMessages;
@@ -56,7 +57,7 @@ function MessageListContainer({ chatId }: MessageListContainerProps) {
 
         return {
             ...mapMessageToItemProps(message),
-            variant: 'checkbox',
+            variant: checkModeEnabled ? 'checkbox' : 'default',
             CheckboxProps: {
                 checked: checkedIds.includes(message.id),
                 onChange: handleChange
@@ -99,7 +100,12 @@ function MessageListContainer({ chatId }: MessageListContainerProps) {
         <View
             footer={toolbar}
         >
-            {messageList}
+            <Container
+                maxWidth="sm"
+                disableGutters
+            >
+                {messageList}
+            </Container>
         </View>
     );
 }

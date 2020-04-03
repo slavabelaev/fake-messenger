@@ -10,7 +10,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import View from "../../layout/View";
 import {getContactByIdSelector} from "../../components/ContactList/contactsSlice";
 import NotFound from "../NotFound";
-import {messagesSearchQuery, selectChatMessages} from "../../components/MessageList/chatsSlice";
+import {switchMessagesCheckMode, messagesSearchQuery, selectChatMessages} from "../../components/MessageList/chatsSlice";
 import PopoverAction from "../../components/PopoverAction";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
@@ -33,7 +33,11 @@ function Chat() {
         <List>
             <MenuListItem
                 primary="select messages"
-                onClick={onClose}
+                onClick={() => {
+                    const action = switchMessagesCheckMode({chatId});
+                    dispatch(action);
+                    onClose();
+                }}
             />
         </List>
     );

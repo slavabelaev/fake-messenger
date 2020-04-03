@@ -8,4 +8,6 @@ export const fetchContacts = async (skip = 0, limit = 12): Promise<FetchList<Con
     items: Array(limit).fill(null).map(fakerService.contact)
 });
 
-export const deleteContact = async (id: Contact['id']): Promise<boolean | ErrorResponse> => true;
+export const removeContact = async (id: Contact['id']): Promise<boolean | ErrorResponse> => true;
+
+export const addContact = async (id: Contact['id']): Promise<boolean | ErrorResponse> => true;

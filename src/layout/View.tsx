@@ -2,6 +2,7 @@ import React, {PropsWithChildren, ReactNode} from 'react';
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 
 export type ViewProps = PropsWithChildren<{
+    className?: HTMLDivElement['className'];
     toolbar?: ReactNode;
     footer?: ReactNode;
 }>;
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function View(props: ViewProps) {
     const classes = useStyles();
+    const classNames = [props.className, classes.root].join(' ');
 
     const content = (
         <div
@@ -52,7 +54,7 @@ function View(props: ViewProps) {
     );
 
     return (
-        <div className={classes.root}>
+        <div className={classNames}>
             {toolbar}
             {content}
             {footer}

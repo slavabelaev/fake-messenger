@@ -10,6 +10,7 @@ import {User} from "../../models/User";
 export interface ChatMessagesState {
     messages: Message[];
     searchQuery: string;
+    checkModeEnabled: boolean;
     loading: boolean;
     error: boolean;
 }
@@ -22,6 +23,7 @@ const initialState: MessagesState = {};
 const itemInitialState: ChatMessagesState = {
     messages: [],
     searchQuery: '',
+    checkModeEnabled: false,
     loading: false,
     error: false
 };
@@ -66,6 +68,13 @@ const chatsSlice = createSlice({
             const message = action.payload;
             state[chatId].messages.push(message);
         },
+        switchCheckMode(state, action: PayloadAction<{
+            chatId: Chat['id'];
+            enabled?: boolean;
+        }>) {
+            const { chatId, enabled } = action.payload;
+            state[chatId].checkModeEnabled = enabled !== undefined ? enabled : !state[chatId].checkModeEnabled;
+        },
         deleteMany(state, action: PayloadAction<{
             chatId: Chat['id'];
             messageIds: Message['id'][];
@@ -87,6 +96,7 @@ export const {
     failure: messagesFailure,
     setSearchQuery: messagesSearchQuery,
     add: addMessage,
+    switchCheckMode: switchMessagesCheckMode,
     deleteMany: deleteManyMessages
 } = chatsSlice.actions;
 
