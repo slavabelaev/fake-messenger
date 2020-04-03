@@ -1,8 +1,8 @@
 import React from 'react';
-import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 
 interface EmojiGroup {
     title: string,
@@ -81,15 +81,28 @@ export interface EmojiListProps {
     onClick?: (emoji: string) => void;
 }
 
+const useStyles = makeStyles((theme: Theme) => createStyles({
+    group: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, 32px)'
+    },
+    item: {
+        fontSize: theme.spacing(3),
+        cursor: 'pointer',
+    }
+}));
+
 function EmojiList({ onClick }: EmojiListProps) {
+    const classes = useStyles();
+
     const renderItem = (emoji: string) => (
-        <IconButton
-            size="small"
-            color="inherit"
+        <span
+            className={classes.item}
+            role="button"
             onClick={() => onClick && onClick(emoji)}
         >
             {emoji}
-        </IconButton>
+        </span>
     );
 
     const renderGroup = (emojiGroup: EmojiGroup) => (
@@ -105,14 +118,16 @@ function EmojiList({ onClick }: EmojiListProps) {
                 </Typography>
             </Toolbar>
             <Container disableGutters>
-                {emojiGroup.items.map(renderItem)}
+                <div className={classes.group}>
+                    {emojiGroup.items.map(renderItem)}
+                </div>
             </Container>
         </div>
     );
 
     return (
         <div>
-            {emojiGroups.slice(0,2).map(renderGroup)}
+            {emojiGroups.map(renderGroup)}
         </div>
     )
 }
