@@ -5,6 +5,7 @@ import {Dispatch} from "react";
 import {ErrorResponse, FetchList} from "../../interfaces/Service";
 import {RootState} from "../../app/rootReducer";
 import {fakerService} from "../../services/fakerService";
+import {setStatusMessage, setStatusError} from "../../app/statusSlice";
 
 const contactsAdapter = createEntityAdapter<Contact>();
 
@@ -63,15 +64,12 @@ const contactsSlice = createSlice({
     }
 });
 
-
 export const contactsSelector = (state: RootState) => state.contacts;
 
 export const {
     selectAll: selectAllContacts,
     selectById: selectContactById
 } = contactsAdapter.getSelectors<RootState>(contactsSelector);
-
-
 
 export const getContactByIdSelector = (id: Contact['id']) => (state: RootState) => selectContactById(state, id);
 
@@ -107,21 +105,32 @@ export const {
 export const addContactAsync = (id: Contact['id']) => (dispatch: Dispatch<any>) => {
     addContact(id)
         .then(response => {
-            const failedResponse = response as ErrorResponse;
-            if (failedResponse.errors) throw new Error();
+            const errors = (response as ErrorResponse).errors;
+            if (errors) throw new Error(errors[0]);
             const contact = fakerService.contact();
             const action = addOneContact(contact);
             dispatch(action);
+            const statusMessage = `${contact.firstName} ${contact.lastName} added contacts`;
+            const statusAction = setStatusMessage(statusMessage);
+            dispatch(statusAction);
+        })
+        .catch(error => {
+            const statusAction = setStatusError(error);
+            dispatch(statusAction);
         })
 };
 
 export const removeContactAsync = (id: Contact['id']) => (dispatch: Dispatch<any>) => {
     removeContact(id)
         .then(response => {
-            const failedResponse = response as ErrorResponse;
-            if (failedResponse.errors) throw new Error();
+            const errors = (response as ErrorResponse).errors;
+            if (errors) throw new Error(errors[0]);
             const action = removeContactById(id);
             dispatch(action);
+        })
+        .catch(error => {
+            const statusAction = setStatusError(error);
+            dispatch(statusAction);
         })
 };
 
@@ -129,13 +138,18 @@ export const fetchContactsAsync = () => (dispatch: Dispatch<any>) => {
     dispatch(contactsRequest());
     fetchContacts()
         .then(response => {
-            const failedResponse = response as ErrorResponse;
-            if (failedResponse.errors) throw new Error();
+            const errors = (response as ErrorResponse).errors;
+            if (errors) throw new Error(errors[0]);
             const successResponse = response as FetchList<Contact>;
             const action = contactsSuccess(successResponse.items);
             dispatch(action);
         })
-        .catch(_ => dispatch(contactsFailure()))
+        .catch(error => {
+            const action = contactsFailure();
+            dispatch(action);
+            const statusAction = setStatusError(error);
+            dispatch(statusAction);
+        })
 };
 
 const contactsReducer = contactsSlice.reducer;

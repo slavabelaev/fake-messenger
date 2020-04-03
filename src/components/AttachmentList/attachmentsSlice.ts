@@ -49,13 +49,16 @@ export const fetchAttachmentsAsync = () => (dispatch: Dispatch<any>) => {
     dispatch(attachmentsRequest());
     fetchAttachments()
         .then(response => {
-            const failedResponse = response as ErrorResponse;
-            if (failedResponse.errors) throw new Error();
-            const successResponse = response as FetchList<Attachment>;
-            const action = attachmentsSuccess(successResponse.items);
+            const errors = (response as ErrorResponse).errors;
+            if (errors) throw new Error(errors[0]);
+            const attachments = (response as FetchList<Attachment>).items;
+            const action = attachmentsSuccess(attachments);
             dispatch(action);
         })
-        .catch(_ => dispatch(attachmentsFailure()))
+        .catch(error => {
+            const action = attachmentsFailure();
+            dispatch(action);
+        })
 };
 
 const attachmentsReducer = attachmentsSlice.reducer;

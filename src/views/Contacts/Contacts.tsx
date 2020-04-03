@@ -17,6 +17,7 @@ import Typography from "@material-ui/core/Typography";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import {makeStyles} from "@material-ui/core/styles";
+import {setStatusMessage} from "../../app/statusSlice";
 
 const CHATS_TAB_VALUE = 0;
 
@@ -113,7 +114,8 @@ function Contacts() {
             className={classes.fab}
             color="primary"
             onClick={() => {
-                addContactAsync('some-id')(dispatch);
+                const userId = Math.random().toString(16);
+                addContactAsync(userId)(dispatch);
             }}
         >
             <Add/>

@@ -6,6 +6,7 @@ import {Chat} from "../../models/Chat";
 import {RootState} from "../../app/rootReducer";
 import {ErrorResponse, FetchList} from "../../interfaces/Service";
 import {User} from "../../models/User";
+import {setStatusError} from "../../app/statusSlice";
 
 export interface ChatMessagesState {
     messages: Message[];
@@ -103,29 +104,38 @@ export const {
 export const insertMessageAsync = (createdBy: User['id'], messageText: Message['text']) => (dispatch: Dispatch<any>) => {
     insertMessage(createdBy, messageText)
         .then(response => {
+            const errors = (response as ErrorResponse).errors;
+            if (errors) throw new Error(errors[0]);
             const successResponse = response as Message;
             const action = addMessage(successResponse);
             dispatch(action);
+        })
+        .catch(error => {
+            const statusAction = setStatusError(error);
+            dispatch(statusAction);
         })
 };
 
 export const deleteMessagesAsync = (chatId: Chat['id'], messageIds: Message['id'][]) => (dispatch: Dispatch<any>) => {
     deleteMessages(messageIds)
         .then((response) => {
-            const failedResponse = response as ErrorResponse;
-            if (failedResponse.errors) throw Error();
+            const errors = (response as ErrorResponse).errors;
+            if (errors) throw new Error(errors[0]);
             const action = deleteManyMessages({chatId, messageIds});
             dispatch(action);
         })
-        .catch(console.log)
+        .catch(error => {
+            const statusAction = setStatusError(error);
+            dispatch(statusAction);
+        })
 };
 
 export const fetchMessagesAsync = (chatId: Chat['id']) => (dispatch: Dispatch<any>) => {
     dispatch(messagesRequest({chatId}));
     fetchMessages()
         .then(response => {
-            const failedResponse = response as ErrorResponse;
-            if (failedResponse.errors) throw new Error();
+            const errors = (response as ErrorResponse).errors;
+            if (errors) throw new Error(errors[0]);
             const successResponse = response as FetchList<Message>;
             const action = messagesSuccess({
                 chatId,
@@ -133,8 +143,11 @@ export const fetchMessagesAsync = (chatId: Chat['id']) => (dispatch: Dispatch<an
             });
             dispatch(action);
         })
-        .catch(_ => {
-            dispatch(messagesFailure({chatId}));
+        .catch(error => {
+            const action = messagesFailure({chatId});
+            dispatch(action);
+            const statusAction = setStatusError(error);
+            dispatch(statusAction);
         })
 };
 

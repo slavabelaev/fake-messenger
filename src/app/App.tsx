@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {authSelector, signIn} from "./authSlice";
 import ErrorMessage from "../layout/ErrorMessage";
 import Loading from "../layout/Loading";
+import ActionSnackbar from "./ActionSnackbar";
 
 function App() {
     const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function App() {
             leftSide={<Contacts/>}
         >
             <Routes />
+            <ActionSnackbar/>
         </Layout>
     );
 }

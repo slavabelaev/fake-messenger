@@ -5,6 +5,7 @@ import attachmentsReducer from "../components/AttachmentList/attachmentsSlice";
 import authSlice from "./authSlice";
 import settingsReducer from "../components/SettingList/settingsSlice";
 import attachmentLinksReducer from "../components/AttachmentLinkList/attachmentLinksSlice";
+import statusReducer from "./statusSlice";
 
 export const rootReducer = combineReducers({
     contacts: contactsReducer,
@@ -12,7 +13,8 @@ export const rootReducer = combineReducers({
     attachments: attachmentsReducer,
     attachmentLinks: attachmentLinksReducer,
     auth: authSlice,
-    settings: settingsReducer
+    settings: settingsReducer,
+    status: statusReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
