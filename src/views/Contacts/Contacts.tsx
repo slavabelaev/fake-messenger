@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import ContactList from "../../components/ContactList";
 import ListItemToolbar from "../../components/ListItemToolbar";
-import {Settings} from "@material-ui/icons";
+import {SettingsOutlined} from "@material-ui/icons";
 import {IconButton} from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import {NavLink} from "react-router-dom";
@@ -36,7 +36,7 @@ function Contacts(props: ContactsProps) {
                 component={NavLink}
                 to={SETTINGS_ROUTE_PATH}
             >
-                <Settings/>
+                <SettingsOutlined/>
             </IconButton>
         </Tooltip>
     );

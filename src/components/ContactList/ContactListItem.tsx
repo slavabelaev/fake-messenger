@@ -4,12 +4,14 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import IconButton from "@material-ui/core/IconButton";
-import {MoreVert} from "@material-ui/icons";
+import {DeleteOutline} from "@material-ui/icons";
 import {makeStyles} from "@material-ui/core/styles";
 import {NavLink} from "react-router-dom";
 import Badge from "@material-ui/core/Badge";
 import MessageReadStatus, {MessageReadStatusProps} from "../MessageList/MessageReadStatus";
+import PopoverAction from "../PopoverAction";
+import List from "@material-ui/core/List";
+import MenuListItem from "../MenuListItem";
 
 export interface ContactListItemProps {
     key?: Key;
@@ -23,6 +25,7 @@ export interface ContactListItemProps {
     isOnline: boolean;
     isFavorite?: boolean;
     to?: string;
+    onDelete?: VoidFunction;
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -37,6 +40,26 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function ContactListItem(props: ContactListItemProps) {
     const classes = useStyles();
+
+    const secondaryAction = (
+        <ListItemSecondaryAction>
+            <PopoverAction
+                renderPopover={(onClose) => (
+                    <List>
+                        <MenuListItem
+                            icon={<DeleteOutline/>}
+                            primary="Delete contact"
+                            onClick={() => {
+                                props.onDelete && props.onDelete();
+                                onClose();
+                            }}
+                        />
+                    </List>
+                )}
+            />
+        </ListItemSecondaryAction>
+    );
+
     return (
         <ListItem
             key={props.key}
@@ -74,11 +97,7 @@ function ContactListItem(props: ContactListItemProps) {
                     </span>
                 }
             />
-            <ListItemSecondaryAction>
-                <IconButton edge="end">
-                    <MoreVert />
-                </IconButton>
-            </ListItemSecondaryAction>
+            {secondaryAction}
         </ListItem>
     )
 }

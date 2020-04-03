@@ -3,7 +3,7 @@ import AttachmentLinkList from "./AttachmentLinkList";
 import {AttachmentLink} from "../../models/AttachmentLink";
 import {AttachmentLinkListItemProps} from "./AttachmentLinkListItem";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchAttachmentLinks, selectAttachmentLinks} from "./attachmentLinksSlice";
+import {fetchAttachmentLinksAsync, selectAttachmentLinks} from "./attachmentLinksSlice";
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
 import {Chat} from "../../models/Chat";
@@ -25,7 +25,7 @@ function LinkListContainer({ chatId }: LinkListContainerProps) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        fetchAttachmentLinks()(dispatch);
+        fetchAttachmentLinksAsync()(dispatch);
     }, [dispatch]);
 
     if (loading) return <Loading/>;

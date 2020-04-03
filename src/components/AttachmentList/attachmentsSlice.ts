@@ -1,8 +1,8 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Attachment} from "../../models/Attachment";
-import {findAttachments} from "../../services/attachmentService";
+import {fetchAttachments} from "../../services/attachmentService";
 import {Dispatch} from "react";
-import {ErrorResponse, FindAllResponse} from "../../interfaces/Service";
+import {ErrorResponse, FetchList} from "../../interfaces/Service";
 import {RootState} from "../../app/rootReducer";
 
 export interface AttachmentsState {
@@ -45,13 +45,13 @@ export const {
     failure: attachmentsFailure
 } = attachmentsSlice.actions;
 
-export const fetchAttachments = () => (dispatch: Dispatch<any>) => {
+export const fetchAttachmentsAsync = () => (dispatch: Dispatch<any>) => {
     dispatch(attachmentsRequest());
-    findAttachments()
+    fetchAttachments()
         .then(response => {
             const failedResponse = response as ErrorResponse;
             if (failedResponse.errors) throw new Error();
-            const successResponse = response as FindAllResponse<Attachment>;
+            const successResponse = response as FetchList<Attachment>;
             const action = attachmentsSuccess(successResponse.items);
             dispatch(action);
         })

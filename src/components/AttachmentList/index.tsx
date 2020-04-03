@@ -3,7 +3,7 @@ import AttachmentList from "./AttachmentList";
 import {Attachment} from "../../models/Attachment";
 import {AttachmentListItemProps} from "./AttachmentListItem";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchAttachments, selectAttachments} from "./attachmentsSlice";
+import {fetchAttachmentsAsync, selectAttachments} from "./attachmentsSlice";
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
 import {Chat} from "../../models/Chat";
@@ -26,7 +26,7 @@ function AttachmentListContainer({ chatId }: AttachmentListContainerProps) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        fetchAttachments()(dispatch);
+        fetchAttachmentsAsync()(dispatch);
     }, [dispatch]);
 
     if (loading) return <Loading/>;

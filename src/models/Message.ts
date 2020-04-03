@@ -1,5 +1,7 @@
 import {Model} from "../interfaces/Model";
 import {Contact} from "./Contact";
+import {Attachment} from "./Attachment";
+import {AttachmentLink} from "./AttachmentLink";
 
 export interface Message extends Model {
     text: string;
@@ -7,4 +9,7 @@ export interface Message extends Model {
     createdAt: Date;
     delivered: boolean;
     read: boolean;
+    attachmentFile?: Attachment;
+    attachmentLink?: AttachmentLink;
+
 }

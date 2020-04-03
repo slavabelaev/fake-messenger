@@ -34,12 +34,16 @@ export const fakerService: FakerService = {
     },
     message: () => {
         const delivered = faker.random.boolean();
+        const hasAttachmentFile = Math.random() > .8;
+        const hasAttachmentLink = Math.random() > .5;
         return ({
             id: faker.random.uuid(),
             text: faker.lorem.text(),
             createdAt: faker.date.recent(0),
             delivered,
-            read: delivered && faker.random.boolean()
+            read: delivered && faker.random.boolean(),
+            attachmentFile: hasAttachmentFile ? fakerService.attachment() : undefined,
+            attachmentLink: hasAttachmentLink ? fakerService.attachmentLink() : undefined
         })
     },
     attachment: () => ({

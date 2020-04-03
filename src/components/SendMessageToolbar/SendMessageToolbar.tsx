@@ -1,12 +1,13 @@
 import React, {useState} from "react";
 import {createStyles, Theme, Toolbar} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import {Send} from "@material-ui/icons";
-import MessageField from "./MessageField";
+import {AttachFile, InsertEmoticon, Send} from "@material-ui/icons";
 import {makeStyles} from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import EmojiList from "./EmojiList";
 import Container from "@material-ui/core/Container";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import TextField from "@material-ui/core/TextField";
 
 export interface SendMessageToolbarProps {
     onSubmit?: (message: string) => void;
@@ -43,6 +44,7 @@ function SendMessageToolbar({ onSubmit }: SendMessageToolbarProps) {
             <IconButton
                 className={classes.sendButton}
                 edge="end"
+                color="primary"
                 disabled={!message}
                 onClick={handleSubmit}
             >
@@ -51,9 +53,44 @@ function SendMessageToolbar({ onSubmit }: SendMessageToolbarProps) {
         </Tooltip>
     );
 
+    const startAdornment = (
+        <InputAdornment position="start">
+            <Tooltip title="Insert emoticon">
+                <IconButton
+                    edge="start"
+                    size="small"
+                    color={emojiOpen ? 'primary' : 'default'}
+                    onClick={handleEmojiOpen}
+                >
+                    <InsertEmoticon />
+                </IconButton>
+            </Tooltip>
+        </InputAdornment>
+    );
+
+    const endAdornment = (
+        <InputAdornment position="end">
+            <Tooltip title="Attach file">
+                <IconButton
+                    edge="end"
+                    size="small"
+                    component="label"
+                    htmlFor="attach-file"
+                >
+                    <AttachFile />
+                </IconButton>
+            </Tooltip>
+            <input
+                id="attach-file"
+                type="file"
+                hidden
+            />
+        </InputAdornment>
+    );
+
     const messageField = (
         <div className={classes.messageField}>
-            <MessageField
+            <TextField
                 value={message}
                 onKeyUp={(event) => (
                     message &&
@@ -62,9 +99,16 @@ function SendMessageToolbar({ onSubmit }: SendMessageToolbarProps) {
                     handleSubmit()
                 )}
                 onChange={event => setMessage(event.target.value)}
-                onEmojiOpen={handleEmojiOpen}
                 multiline
                 rowsMax={3}
+                variant="outlined"
+                size="small"
+                placeholder="Enter message"
+                InputProps={{
+                    startAdornment,
+                    endAdornment
+                }}
+                fullWidth
             />
         </div>
     );

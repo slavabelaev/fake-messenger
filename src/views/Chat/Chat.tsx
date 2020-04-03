@@ -13,13 +13,12 @@ import NotFound from "../NotFound";
 import {messagesSearchQuery, selectChatMessages} from "../../components/MessageList/chatsSlice";
 import PopoverAction from "../../components/PopoverAction";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import Layout from "../../layout";
 import ChatRoutes from "./ChatRoutes";
 import {CONTACT_PROFILE_ROUTE_PATH} from "../ContactProfile";
 import {CHAT_ATTACHMENTS_ROUTE_PATH} from "../Attachments";
+import MenuListItem from "../../components/MenuListItem";
 
 function Chat() {
     const { id: chatId = '' } = useParams();
@@ -32,13 +31,10 @@ function Chat() {
 
     const renderPopover = (onClose: VoidFunction) => (
         <List>
-            <ListItem button
-                      onClick={onClose}
-            >
-                <ListItemText
-                    primary={"delete messages"}
-                />
-            </ListItem>
+            <MenuListItem
+                primary="select messages"
+                onClick={onClose}
+            />
         </List>
     );
 

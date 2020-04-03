@@ -1,10 +1,10 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Message} from "../../models/Message";
 import {Dispatch} from "react";
-import {deleteMessages, findMessages, insertMessage} from "../../services/messageService";
+import {deleteMessages, fetchMessages, insertMessage} from "../../services/messageService";
 import {Chat} from "../../models/Chat";
 import {RootState} from "../../app/rootReducer";
-import {ErrorResponse, FindAllResponse} from "../../interfaces/Service";
+import {ErrorResponse, FetchList} from "../../interfaces/Service";
 import {User} from "../../models/User";
 
 export interface ChatMessagesState {
@@ -112,11 +112,11 @@ export const deleteMessagesAsync = (chatId: Chat['id'], messageIds: Message['id'
 
 export const fetchMessagesAsync = (chatId: Chat['id']) => (dispatch: Dispatch<any>) => {
     dispatch(messagesRequest({chatId}));
-    findMessages()
+    fetchMessages()
         .then(response => {
             const failedResponse = response as ErrorResponse;
             if (failedResponse.errors) throw new Error();
-            const successResponse = response as FindAllResponse<Message>;
+            const successResponse = response as FetchList<Message>;
             const action = messagesSuccess({
                 chatId,
                 messages: successResponse.items

@@ -1,8 +1,8 @@
 import {createEntityAdapter, createSelector, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Contact} from "../../models/Contact";
-import {findContacts} from "../../services/contactService";
+import {deleteContact, fetchContacts} from "../../services/contactService";
 import {Dispatch} from "react";
-import {ErrorResponse, FindAllResponse} from "../../interfaces/Service";
+import {ErrorResponse, FetchList} from "../../interfaces/Service";
 import {RootState} from "../../app/rootReducer";
 
 const contactsAdapter = createEntityAdapter<Contact>();
@@ -16,8 +16,6 @@ const initialState = contactsAdapter.getInitialState<{
     loading: false,
     error: false
 });
-
-export type ContactsState = typeof initialState;
 
 const contactsSlice = createSlice({
     name: 'contacts',
@@ -36,6 +34,7 @@ const contactsSlice = createSlice({
             state.error = true;
             state.loading = false;
         },
+        removeOne: contactsAdapter.removeOne,
         setSearchQuery(state, action: PayloadAction<string>) {
             state.searchQuery = action.payload;
         },
@@ -64,11 +63,16 @@ const contactsSlice = createSlice({
 
 
 export const contactsSelector = (state: RootState) => state.contacts;
+
 export const {
     selectAll: selectAllContacts,
     selectById: selectContactById
 } = contactsAdapter.getSelectors<RootState>(contactsSelector);
+
+
+
 export const getContactByIdSelector = (id: Contact['id']) => (state: RootState) => selectContactById(state, id);
+
 export const selectFoundContacts = createSelector(
     contactsSelector,
     ({ searchQuery, entities }) => {
@@ -87,23 +91,33 @@ export const selectFoundContacts = createSelector(
     }
 );
 
-
 export const {
     request: contactsRequest,
     success: contactsSuccess,
     failure: contactsFailure,
+    removeOne: removeContact,
     setSearchQuery: contactsSearchQuery,
     switchFavorite: contactsSwitchFavorite,
     switchNotifications: contactsSwitchNotifications,
 } = contactsSlice.actions;
 
-export const fetchContacts = () => (dispatch: Dispatch<any>) => {
-    dispatch(contactsRequest());
-    findContacts()
+export const removeContactAsync = (id: Contact['id']) => (dispatch: Dispatch<any>) => {
+    deleteContact(id)
         .then(response => {
             const failedResponse = response as ErrorResponse;
             if (failedResponse.errors) throw new Error();
-            const successResponse = response as FindAllResponse<Contact>;
+            const action = removeContact(id);
+            dispatch(action);
+        })
+};
+
+export const fetchContactsAsync = () => (dispatch: Dispatch<any>) => {
+    dispatch(contactsRequest());
+    fetchContacts()
+        .then(response => {
+            const failedResponse = response as ErrorResponse;
+            if (failedResponse.errors) throw new Error();
+            const successResponse = response as FetchList<Contact>;
             const action = contactsSuccess(successResponse.items);
             dispatch(action);
         })
