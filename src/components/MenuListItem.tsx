@@ -9,6 +9,8 @@ export interface MenuListItemProps {
     secondary?: ListItemTextProps['secondary'];
     onClick?: VoidFunction;
     icon?: ListItemIconProps['children'];
+    disabled?: ListItemProps['disabled'];
+    selected?: ListItemProps['selected'];
 }
 
 function MenuListItem(props: MenuListItemProps) {
@@ -23,6 +25,8 @@ function MenuListItem(props: MenuListItemProps) {
             dense={props.dense}
             button
             onClick={props.onClick}
+            disabled={props.disabled}
+            selected={props.selected}
         >
             {listItemIcon}
             <ListItemText

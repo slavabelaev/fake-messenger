@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Message} from "../../models/Message";
 import {Dispatch} from "react";
-import {deleteMessages, fetchMessages, insertMessage} from "../../services/messageService";
+import {removeMessages, fetchMessages, addMessage} from "../../services/messageService";
 import {Chat} from "../../models/Chat";
 import {RootState} from "../../app/rootReducer";
 import {ErrorResponse, FetchList} from "../../interfaces/Service";
@@ -9,7 +9,7 @@ import {User} from "../../models/User";
 import {setStatusError} from "../../app/statusSlice";
 
 export interface ChatMessagesState {
-    messages: Message[];
+    messages: Message[] | null;
     searchQuery: string;
     checkModeEnabled: boolean;
     loading: boolean;
@@ -22,7 +22,7 @@ export interface MessagesState {
 
 const initialState: MessagesState = {};
 const itemInitialState: ChatMessagesState = {
-    messages: [],
+    messages: null,
     searchQuery: '',
     checkModeEnabled: false,
     loading: false,
@@ -67,7 +67,9 @@ const chatsSlice = createSlice({
         add(state, action: PayloadAction<Message>) {
             const chatId = action.payload.createdBy as NonNullable<Message['createdBy']>;
             const message = action.payload;
-            state[chatId].messages.push(message);
+            let messages = state[chatId].messages;
+            if (!messages) messages = [];
+            messages.push(message);
         },
         switchCheckMode(state, action: PayloadAction<{
             chatId: Chat['id'];
@@ -76,12 +78,19 @@ const chatsSlice = createSlice({
             const { chatId, enabled } = action.payload;
             state[chatId].checkModeEnabled = enabled !== undefined ? enabled : !state[chatId].checkModeEnabled;
         },
-        deleteMany(state, action: PayloadAction<{
+        removeMany(state, action: PayloadAction<{
             chatId: Chat['id'];
             messageIds: Message['id'][];
         }>) {
             const { chatId, messageIds } = action.payload;
-            state[chatId].messages = state[chatId].messages.filter(item => !messageIds.includes(item.id));
+            let messages = state[chatId].messages;
+            messages = (messages || []).filter(item => !messageIds.includes(item.id));
+        },
+        removeAll(state, action: PayloadAction<{
+            chatId: Chat['id'];
+        }>) {
+            const {chatId} = action.payload;
+            state[chatId].messages = [];
         }
     }
 });
@@ -96,18 +105,19 @@ export const {
     success: messagesSuccess,
     failure: messagesFailure,
     setSearchQuery: messagesSearchQuery,
-    add: addMessage,
+    add: addOneMessage,
     switchCheckMode: switchMessagesCheckMode,
-    deleteMany: deleteManyMessages
+    removeMany: removeManyMessages,
+    removeAll: removeAllMessages
 } = chatsSlice.actions;
 
-export const insertMessageAsync = (createdBy: User['id'], messageText: Message['text']) => (dispatch: Dispatch<any>) => {
-    insertMessage(createdBy, messageText)
+export const addMessageAsync = (createdBy: User['id'], messageText: Message['text']) => (dispatch: Dispatch<any>) => {
+    addMessage(createdBy, messageText)
         .then(response => {
             const errors = (response as ErrorResponse).errors;
             if (errors) throw new Error(errors[0]);
-            const successResponse = response as Message;
-            const action = addMessage(successResponse);
+            const message = response as Message;
+            const action = addOneMessage(message);
             dispatch(action);
         })
         .catch(error => {
@@ -116,12 +126,15 @@ export const insertMessageAsync = (createdBy: User['id'], messageText: Message['
         })
 };
 
-export const deleteMessagesAsync = (chatId: Chat['id'], messageIds: Message['id'][]) => (dispatch: Dispatch<any>) => {
-    deleteMessages(messageIds)
+export const removeMessagesAsync = (chatId: Chat['id'], messageIds?: Message['id'][]) => (dispatch: Dispatch<any>) => {
+    removeMessages(messageIds)
         .then((response) => {
             const errors = (response as ErrorResponse).errors;
             if (errors) throw new Error(errors[0]);
-            const action = deleteManyMessages({chatId, messageIds});
+
+            const action = (messageIds?.length)
+                ? removeManyMessages({chatId, messageIds})
+                : removeAllMessages({chatId});
             dispatch(action);
         })
         .catch(error => {
@@ -131,16 +144,14 @@ export const deleteMessagesAsync = (chatId: Chat['id'], messageIds: Message['id'
 };
 
 export const fetchMessagesAsync = (chatId: Chat['id']) => (dispatch: Dispatch<any>) => {
-    dispatch(messagesRequest({chatId}));
+    const action = messagesRequest({chatId});
+    dispatch(action);
     fetchMessages()
         .then(response => {
             const errors = (response as ErrorResponse).errors;
             if (errors) throw new Error(errors[0]);
-            const successResponse = response as FetchList<Message>;
-            const action = messagesSuccess({
-                chatId,
-                messages: successResponse.items
-            });
+            const messages = (response as FetchList<Message>).items;
+            const action = messagesSuccess({chatId, messages});
             dispatch(action);
         })
         .catch(error => {

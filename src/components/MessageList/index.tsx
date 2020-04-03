@@ -2,7 +2,7 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import MessageList, {MessageListProps} from "./MessageList";
 import {useDispatch, useSelector} from "react-redux";
 import {Message} from "../../models/Message";
-import {deleteMessagesAsync, fetchMessagesAsync, selectChatMessages} from "./chatsSlice";
+import {removeMessagesAsync, fetchMessagesAsync, selectChatMessages} from "./chatsSlice";
 import {MessageListItemProps} from "./MessageListItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -36,18 +36,18 @@ function MessageListContainer({ chatId }: MessageListContainerProps) {
     const { error, searchQuery, checkModeEnabled, messages: allMessages, loading } = useSelector(selectChatMessages(chatId));
     const [checkedIds, setCheckedIds] = useState<Message['id'][]>([]);
     const messagesFilter = getMessagesFilter(searchQuery);
-    const messages = searchQuery ? allMessages.filter(messagesFilter) : allMessages;
+    const messages = searchQuery ? allMessages?.filter(messagesFilter) : allMessages;
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!allMessages.length) fetchMessagesAsync(chatId)(dispatch);
-    }, [allMessages.length, dispatch, chatId]);
+        if (!allMessages) fetchMessagesAsync(chatId)(dispatch);
+    }, [allMessages, dispatch, chatId]);
 
-    if (loading) return <Loading/>;
+    if (loading || !messages) return <Loading/>;
     if (error) return <ErrorMessage/>;
 
     const getItem: MessageListProps['getItem'] = (index) => {
-        const message = messages[index];
+        const message: Message = messages[index];
         const handleChange = (event: ChangeEvent, checked: boolean) => {
             const ids = checked
                 ? [...checkedIds, message.id]
@@ -65,7 +65,7 @@ function MessageListContainer({ chatId }: MessageListContainerProps) {
         };
     };
 
-    const messageList = allMessages.length ? (
+    const messageList = messages.length ? (
         <MessageList
             itemCount={messages.length}
             getItem={getItem}
@@ -73,7 +73,7 @@ function MessageListContainer({ chatId }: MessageListContainerProps) {
     ) : null;
 
     const handleDelete = () => {
-        deleteMessagesAsync(chatId, checkedIds)(dispatch);
+        removeMessagesAsync(chatId, checkedIds)(dispatch);
         setCheckedIds([]);
     };
 

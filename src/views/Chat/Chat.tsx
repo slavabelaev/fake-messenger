@@ -10,7 +10,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import View from "../../layout/View";
 import {getContactByIdSelector} from "../../components/ContactList/contactsSlice";
 import NotFound from "../NotFound";
-import {switchMessagesCheckMode, messagesSearchQuery, selectChatMessages} from "../../components/MessageList/chatsSlice";
+import {switchMessagesCheckMode, messagesSearchQuery, selectChatMessages, removeMessagesAsync} from "../../components/MessageList/chatsSlice";
 import PopoverAction from "../../components/PopoverAction";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
@@ -26,16 +26,27 @@ function Chat() {
     const contactSelector = getContactByIdSelector(chatId);
     const contact = useSelector(contactSelector);
     const dispatch = useDispatch();
+    const removeAllMessages = () => removeMessagesAsync(chatId)(dispatch);
+    const switchCheckMode = () => {
+        const action = switchMessagesCheckMode({chatId});
+        dispatch(action);
+    };
 
     if (!chatId || !contact) return <NotFound/>;
 
     const renderPopover = (onClose: VoidFunction) => (
         <List>
             <MenuListItem
-                primary="select messages"
+                primary="Select messages"
                 onClick={() => {
-                    const action = switchMessagesCheckMode({chatId});
-                    dispatch(action);
+                    switchCheckMode();
+                    onClose();
+                }}
+            />
+            <MenuListItem
+                primary="Clear chat"
+                onClick={() => {
+                    removeAllMessages();
                     onClose();
                 }}
             />

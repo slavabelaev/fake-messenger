@@ -4,7 +4,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import {DeleteOutline} from "@material-ui/icons";
 import {makeStyles} from "@material-ui/core/styles";
 import {NavLink} from "react-router-dom";
 import Badge from "@material-ui/core/Badge";
@@ -47,8 +46,7 @@ function ContactListItem(props: ContactListItemProps) {
                 renderPopover={(onClose) => (
                     <List>
                         <MenuListItem
-                            icon={<DeleteOutline/>}
-                            primary="Delete contact"
+                            primary="Delete"
                             onClick={() => {
                                 props.onDelete && props.onDelete();
                                 onClose();

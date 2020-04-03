@@ -12,7 +12,7 @@ export const fetchMessages = async (skip = 0, limit = 12): Promise<FetchList<Mes
     items: Array(limit).fill(null).map(fakerService.message)
 });
 
-export const insertMessage = async (createdBy: User['id'], messageText: Message['text']): Promise<Message | ErrorResponse> => {
+export const addMessage = async (createdBy: User['id'], messageText: Message['text']): Promise<Message | ErrorResponse> => {
     const message = fakerService.message();
     message.text = messageText;
     message.createdBy = createdBy;
@@ -20,4 +20,4 @@ export const insertMessage = async (createdBy: User['id'], messageText: Message[
     return message;
 };
 
-export const deleteMessages = async (ids: Message['id'][]): Promise<boolean | ErrorResponse> => true;
+export const removeMessages = async (ids?: Message['id'][]): Promise<boolean | ErrorResponse> => true;

@@ -2,16 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2bced0f8-5b67-4547-8bea-bcee85b3aa46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/ActionSnackbar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/statusSlice.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/rootReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/rootReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachmentLinkList/attachmentLinksSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentLinkList/attachmentLinksSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachmentList/attachmentsSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentList/attachmentsSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ContactList/contactsSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContactList/contactsSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ContactList/ContactListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContactList/ContactListItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MenuListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MenuListItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MessageList/chatsSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageList/chatsSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Contacts/Contacts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contacts/Contacts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MessageList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageList/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SendMessageToolbar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SendMessageToolbar/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/messageService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/messageService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Chat/Chat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Chat/Chat.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +94,7 @@
       <workItem from="1585305810967" duration="15519000" />
       <workItem from="1585419351186" duration="10208000" />
       <workItem from="1585573368996" duration="53322000" />
-      <workItem from="1585913183258" duration="19587000" />
+      <workItem from="1585913183258" duration="22358000" />
     </task>
     <servers />
   </component>
@@ -150,19 +148,19 @@
     </state>
     <state x="279" y="58" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585139706244" />
     <state x="262" y="80" key="SettingsEditor/0.23.1440.806@0.23.1440.806" timestamp="1585928409038" />
-    <state x="444" y="187" width="837" height="550" key="find.popup" timestamp="1585949729947">
+    <state x="444" y="187" width="837" height="550" key="find.popup" timestamp="1585953464373">
       <screen x="0" y="23" width="1440" height="806" />
     </state>
     <state x="474" y="168" width="711" height="546" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1585830789006" />
-    <state x="444" y="187" width="837" height="550" key="find.popup/0.23.1440.806@0.23.1440.806" timestamp="1585949729947" />
+    <state x="444" y="187" width="837" height="550" key="find.popup/0.23.1440.806@0.23.1440.806" timestamp="1585953464373" />
     <state x="425" y="187" key="run.anything.popup" timestamp="1585774461938">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1585774461938" />
-    <state x="404" y="165" width="670" height="664" key="search.everywhere.popup" timestamp="1585945246536">
+    <state x="404" y="165" width="670" height="664" key="search.everywhere.popup" timestamp="1585953393960">
       <screen x="0" y="23" width="1440" height="806" />
     </state>
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1585658472207" />
-    <state x="404" y="165" width="670" height="664" key="search.everywhere.popup/0.23.1440.806@0.23.1440.806" timestamp="1585945246536" />
+    <state x="404" y="165" width="670" height="664" key="search.everywhere.popup/0.23.1440.806@0.23.1440.806" timestamp="1585953393960" />
   </component>
 </project>
