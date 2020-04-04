@@ -49,7 +49,7 @@ function Chat() {
     const renderPopover = (onClose: VoidFunction) => (
         <List>
             <MenuListItem
-                primary="Select messages"
+                primary={checkModeEnabled ? 'Cancel select' : 'Select messages'}
                 onClick={() => {
                     switchCheckMode();
                     onClose();

@@ -7,6 +7,8 @@ import {RootState} from "../../app/rootReducer";
 import {ErrorResponse, FetchList} from "../../interfaces/Service";
 import {User} from "../../models/User";
 import {setStatusError} from "../../app/statusSlice";
+import {Attachment} from "../../models/Attachment";
+import {AttachmentLink} from "../../models/AttachmentLink";
 
 export interface ChatMessagesState {
     messages: Message[] | null;
@@ -117,9 +119,26 @@ const chatsSlice = createSlice({
     }
 });
 
-export const selectChatMessages = (id?: Chat['id']) => (state: RootState): ChatMessagesState => {
-    if (!id) return itemInitialState;
+export const selectChatMessages = (id: Chat['id']) => (state: RootState): ChatMessagesState => {
     return state.chats[id] || itemInitialState;
+};
+
+export const selectChatAttachments = (id: Chat['id']) => (state: RootState): Attachment[] => {
+    const chat = state.chats[id];
+    if (!chat) return [];
+
+    const messagesWithAttachments = chat.messages?.filter(item => item.attachmentFile !== undefined);
+    const attachments = messagesWithAttachments?.map(item => item.attachmentFile);
+    return attachments as Attachment[];
+};
+
+export const selectChatAttachmentLinks = (id: Chat['id']) => (state: RootState): AttachmentLink[] => {
+    const chat = state.chats[id];
+    if (!chat) return [];
+
+    const messagesWithAttachments = chat.messages?.filter(item => item.attachmentLink !== undefined);
+    const attachments = messagesWithAttachments?.map(item => item.attachmentLink);
+    return attachments as AttachmentLink[];
 };
 
 export const {

@@ -7,4 +7,5 @@ export interface User extends Model {
     email: string;
     phoneNumber: string;
     dateOfBirth: Date;
+    bio: string;
 }

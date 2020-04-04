@@ -29,7 +29,8 @@ export const fakerService: FakerService = {
             lastVisitAt: faker.date.recent(0),
             dateOfBirth: faker.date.past(faker.random.number({ min: 18, max: 65 })),
             inBlackList: false,
-            notificationsEnabled: true
+            notificationsEnabled: true,
+            bio: faker.lorem.sentence()
         })
     },
     message: () => {
@@ -74,7 +75,8 @@ export const fakerService: FakerService = {
             phoneNumber: faker.phone.phoneNumber(),
             avatarUrl: faker.image.avatar(),
             isOnline: faker.random.boolean(),
-            dateOfBirth: faker.date.past(faker.random.number({ min: 18, max: 65 }))
+            dateOfBirth: faker.date.past(faker.random.number({ min: 18, max: 65 })),
+            bio: faker.lorem.sentence()
         })
     }
 };

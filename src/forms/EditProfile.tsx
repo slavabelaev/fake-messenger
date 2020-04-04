@@ -89,6 +89,17 @@ function EditProfile(props: EditProfileProps) {
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
+                        name="bio"
+                        variant="outlined"
+                        size="small"
+                        label="Bio"
+                        placeholder="A few words about yourself"
+                        defaultValue={user?.bio}
+                        fullWidth
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
                         name="email"
                         type="email"
                         variant="outlined"

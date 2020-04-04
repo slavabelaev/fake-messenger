@@ -1,12 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import AttachmentList from "./AttachmentList";
 import {Attachment} from "../../models/Attachment";
 import {AttachmentListItemProps} from "./AttachmentListItem";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchAttachmentsAsync, selectAttachments} from "./attachmentsSlice";
-import ErrorMessage from "../../layout/ErrorMessage";
-import Loading from "../../layout/Loading";
+import {useSelector} from "react-redux";
 import {Chat} from "../../models/Chat";
+import {selectChatAttachments} from "../MessageList/chatsSlice";
+import Empty from "../Empty";
 
 const mapAttachmentToItemProps = (attachment: Attachment): AttachmentListItemProps => ({
     name: attachment.name,
@@ -21,21 +20,16 @@ export interface AttachmentListContainerProps {
 }
 
 function AttachmentListContainer({ chatId }: AttachmentListContainerProps) {
-    const { error, items, loading } = useSelector(selectAttachments);
-    const dispatch = useDispatch();
+    const selectAttachments = selectChatAttachments(chatId);
+    const attachments = useSelector(selectAttachments);
 
-    useEffect(() => {
-        fetchAttachmentsAsync()(dispatch);
-    }, [dispatch]);
-
-    if (loading) return <Loading/>;
-    if (error) return <ErrorMessage/>;
+    if (!attachments.length) return <Empty/>;
 
     return (
         <AttachmentList
-            itemCount={items.length}
-            getItem={index => mapAttachmentToItemProps(items[index])}
-            getItemKey={index => items[index].id}
+            itemCount={attachments.length}
+            getItem={index => mapAttachmentToItemProps(attachments[index])}
+            getItemKey={index => attachments[index].id}
         />
     );
 }

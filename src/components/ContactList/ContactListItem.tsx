@@ -19,6 +19,7 @@ export interface ContactListItemProps {
         text: ListItemTextProps['secondary'];
         delivered: MessageReadStatusProps['delivered'];
         read: MessageReadStatusProps['read'];
+        createdAt: Date;
     };
     isOnline: boolean;
     inBlackList?: boolean;

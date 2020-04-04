@@ -65,6 +65,10 @@ function ContactProfile(props: ContactProfileProps) {
                     primary="Date of Birth"
                     secondary={contact?.dateOfBirth.toLocaleDateString()}
                 />
+                <DetailListItem
+                    primary="Bio"
+                    secondary={contact?.bio}
+                />
             </List>
         </View>
     );

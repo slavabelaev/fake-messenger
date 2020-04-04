@@ -7,6 +7,7 @@ import {ContactListItemProps} from "./ContactListItem";
 import {CHAT_ROUTE_PATH} from "../../views/Chat";
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
+import Empty from "../Empty";
 
 export const mapContactToItemProps = (contact: Contact): ContactListItemProps => ({
     fullName: `${contact.firstName} ${contact.lastName}`,
@@ -14,7 +15,8 @@ export const mapContactToItemProps = (contact: Contact): ContactListItemProps =>
     lastMessage: {
         text: contact.lastMessage.text,
         delivered: contact.lastMessage.delivered,
-        read: contact.lastMessage.read
+        read: contact.lastMessage.read,
+        createdAt: contact.lastMessage.createdAt
     },
     isOnline: contact.isOnline,
     inBlackList: contact.inBlackList,
@@ -32,6 +34,7 @@ function ContactListContainer() {
 
     if (loading) return <Loading/>;
     if (error) return <ErrorMessage/>;
+    if (!contacts.length) return <Empty/>;
 
     return (
         <ContactList

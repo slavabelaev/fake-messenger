@@ -7,6 +7,7 @@ import {MessageListItemProps} from "./MessageListItem";
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
 import {Chat} from "../../models/Chat";
+import Empty from "../Empty";
 
 export interface MessageListContainerProps {
     chatId: Chat['id'];
