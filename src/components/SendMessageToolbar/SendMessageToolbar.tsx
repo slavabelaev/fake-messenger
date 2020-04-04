@@ -14,6 +14,7 @@ export interface SendMessageToolbarProps {
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
+    root: {},
     messageField: {
         marginTop: theme.spacing(1.5),
         marginBottom: theme.spacing(1.5),
@@ -122,7 +123,7 @@ function SendMessageToolbar({ onSubmit }: SendMessageToolbarProps) {
     );
 
     return (
-        <div>
+        <div className={classes.root}>
             {emojiList}
             <Toolbar>
                 {messageField}

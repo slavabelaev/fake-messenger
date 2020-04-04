@@ -13,6 +13,9 @@ export interface ViewToolbarProps {
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
+    root: {
+        background: theme.palette.background.paper
+    },
     title: {
         marginRight: 'auto'
     }
@@ -40,7 +43,7 @@ function LayoutToolbar(props: ViewToolbarProps) {
     );
 
     return (
-        <Toolbar>
+        <Toolbar className={classes.root}>
             {backButton}
             {title}
             {props.endAction}

@@ -13,26 +13,37 @@ import View from "../../layout/View";
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
 import {Chat} from "../../models/Chat";
-import {Container} from "@material-ui/core";
+import {Container, createStyles, Theme} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 
 export interface MessageListContainerProps {
     chatId: Chat['id'];
 }
 
-const mapMessageToItemProps = (message: Message): MessageListItemProps => ({
-    key: message.id,
-    text: message?.text,
-    delivered: message.delivered,
-    read: message.read,
-    createdAt: message.createdAt
-});
+const mapMessageToItemProps = (message: Message): MessageListItemProps => {
+    const messageFromMe = Math.random() > .5;
+    return ({
+        key: message.id,
+        text: message?.text,
+        delivered: message.delivered,
+        read: message.read,
+        createdAt: message.createdAt,
+        direction: messageFromMe ? 'right' : 'left',
+        color: messageFromMe ? 'primary' : 'default'
+    })
+};
 
 const getMessagesFilter = (searchQuery: string) => (item: Message) => {
     const query = searchQuery.toLowerCase();
     return item.text.toLowerCase().includes(query);
 };
 
+const useStyles = makeStyles((theme: Theme) => createStyles({
+    content: {}
+}));
+
 function MessageListContainer({ chatId }: MessageListContainerProps) {
+    const classes = useStyles();
     const { error, searchQuery, checkModeEnabled, messages: allMessages, loading } = useSelector(selectChatMessages(chatId));
     const [checkedIds, setCheckedIds] = useState<Message['id'][]>([]);
     const messagesFilter = getMessagesFilter(searchQuery);
@@ -99,6 +110,7 @@ function MessageListContainer({ chatId }: MessageListContainerProps) {
     return (
         <View
             footer={toolbar}
+            className={classes.content}
         >
             <Container
                 maxWidth="sm"

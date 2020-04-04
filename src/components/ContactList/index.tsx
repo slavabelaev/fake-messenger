@@ -18,6 +18,7 @@ export const mapContactToItemProps = (contact: Contact): ContactListItemProps =>
         read: contact.lastMessage.read
     },
     isOnline: contact.isOnline,
+    inBlackList: contact.inBlackList,
     to: CHAT_ROUTE_PATH.replace(':id', contact.id)
 });
 

@@ -10,6 +10,8 @@ import MessageReadStatus, {MessageReadStatusProps} from "./MessageReadStatus";
 export interface MessageListItemProps {
     key?: Key;
     variant?: 'default' | 'checkbox';
+    direction?: 'right' | 'left';
+    color?: 'primary' | 'default';
     text: ListItemTextProps['secondary'];
     delivered?: MessageReadStatusProps['delivered'];
     read?: MessageReadStatusProps['read'];
@@ -17,23 +19,73 @@ export interface MessageListItemProps {
     CheckboxProps?: CheckboxProps;
 }
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
-    status: {
-        display: 'inline-flex',
-        alignItems: 'center'
-    }
-}));
+const useStyles = (color: MessageListItemProps['color']) => makeStyles((theme: Theme) => {
+    const bgColor = color === 'primary'
+        ? theme.palette.primary.main
+        : theme.palette.background.paper;
+    const textColor = color === 'primary'
+        ? theme.palette.getContrastText(bgColor)
+        : 'inherit';
+    return createStyles({
+        directionRight: {
+            justifyContent: 'flex-end'
+        },
+        directionLeft: {
+            justifyContent: 'flex-start'
+        },
+        message: {
+            position: 'relative',
+            maxWidth: '90%',
+            backgroundColor: bgColor,
+            color: textColor,
+            padding: theme.spacing(1),
+            borderRadius: theme.shape.borderRadius
+        },
+        status: {
+            display: 'inline-flex',
+            alignItems: 'center',
+            color: textColor
+        },
+        listItemText: {
+            margin: 0
+        },
+        tailRight: {
+            position: 'absolute',
+            right: -theme.spacing(2) + theme.shape.borderRadius,
+            top: 0,
+            display: 'block',
+            borderWidth: theme.spacing(1),
+            borderColor: bgColor,
+            borderStyle: 'solid',
+            borderRightColor: 'transparent',
+            borderBottomColor: 'transparent'
+        },
+        tailLeft: {
+            position: 'absolute',
+            left: -theme.spacing(2) + theme.shape.borderRadius,
+            top: 0,
+            display: 'block',
+            borderWidth: theme.spacing(1),
+            borderColor: bgColor,
+            borderStyle: 'solid',
+            borderLeftColor: 'transparent',
+            borderBottomColor: 'transparent'
+        },
+    })
+});
 
 function MessageListItem({
     key,
     variant = 'default',
+    direction = 'right',
+    color = 'default',
     text,
     delivered,
     read,
     createdAt,
     CheckboxProps
 }: MessageListItemProps) {
-    const classes = useStyles();
+    const classes = useStyles(color)();
 
     const primary = (
         <Typography
@@ -46,6 +98,7 @@ function MessageListItem({
     const secondary = (
         <Typography
             variant="caption"
+            color="inherit"
         >
             {createdAt.toLocaleTimeString().substring(0, 5)}
         </Typography>
@@ -68,22 +121,35 @@ function MessageListItem({
         />
     );
 
+    const messageTail = direction === 'right'
+        ? <div className={classes.tailRight} />
+        : <div className={classes.tailLeft} />;
+
+    const className = direction === 'right'
+        ? classes.directionRight
+        : classes.directionLeft;
     return (
         <ListItem
+            className={className}
+            disableGutters
             key={key}
             dense
             selected={CheckboxProps?.checked}
         >
             {listItemIcon}
-            <ListItemText
-                primary={primary}
-                secondary={
-                    <span className={classes.status}>
-                        {messageStatus}
-                        {secondary}
-                    </span>
-                }
-            />
+            <div className={classes.message}>
+                <ListItemText
+                    className={classes.listItemText}
+                    primary={primary}
+                    secondary={
+                        <span className={classes.status}>
+                            {messageStatus}
+                            {secondary}
+                        </span>
+                    }
+                />
+                {messageTail}
+            </div>
         </ListItem>
     );
 }

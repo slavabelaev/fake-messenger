@@ -18,11 +18,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         flex: 'auto'
     },
     toolbar: {
+        backgroundColor: theme.palette.background.paper,
         borderBottomColor: theme.palette.divider,
         borderBottomStyle: 'solid',
         borderBottomWidth: 1
     },
     footer: {
+        backgroundColor: theme.palette.background.paper,
         borderTopColor: theme.palette.divider,
         borderTopStyle: 'solid',
         borderTopWidth: 1

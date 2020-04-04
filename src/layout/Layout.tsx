@@ -74,7 +74,6 @@ function Layout(props: LayoutProps) {
 
     return (
         <div className={classes.root}>
-            {/*{appBar}*/}
             <div className={classes.content}>
                 {leftSide}
                 {main}

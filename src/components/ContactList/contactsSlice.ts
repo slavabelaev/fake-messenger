@@ -110,7 +110,7 @@ export const addContactAsync = (id: Contact['id']) => (dispatch: Dispatch<any>) 
             const contact = fakerService.contact();
             const action = addOneContact(contact);
             dispatch(action);
-            const statusMessage = `${contact.firstName} ${contact.lastName} added contacts`;
+            const statusMessage = `${contact.firstName} ${contact.lastName} added to contacts`;
             const statusAction = setStatusMessage(statusMessage);
             dispatch(statusAction);
         })

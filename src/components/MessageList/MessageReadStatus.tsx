@@ -9,38 +9,36 @@ export interface MessageReadStatusProps {
     gutterRight?: boolean;
 }
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = (props: MessageReadStatusProps) => makeStyles((theme: Theme) => createStyles({
     root: {
         display: 'inline-flex',
-        alignItems: 'center'
-    },
-    gutterRight: {
-        marginRight: theme.spacing(.25)
+        alignItems: 'center',
+        marginRight: props.gutterRight
+            ? theme.spacing(.25)
+            : 0
     },
     deliveredIcon: {
-        zIndex: 1
+        zIndex: 1,
+        opacity: props.delivered ? 1 : .25
     },
     readIcon: {
-        marginLeft: -theme.spacing(1)
+        marginLeft: -theme.spacing(1),
+        opacity: props.read ? 1 : .25
     },
 }));
 
 function MessageReadStatus(props: MessageReadStatusProps) {
-    const classes = useStyles();
-    const className = [
-        classes.root,
-        props.gutterRight ? classes.gutterRight : ''
-    ].join(' ');
+    const classes = useStyles(props)();
     return (
-        <span className={className}>
+        <span className={classes.root}>
             <Check
                 className={classes.deliveredIcon}
-                color={props.delivered ? 'primary' : 'disabled'}
+                color="inherit"
                 fontSize="inherit"
             />
             <Check
                 className={classes.readIcon}
-                color={props.read ? 'primary' : 'disabled'}
+                color="inherit"
                 fontSize="inherit"
             />
         </span>
