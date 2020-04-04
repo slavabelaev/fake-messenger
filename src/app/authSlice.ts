@@ -4,6 +4,7 @@ import {signInWithLoginAndPassword, updateUserProfile} from "../services/authSer
 import {ErrorResponse} from "../interfaces/Service";
 import {Dispatch} from "react";
 import {RootState} from "./rootReducer";
+import {setStatusError} from "./statusSlice";
 
 export interface AuthState {
     loading: boolean;
@@ -57,30 +58,33 @@ export const signIn = (login: string, password: string) => (dispatch: Dispatch<a
     dispatch(authRequest());
     signInWithLoginAndPassword(login, password)
         .then((response) => {
-            const failureResponse = response as ErrorResponse;
-            if (failureResponse.errors) throw Error();
-            const successResponse = response as AuthUser;
-            const action = authSuccess(successResponse);
+            const errors = (response as ErrorResponse).errors;
+            if (errors) throw Error(errors[0]);
+            const authUser = response as AuthUser;
+            const action = authSuccess(authUser);
             dispatch(action);
         })
         .catch(error => {
             const action = authFailure();
             dispatch(action);
+            const statusAction = setStatusError(error);
+            dispatch(statusAction);
         })
 };
 
 export const updateUserProfileAsync = (changes: UserProfile) => async (dispatch: Dispatch<any>) => {
-    dispatch(authRequest());
     updateUserProfile(changes)
         .then(response => {
-            const failedResponse = response as ErrorResponse;
-            if (failedResponse.errors) throw new Error();
+            const errors = (response as ErrorResponse).errors;
+            if (errors) throw new Error(errors[0]);
             const action = updateProfile(changes);
             dispatch(action);
         })
         .catch(error => {
             const action = authFailure();
             dispatch(action);
+            const statusAction = setStatusError(error);
+            dispatch(statusAction);
         })
 };
 

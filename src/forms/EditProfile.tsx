@@ -1,26 +1,47 @@
-import React from "react";
+import React, {ChangeEvent, useState} from "react";
 import {Grid} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import {useSelector} from "react-redux";
-import {selectAuth} from "../app/authSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {selectAuth, updateUserProfileAsync} from "../app/authSlice";
 import Avatar from "@material-ui/core/Avatar";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import {AuthUser, UserProfile} from "../models/AuthUser";
 
 export interface EditProfileProps {}
 
+type FieldName = 'firstName' | 'lastName' | 'avatarUrl' | 'email' | 'phoneNumber' | 'bio' | 'dateOfBirth';
+
 function EditProfile(props: EditProfileProps) {
     const {user} = useSelector(selectAuth);
+    const dispatch = useDispatch();
+    const [profile, setProfile] = useState<UserProfile>({
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        avatarUrl: user?.avatarUrl,
+        email: user?.email,
+        phoneNumber: user?.phoneNumber,
+        bio: user?.bio,
+        dateOfBirth: user?.dateOfBirth
+    });
+    const getChangeHandler = (fieldName: FieldName) => (event: ChangeEvent<HTMLInputElement>) => setProfile({
+        ...profile,
+        [fieldName]: event.target.value
+    });
 
     return (
-        <form onSubmit={console.log}>
+        <form onSubmit={event => {
+            event.preventDefault();
+            updateUserProfileAsync(profile)(dispatch);
+        }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <TextField
                         variant="outlined"
                         size="small"
                         label="Avatar"
-                        defaultValue={user?.avatarUrl}
+                        value={profile.avatarUrl}
+                        onChange={getChangeHandler('avatarUrl')}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -59,7 +80,9 @@ function EditProfile(props: EditProfileProps) {
                         variant="outlined"
                         size="small"
                         label="First Name"
-                        defaultValue={user?.firstName}
+                        required
+                        value={profile.firstName}
+                        onChange={getChangeHandler('firstName')}
                         fullWidth
                     />
                 </Grid>
@@ -69,7 +92,9 @@ function EditProfile(props: EditProfileProps) {
                         variant="outlined"
                         size="small"
                         label="Last Name"
-                        defaultValue={user?.lastName}
+                        required
+                        value={profile.lastName}
+                        onChange={getChangeHandler('lastName')}
                         fullWidth
                     />
                 </Grid>
@@ -83,7 +108,9 @@ function EditProfile(props: EditProfileProps) {
                         InputLabelProps={{
                             shrink: true
                         }}
-                        defaultValue={user?.dateOfBirth.toISOString().split('T')[0]}
+                        required
+                        value={profile.dateOfBirth?.toISOString().split('T')[0]}
+                        //onChange={getChangeHandler('dateOfBirth')}
                         fullWidth
                     />
                 </Grid>
@@ -94,7 +121,9 @@ function EditProfile(props: EditProfileProps) {
                         size="small"
                         label="Bio"
                         placeholder="A few words about yourself"
-                        defaultValue={user?.bio}
+                        required
+                        value={profile.bio}
+                        onChange={getChangeHandler('bio')}
                         fullWidth
                     />
                 </Grid>
@@ -105,7 +134,9 @@ function EditProfile(props: EditProfileProps) {
                         variant="outlined"
                         size="small"
                         label="Email"
-                        defaultValue={user?.email}
+                        required
+                        value={profile.email}
+                        onChange={getChangeHandler('email')}
                         fullWidth
                     />
                 </Grid>
@@ -115,7 +146,9 @@ function EditProfile(props: EditProfileProps) {
                         variant="outlined"
                         size="small"
                         label="Phone number"
-                        defaultValue={user?.phoneNumber}
+                        required
+                        value={profile.phoneNumber}
+                        onChange={getChangeHandler('phoneNumber')}
                         fullWidth
                     />
                 </Grid>
