@@ -2,19 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2bced0f8-5b67-4547-8bea-bcee85b3aa46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Empty.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachmentLinkList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentLinkList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachmentList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ContactList/ContactListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContactList/ContactListItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ContactList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContactList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MessageList/chatsSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageList/chatsSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MessageList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/forms/EditProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/forms/EditProfile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/User.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/fakerService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/fakerService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Chat/Chat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Chat/Chat.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/ContactProfile/ContactProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ContactProfile/ContactProfile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/rootReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/rootReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AttachmentLinkList/attachmentLinksSlice.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AttachmentList/attachmentsSlice.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Empty.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Empty.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +91,7 @@
       <workItem from="1585305810967" duration="15519000" />
       <workItem from="1585419351186" duration="10208000" />
       <workItem from="1585573368996" duration="53322000" />
-      <workItem from="1585913183258" duration="46099000" />
+      <workItem from="1585913183258" duration="46311000" />
     </task>
     <servers />
   </component>
@@ -119,10 +111,11 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="449" y="143" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.824@0.0.1536.824" timestamp="1585573372697" />
-    <state x="468" y="183" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1585916364215">
-      <screen x="0" y="23" width="1440" height="814" />
+    <state x="468" y="182" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1586037122131">
+      <screen x="0" y="23" width="1440" height="811" />
     </state>
     <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1585219343789" />
+    <state x="468" y="182" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.811@0.23.1440.811" timestamp="1586037122131" />
     <state x="468" y="183" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.814@0.23.1440.814" timestamp="1585916364215" />
     <state width="1379" height="239" key="GridCell.Tab.0.bottom" timestamp="1586033458715">
       <screen x="0" y="23" width="1440" height="811" />

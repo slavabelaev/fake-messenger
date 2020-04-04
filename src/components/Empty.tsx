@@ -2,7 +2,7 @@ import React, {ReactNode} from "react";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {Typography} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-import {Archive} from "@material-ui/icons";
+import {Search} from "@material-ui/icons";
 
 export interface EmptyProps {
     primary?: string;
@@ -38,7 +38,7 @@ function Empty({
             className={classes.root}
         >
             <Avatar className={classes.avatar}>
-                <Archive fontSize="inherit" />
+                <Search fontSize="inherit" />
             </Avatar>
             <Typography variant="h6">
                 {primary}
