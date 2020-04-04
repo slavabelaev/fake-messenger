@@ -14,11 +14,7 @@ import {addContactAsync, contactsSearchQuery} from '../../components/ContactList
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
 import Typography from "@material-ui/core/Typography";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import {makeStyles} from "@material-ui/core/styles";
-
-const CHATS_TAB_VALUE = 0;
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
@@ -33,7 +29,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function Contacts() {
     const classes = useStyles();
-    const [tabsValue, setTabsValue] = useState(CHATS_TAB_VALUE);
     const { error, loading, user } = useSelector(selectAuth);
     const dispatch = useDispatch();
 
@@ -62,23 +57,6 @@ function Contacts() {
         dispatch(action);
     };
 
-    const tabs = (
-        <Tabs
-            variant="fullWidth"
-            textColor="primary"
-            indicatorColor="primary"
-            value={tabsValue}
-            onChange={(event, value) => setTabsValue(value)}
-        >
-            <Tab
-                label="Chats"
-            />
-            <Tab
-                label="Contacts"
-            />
-        </Tabs>
-    );
-
     const statusText = user.isOnline
         ? (
             <Typography
@@ -90,22 +68,19 @@ function Contacts() {
         )
         : 'Offline';
     const toolbar = (
-        <div>
-            <ListItemToolbar
-                primary={`${user.firstName} ${user.lastName}`}
-                secondary={statusText}
-                avatarSrc={user.avatarUrl}
-                avatarTo={PROFILE_ROUTE_PATH}
-                endAction={settingsButton}
-                SearchInputBaseProps={{
-                    placeholder: 'Search ' + (tabsValue === 0 ? 'chats' : 'contacts'),
-                    onChange: handleSearch,
-                    onClear: handleReset,
-                    onBack: handleReset
-                }}
-            />
-            {tabs}
-        </div>
+        <ListItemToolbar
+            primary={`${user.firstName} ${user.lastName}`}
+            secondary={statusText}
+            avatarSrc={user.avatarUrl}
+            avatarTo={PROFILE_ROUTE_PATH}
+            endAction={settingsButton}
+            SearchInputBaseProps={{
+                placeholder: 'Search contacts',
+                onChange: handleSearch,
+                onClear: handleReset,
+                onBack: handleReset
+            }}
+        />
     );
 
     const addButton = (
