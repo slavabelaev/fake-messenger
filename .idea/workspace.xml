@@ -4,7 +4,6 @@
     <list default="true" id="2bced0f8-5b67-4547-8bea-bcee85b3aa46" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SendMessageToolbar/SendMessageToolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SendMessageToolbar/SendMessageToolbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/messageService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/messageService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +88,7 @@
       <workItem from="1585305810967" duration="15519000" />
       <workItem from="1585419351186" duration="10208000" />
       <workItem from="1585573368996" duration="53322000" />
-      <workItem from="1585913183258" duration="40949000" />
+      <workItem from="1585913183258" duration="42132000" />
     </task>
     <servers />
   </component>

@@ -35,13 +35,21 @@ function SendMessageToolbar({ onSubmit }: SendMessageToolbarProps) {
     const classes = useStyles();
     const [emojiOpen, setEmojiOpen] = useState<boolean>(false);
     const [message, setMessage] = useState<string>('');
-    const [maxRows, setMaxRows] = useState<number>(1);
     const handleEmojiOpen = () => setEmojiOpen(!emojiOpen);
     const handleSubmit = () => {
         onSubmit && onSubmit(message);
         setMessage('');
-        setMaxRows(1);
         setEmojiOpen(false);
+    };
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => setMessage(event.target.value);
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        const { keyCode, ctrlKey } = event;
+        if (keyCode === ENTER_KEY_CODE && ctrlKey) {
+            setMessage(message + '\n');
+        } else if (message && keyCode === ENTER_KEY_CODE) {
+            event.preventDefault();
+            handleSubmit();
+        }
     };
 
     const sendButton = (
@@ -97,17 +105,11 @@ function SendMessageToolbar({ onSubmit }: SendMessageToolbarProps) {
         <div className={classes.messageField}>
             <TextField
                 value={message}
-                onKeyDown={({ keyCode, ctrlKey }) => {
-                    if (keyCode === ENTER_KEY_CODE && ctrlKey) {
-                        if (maxRows < 3) setMaxRows(maxRows + 1);
-                        setMessage(message + '\n');
-                    } else if (message && keyCode === ENTER_KEY_CODE)
-                        handleSubmit();
-                }}
-                onChange={event => setMessage(event.target.value)}
+                onKeyDown={handleKeyDown}
+                onChange={handleChange}
                 multiline
                 autoFocus
-                rowsMax={maxRows}
+                rowsMax={3}
                 variant="outlined"
                 size="small"
                 placeholder="Enter message"
