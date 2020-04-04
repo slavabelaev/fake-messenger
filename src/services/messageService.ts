@@ -17,6 +17,7 @@ export const addMessage = async (createdBy: User['id'], messageText: Message['te
     message.text = messageText;
     message.createdBy = createdBy;
     message.createdAt = new Date();
+    message.createdByMe = true;
     return message;
 };
 

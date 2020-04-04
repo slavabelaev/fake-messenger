@@ -2,34 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2bced0f8-5b67-4547-8bea-bcee85b3aa46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/ListView.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/authSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/authSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachmentLinkList/AttachmentLinkList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentLinkList/AttachmentLinkList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachmentLinkList/AttachmentLinkListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentLinkList/AttachmentLinkListItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachmentLinkList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentLinkList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachmentList/AttachmentList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentList/AttachmentList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachmentList/AttachmentListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentList/AttachmentListItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachmentList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ContactList/ContactList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContactList/ContactList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ContactList/ContactListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContactList/ContactListItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ContactList/contactsSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContactList/contactsSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ContactList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContactList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ListItemToolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListItemToolbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MessageList/MessageList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageList/MessageList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MessageList/MessageListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageList/MessageListItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MessageList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SettingList/settings/DarkThemeSwitch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SettingList/settings/DarkThemeSwitch.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SettingList/settingsSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SettingList/settingsSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ThemeProvider/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ThemeProvider/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/forms/EditProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/forms/EditProfile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Chat/Chat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Chat/Chat.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/ContactProfile/BlackListContactSwitch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ContactProfile/BlackListContactSwitch.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/ContactProfile/ContactProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ContactProfile/ContactProfile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/ContactProfile/NotificationsContactSwitch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ContactProfile/NotificationsContactSwitch.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Contacts/Contacts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contacts/Contacts.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Welcome/Welcome.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Welcome/Welcome.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SendMessageToolbar/SendMessageToolbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SendMessageToolbar/SendMessageToolbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/messageService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/messageService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +89,7 @@
       <workItem from="1585305810967" duration="15519000" />
       <workItem from="1585419351186" duration="10208000" />
       <workItem from="1585573368996" duration="53322000" />
-      <workItem from="1585913183258" duration="39556000" />
+      <workItem from="1585913183258" duration="40949000" />
     </task>
     <servers />
   </component>

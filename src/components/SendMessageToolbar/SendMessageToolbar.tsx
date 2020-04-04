@@ -29,14 +29,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }));
 
+const ENTER_KEY_CODE = 13;
+
 function SendMessageToolbar({ onSubmit }: SendMessageToolbarProps) {
     const classes = useStyles();
-    const [emojiOpen, setEmojiOpen] = useState(false);
+    const [emojiOpen, setEmojiOpen] = useState<boolean>(false);
     const [message, setMessage] = useState<string>('');
+    const [maxRows, setMaxRows] = useState<number>(1);
     const handleEmojiOpen = () => setEmojiOpen(!emojiOpen);
     const handleSubmit = () => {
         onSubmit && onSubmit(message);
         setMessage('');
+        setMaxRows(1);
         setEmojiOpen(false);
     };
 
@@ -93,15 +97,17 @@ function SendMessageToolbar({ onSubmit }: SendMessageToolbarProps) {
         <div className={classes.messageField}>
             <TextField
                 value={message}
-                onKeyUp={(event) => (
-                    message &&
-                    event.keyCode === 13 &&
-                    event.ctrlKey &&
-                    handleSubmit()
-                )}
+                onKeyDown={({ keyCode, ctrlKey }) => {
+                    if (keyCode === ENTER_KEY_CODE && ctrlKey) {
+                        if (maxRows < 3) setMaxRows(maxRows + 1);
+                        setMessage(message + '\n');
+                    } else if (message && keyCode === ENTER_KEY_CODE)
+                        handleSubmit();
+                }}
                 onChange={event => setMessage(event.target.value)}
                 multiline
-                rowsMax={3}
+                autoFocus
+                rowsMax={maxRows}
                 variant="outlined"
                 size="small"
                 placeholder="Enter message"
