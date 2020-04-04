@@ -115,6 +115,20 @@ const chatsSlice = createSlice({
             const checked = chat.checkedIds.includes(messageId);
             if (checked) chat.checkedIds = chat.checkedIds.filter(id => id !== messageId);
             else chat.checkedIds.push(messageId);
+        },
+        removeAttachmentFiles(state, action: PayloadAction<{
+            chatId: Chat['id'];
+        }>) {
+            const {chatId} = action.payload;
+            const chat = state[chatId];
+            chat.messages?.forEach(item => item.attachmentFile = undefined);
+        },
+        removeAttachmentLinks(state, action: PayloadAction<{
+            chatId: Chat['id'];
+        }>) {
+            const {chatId} = action.payload;
+            const chat = state[chatId];
+            chat.messages?.forEach(item => item.attachmentLink = undefined);
         }
     }
 });
@@ -150,7 +164,9 @@ export const {
     switchCheckMode: switchMessagesCheckMode,
     removeMany: removeManyMessages,
     removeAll: removeAllMessages,
-    toggleCheck: toggleCheckMessage
+    toggleCheck: toggleCheckMessage,
+    removeAttachmentFiles,
+    removeAttachmentLinks
 } = chatsSlice.actions;
 
 export const addMessageAsync = (createdBy: User['id'], messageText: Message['text']) => (dispatch: Dispatch<any>) => {

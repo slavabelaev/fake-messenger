@@ -96,6 +96,7 @@ function SendMessageToolbar({ onSubmit }: SendMessageToolbarProps) {
             <input
                 id="attach-file"
                 type="file"
+                onChange={console.log}
                 hidden
             />
         </InputAdornment>
