@@ -1,24 +1,34 @@
-import React from "react";
-import List from "@material-ui/core/List";
+import React, {Key} from "react";
 import ContactListItem, {ContactListItemProps} from "./ContactListItem";
+import ListView from "../ListView";
 
 export interface ContactListProps {
     itemCount: number;
     getItem: (index: number) => ContactListItemProps;
+    getItemKey?: (index: number) => Key;
 }
 
-function ContactList(props: ContactListProps) {
-    const renderItem = (_: null, index: number) => (
-        <ContactListItem
-            key={index}
-            {...props.getItem(index)}
-        />
-    );
+function ContactList({
+    itemCount,
+    getItem,
+    getItemKey
+}: ContactListProps) {
+    const renderItem = (index: number) => {
+        const itemProps = getItem(index);
+        const itemKey = getItemKey ? getItemKey(index) : index;
+        return (
+            <ContactListItem
+                key={itemKey}
+                {...itemProps}
+            />
+        )
+    };
 
     return (
-        <List>
-            {Array(props.itemCount).fill(null).map(renderItem)}
-        </List>
+        <ListView
+            itemCount={itemCount}
+            renderItem={renderItem}
+        />
     )
 }
 

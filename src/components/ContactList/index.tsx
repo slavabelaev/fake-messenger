@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import ContactList from "./ContactList";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchContactsAsync, contactsSelector, selectFoundContacts, removeContactAsync} from "./contactsSlice";
+import {fetchContactsAsync, selectContacts, selectFoundContacts, removeContactAsync} from "./contactsSlice";
 import {Contact} from "../../models/Contact";
 import {ContactListItemProps} from "./ContactListItem";
 import {CHAT_ROUTE_PATH} from "../../views/Chat";
@@ -9,7 +9,6 @@ import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
 
 export const mapContactToItemProps = (contact: Contact): ContactListItemProps => ({
-    key: contact.id,
     fullName: `${contact.firstName} ${contact.lastName}`,
     avatarSrc: contact.avatarUrl,
     lastMessage: {
@@ -24,7 +23,7 @@ export const mapContactToItemProps = (contact: Contact): ContactListItemProps =>
 
 function ContactListContainer() {
     const contacts = useSelector(selectFoundContacts);
-    const {error, loading} = useSelector(contactsSelector);
+    const {error, loading} = useSelector(selectContacts);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -37,6 +36,7 @@ function ContactListContainer() {
     return (
         <ContactList
             itemCount={contacts.length}
+            getItemKey={index => contacts[index].id}
             getItem={index => {
                 const contact = contacts[index];
                 const itemProps = mapContactToItemProps(contact);

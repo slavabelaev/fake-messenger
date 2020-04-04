@@ -2,7 +2,7 @@ import React from 'react';
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {Typography} from "@material-ui/core";
 import {useSelector} from "react-redux";
-import {authSelector} from "../../app/authSlice";
+import {selectAuth} from "../../app/authSlice";
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
 import Avatar from "@material-ui/core/Avatar";
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function Welcome() {
     const classes = useStyles();
-    const { user, error, loading } = useSelector(authSelector);
+    const { user, error, loading } = useSelector(selectAuth);
 
     if (loading || !user) return <Loading/>;
     if (error) return <ErrorMessage/>;

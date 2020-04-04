@@ -9,7 +9,6 @@ import Loading from "../../layout/Loading";
 import {Chat} from "../../models/Chat";
 
 const mapAttachmentToItemProps = (attachment: Attachment): AttachmentListItemProps => ({
-    key: attachment.id,
     name: attachment.name,
     size: attachment.size,
     lastModified: attachment.lastModified,
@@ -35,7 +34,8 @@ function AttachmentListContainer({ chatId }: AttachmentListContainerProps) {
     return (
         <AttachmentList
             itemCount={items.length}
-            getItem={(index) => mapAttachmentToItemProps(items[index])}
+            getItem={index => mapAttachmentToItemProps(items[index])}
+            getItemKey={index => items[index].id}
         />
     );
 }

@@ -1,27 +1,34 @@
-import React from 'react';
-import List from "@material-ui/core/List";
+import React, {Key} from 'react';
 import MessageListItem, {MessageListItemProps} from "./MessageListItem";
+import ListView from "../ListView";
 
 export interface MessageListProps {
     itemCount: number;
     getItem: (index: number) => MessageListItemProps;
+    getItemKey?: (index: number) => Key;
 }
 
 function MessageList({
     itemCount,
-    getItem
+    getItem,
+    getItemKey
 }: MessageListProps) {
-    const renderItem = (_: null, index: number) => (
-        <MessageListItem
-            key={index}
-            {...getItem(index)}
-        />
-    );
+    const renderItem = (index: number) => {
+        const itemProps = getItem(index);
+        const itemKey = getItemKey ? getItemKey(index) : index;
+        return (
+            <MessageListItem
+                key={itemKey}
+                {...itemProps}
+            />
+        )
+    };
 
     return (
-        <List>
-            {Array(itemCount).fill(null).map(renderItem)}
-        </List>
+        <ListView
+            itemCount={itemCount}
+            renderItem={renderItem}
+        />
     );
 }
 

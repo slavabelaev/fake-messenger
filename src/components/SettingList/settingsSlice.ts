@@ -19,7 +19,7 @@ const settingsSlice = createSlice({
     }
 });
 
-export const settingsSelector = (state: RootState) => state.settings;
+export const selectSettings = (state: RootState) => state.settings;
 
 export const {
     enableDarkTheme

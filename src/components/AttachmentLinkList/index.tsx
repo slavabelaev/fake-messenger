@@ -9,7 +9,6 @@ import Loading from "../../layout/Loading";
 import {Chat} from "../../models/Chat";
 
 const mapLinkToItemProps = (link: AttachmentLink): AttachmentLinkListItemProps => ({
-    key: link.id,
     primary: link.title,
     secondary: link.description,
     avatarSrc: link.imageUrl,
@@ -34,7 +33,8 @@ function LinkListContainer({ chatId }: LinkListContainerProps) {
     return (
         <AttachmentLinkList
             itemCount={items.length}
-            getItem={(index) => mapLinkToItemProps(items[index])}
+            getItem={index => mapLinkToItemProps(items[index])}
+            getItemKey={index => items[index].id}
         />
     );
 }

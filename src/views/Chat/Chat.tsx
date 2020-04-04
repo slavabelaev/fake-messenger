@@ -5,7 +5,7 @@ import ListItemToolbar from "../../components/ListItemToolbar";
 import {useParams, Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {createStyles, IconButton, Theme} from "@material-ui/core";
-import {Attachment, Cancel, Delete} from "@material-ui/icons";
+import {Attachment, Delete} from "@material-ui/icons";
 import Tooltip from "@material-ui/core/Tooltip";
 import View from "../../layout/View";
 import {getContactByIdSelector} from "../../components/ContactList/contactsSlice";
@@ -35,8 +35,8 @@ function Chat() {
     const classes = useStyles();
     const { id: chatId = '' } = useParams();
     const { searchQuery, checkedIds, checkModeEnabled } = useSelector(selectChatMessages(chatId));
-    const contactSelector = getContactByIdSelector(chatId);
-    const contact = useSelector(contactSelector);
+    const selectContact = getContactByIdSelector(chatId);
+    const contact = useSelector(selectContact);
     const dispatch = useDispatch();
     const removeAllMessages = () => removeMessagesAsync(chatId)(dispatch);
     const switchCheckMode = () => {

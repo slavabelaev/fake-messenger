@@ -1,24 +1,34 @@
-import React from 'react';
+import React, {Key} from 'react';
 import AttachmentLinkListItem, {AttachmentLinkListItemProps} from "./AttachmentLinkListItem";
-import List from "@material-ui/core/List";
+import ListView from "../ListView";
 
 export interface AttachmentLinkListProps {
     itemCount: number;
     getItem: (index: number) => AttachmentLinkListItemProps;
+    getItemKey?: (index: number) => Key;
 }
 
-function AttachmentLinkList(props: AttachmentLinkListProps) {
-    const renderItem = (_: null, index: number) => (
-        <AttachmentLinkListItem
-            key={index}
-            {...props.getItem(index)}
-        />
-    );
+function AttachmentLinkList({
+    itemCount,
+    getItem,
+    getItemKey
+}: AttachmentLinkListProps) {
+    const renderItem = (index: number) => {
+        const itemProps = getItem(index);
+        const itemKey = getItemKey ? getItemKey(index) : index;
+        return (
+            <AttachmentLinkListItem
+                key={itemKey}
+                {...itemProps}
+            />
+        )
+    };
 
     return (
-        <List>
-            {Array(props.itemCount).fill(null).map(renderItem)}
-        </List>
+        <ListView
+            itemCount={itemCount}
+            renderItem={renderItem}
+        />
     );
 }
 

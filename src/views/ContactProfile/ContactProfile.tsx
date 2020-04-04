@@ -17,8 +17,8 @@ export interface ContactProfileProps {}
 
 function ContactProfile(props: ContactProfileProps) {
     const {id: contactId = ''} = useParams();
-    const contactSelector = getContactByIdSelector(contactId);
-    const contact = useSelector(contactSelector);
+    const selectContact = getContactByIdSelector(contactId);
+    const contact = useSelector(selectContact);
 
     if (!contactId) return <ErrorMessage text="No data" />
 

@@ -1,4 +1,4 @@
-import React, {Key} from "react";
+import React from "react";
 import {AvatarProps, createStyles, Theme} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import ListItem from "@material-ui/core/ListItem";
@@ -10,7 +10,6 @@ import {OpenInNew, Image} from "@material-ui/icons";
 import {makeStyles} from "@material-ui/core/styles";
 
 export interface AttachmentLinkListItemProps {
-    key?: Key;
     primary: string;
     secondary: string;
     to: string;
@@ -31,7 +30,6 @@ function AttachmentLinkListItem(props: AttachmentLinkListItemProps) {
 
     return (
         <ListItem
-            key={props.key}
             dense
             button
             component="a"

@@ -13,7 +13,6 @@ export interface MessageListContainerProps {
 }
 
 const mapMessageToItemProps = (message: Message): MessageListItemProps => ({
-    key: message.id,
     text: message?.text,
     delivered: message.delivered,
     read: message.read,
@@ -64,6 +63,7 @@ function MessageListContainer({ chatId }: MessageListContainerProps) {
         <MessageList
             itemCount={messages.length}
             getItem={getItem}
+            getItemKey={index => messages[index].id}
         />
     ) : null;
 }

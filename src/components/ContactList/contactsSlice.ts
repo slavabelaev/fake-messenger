@@ -64,17 +64,17 @@ const contactsSlice = createSlice({
     }
 });
 
-export const contactsSelector = (state: RootState) => state.contacts;
+export const selectContacts = (state: RootState) => state.contacts;
 
 export const {
     selectAll: selectAllContacts,
     selectById: selectContactById
-} = contactsAdapter.getSelectors<RootState>(contactsSelector);
+} = contactsAdapter.getSelectors<RootState>(selectContacts);
 
 export const getContactByIdSelector = (id: Contact['id']) => (state: RootState) => selectContactById(state, id);
 
 export const selectFoundContacts = createSelector(
-    contactsSelector,
+    selectContacts,
     ({ searchQuery, entities }) => {
         const query = searchQuery.toLowerCase();
         const searchResults = [];

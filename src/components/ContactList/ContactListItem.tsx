@@ -1,4 +1,4 @@
-import React, {Key} from "react";
+import React from "react";
 import {AvatarProps, createStyles, ListItem, ListItemTextProps, Theme} from "@material-ui/core";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -11,10 +11,8 @@ import MessageReadStatus, {MessageReadStatusProps} from "../MessageList/MessageR
 import PopoverAction from "../PopoverAction";
 import List from "@material-ui/core/List";
 import MenuListItem from "../MenuListItem";
-import {Label, TurnedIn} from "@material-ui/icons";
 
 export interface ContactListItemProps {
-    key?: Key;
     avatarSrc: AvatarProps['src'];
     fullName: ListItemTextProps['primary'];
     lastMessage?: {
@@ -61,7 +59,6 @@ function ContactListItem(props: ContactListItemProps) {
 
     return (
         <ListItem
-            key={props.key}
             button
             component={NavLink}
             activeClassName="Mui-selected"

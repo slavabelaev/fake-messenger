@@ -20,7 +20,6 @@ import {
 import {makeStyles} from "@material-ui/core/styles";
 
 export interface AttachmentListItemProps {
-    key?: Key;
     name: File['name'];
     size: File['size'];
     type: File['type'];

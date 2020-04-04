@@ -44,7 +44,7 @@ const authSlice = createSlice({
     }
 });
 
-export const authSelector = (state: RootState) => state.auth;
+export const selectAuth = (state: RootState) => state.auth;
 
 export const {
     request: authRequest,

@@ -12,8 +12,8 @@ export interface BlackListContactSwitchProps {
 }
 
 function BlackListContactSwitch({ contactId }: BlackListContactSwitchProps) {
-    const contactSelector = getContactByIdSelector(contactId);
-    const contact = useSelector(contactSelector);
+    const selectContact = getContactByIdSelector(contactId);
+    const contact = useSelector(selectContact);
     const dispatch = useDispatch();
     const inBlackList = contact?.inBlackList || false;
     return (

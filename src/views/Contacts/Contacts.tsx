@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import ContactList from "../../components/ContactList";
 import ListItemToolbar from "../../components/ListItemToolbar";
-import {Add, SettingsOutlined} from "@material-ui/icons";
+import {Add, Settings} from "@material-ui/icons";
 import {createStyles, Fab, IconButton, Theme} from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import {NavLink} from "react-router-dom";
@@ -9,7 +9,7 @@ import {SETTINGS_ROUTE_PATH} from "../Settings";
 import {PROFILE_ROUTE_PATH} from "../Profile";
 import View from "../../layout/View";
 import {useDispatch, useSelector} from "react-redux";
-import {authSelector} from "../../app/authSlice";
+import {selectAuth} from "../../app/authSlice";
 import {addContactAsync, contactsSearchQuery} from '../../components/ContactList/contactsSlice';
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
@@ -17,7 +17,6 @@ import Typography from "@material-ui/core/Typography";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import {makeStyles} from "@material-ui/core/styles";
-import {setStatusMessage} from "../../app/statusSlice";
 
 const CHATS_TAB_VALUE = 0;
 
@@ -35,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 function Contacts() {
     const classes = useStyles();
     const [tabsValue, setTabsValue] = useState(CHATS_TAB_VALUE);
-    const { error, loading, user } = useSelector(authSelector);
+    const { error, loading, user } = useSelector(selectAuth);
     const dispatch = useDispatch();
 
     if (loading || !user) return <Loading />;
@@ -48,7 +47,7 @@ function Contacts() {
                 component={NavLink}
                 to={SETTINGS_ROUTE_PATH}
             >
-                <SettingsOutlined/>
+                <Settings/>
             </IconButton>
         </Tooltip>
     );

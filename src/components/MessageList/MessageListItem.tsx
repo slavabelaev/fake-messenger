@@ -1,4 +1,4 @@
-import React, {Key} from 'react';
+import React from 'react';
 import {CheckboxProps, createStyles, ListItem, ListItemTextProps, Theme} from "@material-ui/core";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -8,7 +8,6 @@ import {makeStyles} from "@material-ui/core/styles";
 import MessageReadStatus, {MessageReadStatusProps} from "./MessageReadStatus";
 
 export interface MessageListItemProps {
-    key?: Key;
     variant?: 'default' | 'checkbox';
     direction?: 'right' | 'left';
     color?: 'primary' | 'default';
@@ -85,7 +84,6 @@ const useStyles = (props: MessageListItemProps) => makeStyles((theme: Theme) => 
 
 function MessageListItem(props: MessageListItemProps) {
     const {
-        key,
         variant = 'default',
         direction = 'right',
         color = 'default',
@@ -143,7 +141,6 @@ function MessageListItem(props: MessageListItemProps) {
     return (
         <ListItem
             className={className}
-            key={key}
             dense
             selected={CheckboxProps?.checked}
         >

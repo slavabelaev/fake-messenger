@@ -3,14 +3,14 @@ import {Grid} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import {useSelector} from "react-redux";
-import {authSelector} from "../app/authSlice";
+import {selectAuth} from "../app/authSlice";
 import Avatar from "@material-ui/core/Avatar";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
 export interface EditProfileProps {}
 
 function EditProfile(props: EditProfileProps) {
-    const {user} = useSelector(authSelector);
+    const {user} = useSelector(selectAuth);
 
     return (
         <form onSubmit={console.log}>

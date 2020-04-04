@@ -12,8 +12,8 @@ export interface NotificationsContactSwitchProps {
 }
 
 function NotificationsContactSwitch({ contactId }: NotificationsContactSwitchProps) {
-    const contactSelector = getContactByIdSelector(contactId);
-    const contact = useSelector(contactSelector);
+    const selectContact = getContactByIdSelector(contactId);
+    const contact = useSelector(selectContact);
     const dispatch = useDispatch();
     const notificationsEnabled = contact?.notificationsEnabled || false;
     return (
