@@ -1,10 +1,11 @@
-import React, {PropsWithChildren, ReactNode} from 'react';
+import React, {PropsWithChildren, ReactNode, useEffect} from 'react';
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 
 export type ViewProps = PropsWithChildren<{
     className?: HTMLDivElement['className'];
     toolbar?: ReactNode;
     footer?: ReactNode;
+    needScrollBottom?: boolean;
 }>;
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -33,11 +34,22 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function View(props: ViewProps) {
     const classes = useStyles();
+    const contentRef = React.createRef<HTMLDivElement>();
     const classNames = [props.className, classes.root].join(' ');
+
+    useEffect(() => {
+        if (!props.needScrollBottom) return;
+
+        const { current } = contentRef;
+        if (current) current.scrollTo({
+            top: current.scrollHeight
+        });
+    });
 
     const content = (
         <div
             className={classes.content}
+            ref={contentRef}
         >
             {props.children}
         </div>

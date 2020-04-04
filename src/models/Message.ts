@@ -11,5 +11,5 @@ export interface Message extends Model {
     read: boolean;
     attachmentFile?: Attachment;
     attachmentLink?: AttachmentLink;
-
+    createdByMe?: boolean;
 }

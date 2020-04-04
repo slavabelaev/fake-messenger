@@ -19,11 +19,11 @@ export interface MessageListItemProps {
     CheckboxProps?: CheckboxProps;
 }
 
-const useStyles = (color: MessageListItemProps['color']) => makeStyles((theme: Theme) => {
-    const bgColor = color === 'primary'
+const useStyles = (props: MessageListItemProps) => makeStyles((theme: Theme) => {
+    const bgColor = props.color === 'primary'
         ? theme.palette.primary.main
         : theme.palette.background.paper;
-    const textColor = color === 'primary'
+    const textColor = props.color === 'primary'
         ? theme.palette.getContrastText(bgColor)
         : 'inherit';
     return createStyles({
@@ -36,6 +36,12 @@ const useStyles = (color: MessageListItemProps['color']) => makeStyles((theme: T
         message: {
             position: 'relative',
             maxWidth: '90%',
+            marginLeft: props.direction === 'left'
+                ? theme.spacing(2)
+                : 'inherit',
+            marginRight: props.direction === 'right'
+                ? theme.spacing(2)
+                : 'inherit',
             backgroundColor: bgColor,
             color: textColor,
             padding: theme.spacing(1),
@@ -71,21 +77,25 @@ const useStyles = (color: MessageListItemProps['color']) => makeStyles((theme: T
             borderLeftColor: 'transparent',
             borderBottomColor: 'transparent'
         },
+        listItemIcon: {
+            marginRight: 'auto'
+        }
     })
 });
 
-function MessageListItem({
-    key,
-    variant = 'default',
-    direction = 'right',
-    color = 'default',
-    text,
-    delivered,
-    read,
-    createdAt,
-    CheckboxProps
-}: MessageListItemProps) {
-    const classes = useStyles(color)();
+function MessageListItem(props: MessageListItemProps) {
+    const {
+        key,
+        variant = 'default',
+        direction = 'right',
+        color = 'default',
+        text,
+        delivered,
+        read,
+        createdAt,
+        CheckboxProps
+    } = props;
+    const classes = useStyles(props)();
 
     const primary = (
         <Typography
@@ -106,7 +116,9 @@ function MessageListItem({
     );
 
     const listItemIcon = variant === 'checkbox' && (
-        <ListItemIcon>
+        <ListItemIcon
+            className={classes.listItemIcon}
+        >
             <Checkbox
                 {...CheckboxProps}
             />
@@ -131,7 +143,6 @@ function MessageListItem({
     return (
         <ListItem
             className={className}
-            disableGutters
             key={key}
             dense
             selected={CheckboxProps?.checked}

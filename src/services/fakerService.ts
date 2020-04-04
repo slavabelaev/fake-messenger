@@ -43,7 +43,8 @@ export const fakerService: FakerService = {
             delivered,
             read: delivered && faker.random.boolean(),
             attachmentFile: hasAttachmentFile ? fakerService.attachment() : undefined,
-            attachmentLink: hasAttachmentLink ? fakerService.attachmentLink() : undefined
+            attachmentLink: hasAttachmentLink ? fakerService.attachmentLink() : undefined,
+            createdByMe: faker.random.boolean()
         })
     },
     attachment: () => ({

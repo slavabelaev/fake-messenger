@@ -10,6 +10,7 @@ import {setStatusError} from "../../app/statusSlice";
 
 export interface ChatMessagesState {
     messages: Message[] | null;
+    checkedIds: Message['id'][];
     searchQuery: string;
     checkModeEnabled: boolean;
     loading: boolean;
@@ -23,6 +24,7 @@ export interface MessagesState {
 const initialState: MessagesState = {};
 const itemInitialState: ChatMessagesState = {
     messages: null,
+    checkedIds: [],
     searchQuery: '',
     checkModeEnabled: false,
     loading: false,
@@ -76,21 +78,41 @@ const chatsSlice = createSlice({
             enabled?: boolean;
         }>) {
             const { chatId, enabled } = action.payload;
-            state[chatId].checkModeEnabled = enabled !== undefined ? enabled : !state[chatId].checkModeEnabled;
+            const chat = state[chatId];
+            const checkModeEnabled = enabled !== undefined
+                ? enabled
+                : !chat.checkModeEnabled;
+            chat.checkModeEnabled = checkModeEnabled;
+            if (!checkModeEnabled) chat.checkedIds = [];
         },
         removeMany(state, action: PayloadAction<{
             chatId: Chat['id'];
             messageIds: Message['id'][];
         }>) {
             const { chatId, messageIds } = action.payload;
-            let messages = state[chatId].messages;
-            messages = (messages || []).filter(item => !messageIds.includes(item.id));
+            const chat = state[chatId];
+            chat.messages = (chat.messages || []).filter(item => !messageIds.includes(item.id));
+            chat.checkedIds = [];
+            chat.checkModeEnabled = false;
         },
         removeAll(state, action: PayloadAction<{
             chatId: Chat['id'];
         }>) {
             const {chatId} = action.payload;
-            state[chatId].messages = [];
+            const chat = state[chatId];
+            chat.messages = [];
+            chat.checkedIds = [];
+            chat.checkModeEnabled = false;
+        },
+        toggleCheck(state, action: PayloadAction<{
+            chatId: Chat['id'];
+            messageId: Message['id'];
+        }>) {
+            const {chatId, messageId} = action.payload;
+            const chat = state[chatId];
+            const checked = chat.checkedIds.includes(messageId);
+            if (checked) chat.checkedIds = chat.checkedIds.filter(id => id !== messageId);
+            else chat.checkedIds.push(messageId);
         }
     }
 });
@@ -108,7 +130,8 @@ export const {
     add: addOneMessage,
     switchCheckMode: switchMessagesCheckMode,
     removeMany: removeManyMessages,
-    removeAll: removeAllMessages
+    removeAll: removeAllMessages,
+    toggleCheck: toggleCheckMessage
 } = chatsSlice.actions;
 
 export const addMessageAsync = (createdBy: User['id'], messageText: Message['text']) => (dispatch: Dispatch<any>) => {

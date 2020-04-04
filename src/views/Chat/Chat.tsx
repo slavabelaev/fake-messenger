@@ -4,8 +4,8 @@ import MessageList from "../../components/MessageList";
 import ListItemToolbar from "../../components/ListItemToolbar";
 import {useParams, Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {IconButton} from "@material-ui/core";
-import {Attachment} from "@material-ui/icons";
+import {createStyles, IconButton, Theme} from "@material-ui/core";
+import {Attachment, Cancel, Delete} from "@material-ui/icons";
 import Tooltip from "@material-ui/core/Tooltip";
 import View from "../../layout/View";
 import {getContactByIdSelector} from "../../components/ContactList/contactsSlice";
@@ -19,10 +19,22 @@ import ChatRoutes from "./ChatRoutes";
 import {CONTACT_PROFILE_ROUTE_PATH} from "../ContactProfile";
 import {CHAT_ATTACHMENTS_ROUTE_PATH} from "../Attachments";
 import MenuListItem from "../../components/MenuListItem";
+import Toolbar from "@material-ui/core/Toolbar";
+import SendMessageToolbar from "../../components/SendMessageToolbar";
+import Container from "@material-ui/core/Container";
+import Button from "@material-ui/core/Button";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+    cancelButton: {
+        marginLeft: theme.spacing(1)
+    }
+}));
 
 function Chat() {
+    const classes = useStyles();
     const { id: chatId = '' } = useParams();
-    const { searchQuery } = useSelector(selectChatMessages(chatId));
+    const { searchQuery, checkedIds, checkModeEnabled } = useSelector(selectChatMessages(chatId));
     const contactSelector = getContactByIdSelector(chatId);
     const contact = useSelector(contactSelector);
     const dispatch = useDispatch();
@@ -95,7 +107,9 @@ function Chat() {
             </Typography>
         )
         : formatDistance(new Date(), contact?.lastVisitAt);
+
     const pathToProfile = CONTACT_PROFILE_ROUTE_PATH.replace(':id', chatId);
+
     const toolbar = (
         <ListItemToolbar
             avatarSrc={contact?.avatarUrl}
@@ -113,13 +127,46 @@ function Chat() {
         />
     );
 
+    const handleDelete = () => removeMessagesAsync(chatId, checkedIds)(dispatch);
+
+    const footer = checkModeEnabled ? (
+        <Toolbar>
+            <Button
+                disabled={!checkedIds.length}
+                onClick={handleDelete}
+                startIcon={<Delete/>}
+                variant="outlined"
+                color="secondary"
+            >
+                Delete
+            </Button>
+            <Button
+                className={classes.cancelButton}
+                onClick={handleDelete}
+            >
+                Cancel
+            </Button>
+        </Toolbar>
+    ) : (
+        <SendMessageToolbar
+            chatId={chatId}
+        />
+    );
+
     const content = (
         <View
             toolbar={toolbar}
+            footer={footer}
+            needScrollBottom={!checkModeEnabled}
         >
-            <MessageList
-                chatId={chatId}
-            />
+            <Container
+                disableGutters
+                maxWidth="md"
+            >
+                <MessageList
+                    chatId={chatId}
+                />
+            </Container>
         </View>
     );
 
