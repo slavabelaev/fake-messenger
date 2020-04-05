@@ -112,7 +112,7 @@ function SendMessageToolbar({ onSubmit }: SendMessageToolbarProps) {
                 onKeyDown={handleKeyDown}
                 onChange={handleChange}
                 multiline
-                autoFocus
+                autoFocus={false}
                 rowsMax={3}
                 variant="outlined"
                 size="small"
