@@ -4,7 +4,7 @@ import {AttachmentLink} from "../../models/AttachmentLink";
 import {AttachmentLinkListItemProps} from "./AttachmentLinkListItem";
 import {useSelector} from "react-redux";
 import {Chat} from "../../models/Chat";
-import {selectChatAttachmentLinks} from "../MessageList/chatsSlice";
+import {selectChatByIdAttachmentLinks} from "../../store/chatsSlice";
 import Empty from "../Empty";
 
 const mapLinkToItemProps = (link: AttachmentLink): AttachmentLinkListItemProps => ({
@@ -19,7 +19,7 @@ export interface LinkListContainerProps {
 }
 
 function LinkListContainer({ chatId }: LinkListContainerProps) {
-    const selectAttachmentLinks = selectChatAttachmentLinks(chatId);
+    const selectAttachmentLinks = selectChatByIdAttachmentLinks(chatId);
     const attachmentLinks = useSelector(selectAttachmentLinks);
 
     if (!attachmentLinks.length) return <Empty/>;

@@ -2,12 +2,11 @@ import React, {ChangeEvent, useEffect} from 'react';
 import MessageList, {MessageListProps} from "./MessageList";
 import {useDispatch, useSelector} from "react-redux";
 import {Message} from "../../models/Message";
-import {toggleCheckMessage, fetchMessagesAsync, selectChatMessages} from "./chatsSlice";
+import {toggleCheckMessage, fetchMessagesAsync, selectChatById} from "../../store/chatsSlice";
 import {MessageListItemProps} from "./MessageListItem";
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
 import {Chat} from "../../models/Chat";
-import Empty from "../Empty";
 
 export interface MessageListContainerProps {
     chatId: Chat['id'];
@@ -28,7 +27,7 @@ const getMessagesFilter = (searchQuery: string) => (item: Message) => {
 };
 
 function MessageListContainer({ chatId }: MessageListContainerProps) {
-    const { error, searchQuery, checkModeEnabled, checkedIds, messages: allMessages, loading } = useSelector(selectChatMessages(chatId));
+    const { error, searchQuery, checkModeEnabled, checkedIds, messages: allMessages, loading } = useSelector(selectChatById(chatId));
     const messagesFilter = getMessagesFilter(searchQuery);
     const messages = searchQuery ? allMessages?.filter(messagesFilter) : allMessages;
     const dispatch = useDispatch();

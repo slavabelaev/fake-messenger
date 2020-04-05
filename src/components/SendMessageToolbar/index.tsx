@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-import {addMessageAsync} from "../MessageList/chatsSlice";
+import {addMessageAsync} from "../../store/chatsSlice";
 import SendMessageToolbar from "./SendMessageToolbar";
 import {Chat} from "../../models/Chat";
 

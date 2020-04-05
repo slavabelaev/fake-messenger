@@ -86,7 +86,6 @@ function MessageListItem(props: MessageListItemProps) {
     const {
         variant = 'default',
         direction = 'right',
-        color = 'default',
         text,
         delivered,
         read,

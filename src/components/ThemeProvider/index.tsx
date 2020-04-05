@@ -2,7 +2,7 @@ import React, {PropsWithChildren} from "react";
 import {LIGHT_THEME, DARK_THEME} from "./theme";
 import {MuiThemeProvider} from "@material-ui/core";
 import {useSelector} from "react-redux";
-import {selectSettings} from "../SettingList/settingsSlice";
+import {selectSettings} from "../../store/settingsSlice";
 
 function ThemeProvider(props: PropsWithChildren<{}>) {
     const {darkThemeEnabled} = useSelector(selectSettings);

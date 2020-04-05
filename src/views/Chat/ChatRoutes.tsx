@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import ContactProfile, {CONTACT_PROFILE_ROUTE_PATH} from "../ContactProfile";
 import Attachments, {CHAT_ATTACHMENTS_ROUTE_PATH} from "../Attachments";
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import ListItemSwitch from "../../ListItemSwitch";
 import {useDispatch, useSelector} from "react-redux";
-import {selectSettings, enableDarkTheme} from "../settingsSlice";
+import {selectSettings, enableDarkTheme} from "../../../store/settingsSlice";
 
 function DarkThemeSwitch() {
     const {darkThemeEnabled} = useSelector(selectSettings);

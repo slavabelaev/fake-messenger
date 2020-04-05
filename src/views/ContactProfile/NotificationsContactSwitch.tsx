@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     contactsSwitchNotifications,
     getContactByIdSelector
-} from "../../components/ContactList/contactsSlice";
+} from "../../store/contactsSlice";
 
 export interface NotificationsContactSwitchProps {
     contactId: Contact['id'];

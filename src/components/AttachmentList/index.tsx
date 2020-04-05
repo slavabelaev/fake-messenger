@@ -4,7 +4,7 @@ import {Attachment} from "../../models/Attachment";
 import {AttachmentListItemProps} from "./AttachmentListItem";
 import {useSelector} from "react-redux";
 import {Chat} from "../../models/Chat";
-import {selectChatAttachments} from "../MessageList/chatsSlice";
+import {selectChatByIdAttachments} from "../../store/chatsSlice";
 import Empty from "../Empty";
 
 const mapAttachmentToItemProps = (attachment: Attachment): AttachmentListItemProps => ({
@@ -20,7 +20,7 @@ export interface AttachmentListContainerProps {
 }
 
 function AttachmentListContainer({ chatId }: AttachmentListContainerProps) {
-    const selectAttachments = selectChatAttachments(chatId);
+    const selectAttachments = selectChatByIdAttachments(chatId);
     const attachments = useSelector(selectAttachments);
 
     if (!attachments.length) return <Empty/>;

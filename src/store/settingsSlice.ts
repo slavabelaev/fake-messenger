@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {RootState} from "../../app/rootReducer";
+import {RootState} from "./rootReducer";
 
 export interface SettingsState {
     darkThemeEnabled: boolean;

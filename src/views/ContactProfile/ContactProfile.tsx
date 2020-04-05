@@ -3,7 +3,7 @@ import View from "../../layout/View";
 import LayoutToolbar from "../../layout/LayoutToolbar";
 import { useParams } from 'react-router-dom';
 import {useSelector} from "react-redux";
-import {getContactByIdSelector} from "../../components/ContactList/contactsSlice";
+import {getContactByIdSelector} from "../../store/contactsSlice";
 import {List} from "@material-ui/core";
 import ErrorMessage from "../../layout/ErrorMessage";
 import DetailListItem from "../../components/DetailListItem";
@@ -13,14 +13,12 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import NotificationsContactSwitch from "./NotificationsContactSwitch";
 import Link from "@material-ui/core/Link";
 
-export interface ContactProfileProps {}
-
-function ContactProfile(props: ContactProfileProps) {
+function ContactProfile() {
     const {id: contactId = ''} = useParams();
     const selectContact = getContactByIdSelector(contactId);
     const contact = useSelector(selectContact);
 
-    if (!contactId) return <ErrorMessage text="No data" />
+    if (!contactId) return <ErrorMessage text="No data" />;
 
     const toolbar = (
         <LayoutToolbar

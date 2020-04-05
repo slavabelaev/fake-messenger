@@ -3,10 +3,10 @@ import {Grid} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {selectAuth, updateUserProfileAsync} from "../app/authSlice";
+import {selectAuth, updateUserProfileAsync} from "../store/authSlice";
 import Avatar from "@material-ui/core/Avatar";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import {AuthUser, UserProfile} from "../models/AuthUser";
+import {UserProfile} from "../models/AuthUser";
 
 export interface EditProfileProps {}
 

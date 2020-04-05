@@ -2,20 +2,17 @@ import React from "react";
 import formatDistance from "date-fns/formatDistance";
 import MessageList from "../../components/MessageList";
 import ListItemToolbar from "../../components/ListItemToolbar";
-import {useParams, Link} from "react-router-dom";
+import {useParams, Link, Redirect} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {createStyles, IconButton, Theme} from "@material-ui/core";
+import {createStyles, IconButton, Theme, useMediaQuery, useTheme} from "@material-ui/core";
 import {Attachment, Delete} from "@material-ui/icons";
 import Tooltip from "@material-ui/core/Tooltip";
 import View from "../../layout/View";
-import {getContactByIdSelector} from "../../components/ContactList/contactsSlice";
-import NotFound from "../NotFound";
-import {switchMessagesCheckMode, messagesSearchQuery, selectChatMessages, removeMessagesAsync} from "../../components/MessageList/chatsSlice";
+import {getContactByIdSelector} from "../../store/contactsSlice";
+import {switchMessagesCheckMode, messagesSearchQuery, selectChatById, removeMessagesAsync} from "../../store/chatsSlice";
 import PopoverAction from "../../components/PopoverAction";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
-import Layout from "../../layout";
-import ChatRoutes from "./ChatRoutes";
 import {CONTACT_PROFILE_ROUTE_PATH} from "../ContactProfile";
 import {CHAT_ATTACHMENTS_ROUTE_PATH} from "../Attachments";
 import MenuListItem from "../../components/MenuListItem";
@@ -24,6 +21,8 @@ import SendMessageToolbar from "../../components/SendMessageToolbar";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
+import {CONTACTS_ROUTE_PATH} from "../Contacts";
+import BackButton from "../../layout/BackButton";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     cancelButton: {
@@ -34,7 +33,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 function Chat() {
     const classes = useStyles();
     const { id: chatId = '' } = useParams();
-    const { searchQuery, checkedIds, checkModeEnabled } = useSelector(selectChatMessages(chatId));
+    const theme = useTheme();
+    const isBreakpointSm = useMediaQuery(theme.breakpoints.down('sm'));
+    const { searchQuery, checkedIds, checkModeEnabled, prints } = useSelector(selectChatById(chatId));
     const selectContact = getContactByIdSelector(chatId);
     const contact = useSelector(selectContact);
     const dispatch = useDispatch();
@@ -44,7 +45,7 @@ function Chat() {
         dispatch(action);
     };
 
-    if (!chatId || !contact) return <NotFound/>;
+    if (!chatId || !contact) return <Redirect to="/"/>;
 
     const renderPopover = (onClose: VoidFunction) => (
         <List>
@@ -109,13 +110,19 @@ function Chat() {
         : formatDistance(new Date(), contact?.lastVisitAt);
 
     const pathToProfile = CONTACT_PROFILE_ROUTE_PATH.replace(':id', chatId);
+    const backButton = isBreakpointSm ? (
+        <BackButton
+            onClick={history => history.push(CONTACTS_ROUTE_PATH)}
+        />
+    ) : null;
 
     const toolbar = (
         <ListItemToolbar
             avatarSrc={contact?.avatarUrl}
             avatarTo={pathToProfile}
             primary={`${contact?.firstName} ${contact?.lastName}`}
-            secondary={statusText}
+            secondary={prints ? 'Prints...' : statusText}
+            startAction={backButton}
             endAction={endAction}
             SearchInputBaseProps={{
                 placeholder: 'Search messages',
@@ -153,7 +160,7 @@ function Chat() {
         />
     );
 
-    const content = (
+    return (
         <View
             toolbar={toolbar}
             footer={footer}
@@ -169,14 +176,6 @@ function Chat() {
             </Container>
         </View>
     );
-
-    return (
-        <Layout
-            rightSide={<ChatRoutes/>}
-        >
-            {content}
-        </Layout>
-    )
 }
 
 export default Chat;

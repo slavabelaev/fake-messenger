@@ -1,11 +1,11 @@
 import {createEntityAdapter, createSelector, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Contact} from "../../models/Contact";
-import {removeContact, fetchContacts, addContact} from "../../services/contactService";
+import {Contact} from "../models/Contact";
+import {removeContact, fetchContacts, addContact} from "../services/contactService";
 import {Dispatch} from "react";
-import {ErrorResponse, FetchList} from "../../interfaces/Service";
-import {RootState} from "../../app/rootReducer";
-import {fakerService} from "../../services/fakerService";
-import {setStatusMessage, setStatusError} from "../../app/statusSlice";
+import {ErrorResponse, FetchList} from "../interfaces/Service";
+import {RootState} from "./rootReducer";
+import {fakerService} from "../services/fakerService";
+import {setStatusMessage, setStatusError} from "./statusSlice";
 
 const contactsAdapter = createEntityAdapter<Contact>();
 

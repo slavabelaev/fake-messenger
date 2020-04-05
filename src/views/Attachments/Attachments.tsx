@@ -17,52 +17,50 @@ import PopoverAction from "../../components/PopoverAction";
 import List from "@material-ui/core/List";
 import MenuListItem from "../../components/MenuListItem";
 import {useDispatch} from "react-redux";
-import {removeAttachmentFiles, removeAttachmentLinks} from "../../components/MessageList/chatsSlice";
-
-const useStyles = makeStyles((theme: Theme) => createStyles({
-    title: {
-        marginRight: 'auto'
-    }
-}));
+import {removeAttachmentFiles, removeAttachmentLinks} from "../../store/chatsSlice";
+import BackButton from "../../layout/BackButton";
+import LayoutToolbar from "../../layout/LayoutToolbar";
 
 const FILES_TAB_VALUE = 0;
+const LINKS_TAB_VALUE = 1;
 
 function Attachments() {
     const {id: chatId} = useParams();
     const [tabsValue, setTabsValue] = useState(FILES_TAB_VALUE);
-    const classes = useStyles();
     const dispatch = useDispatch();
 
     if (!chatId) return <ErrorMessage text="Failed fetch chat id" />;
 
+    const popoverMenuButton = (
+        <PopoverAction
+            renderPopover={onClose => (
+                <List>
+                    <MenuListItem
+                        primary="Delete files"
+                        onClick={() => {
+                            const action = removeAttachmentFiles({chatId});
+                            dispatch(action);
+                            onClose();
+                        }}
+                    />
+                    <MenuListItem
+                        primary="Delete links"
+                        onClick={() => {
+                            const action = removeAttachmentLinks({chatId});
+                            dispatch(action);
+                            onClose();
+                        }}
+                    />
+                </List>
+            )}
+        />
+    );
+
     const toolbar = (
-        <Toolbar>
-            <Typography className={classes.title}>
-                Attachments
-            </Typography>
-            <PopoverAction
-                renderPopover={onClose => (
-                    <List>
-                        <MenuListItem
-                            primary="Delete files"
-                            onClick={() => {
-                                const action = removeAttachmentFiles({chatId});
-                                dispatch(action);
-                                onClose();
-                            }}
-                        />
-                        <MenuListItem
-                            primary="Delete links"
-                            onClick={() => {
-                                const action = removeAttachmentLinks({chatId});
-                                dispatch(action);
-                                onClose();
-                            }}
-                        />
-                    </List>
-                )}
-            />
-        </Toolbar>
+        <LayoutToolbar
+            title="Attachments"
+            endAction={popoverMenuButton}
+        />
     );
 
     const tabs = (
@@ -75,13 +73,9 @@ function Attachments() {
         >
             <Tab
                 label="Files"
-                component={Link}
-                to={CHAT_ATTACHMENTS_FILES_ROUTE_PATH.replace(':id', chatId)}
             />
             <Tab
                 label="Links"
-                component={Link}
-                to={CHAT_ATTACHMENTS_LINKS_ROUTE_PATH.replace(':id', chatId)}
             />
         </Tabs>
     );
@@ -93,21 +87,9 @@ function Attachments() {
         </div>
     );
 
-    const content = (
-        <Switch>
-            <Route
-                path={CHAT_ATTACHMENTS_FILES_ROUTE_PATH}
-                render={() => <AttachmentList chatId={chatId}/>}
-            />
-            <Route
-                path={CHAT_ATTACHMENTS_LINKS_ROUTE_PATH}
-                render={() => <AttachmentLinkList chatId={chatId}/>}
-            />
-            <Route
-                render={() => <AttachmentList chatId={chatId}/>}
-            />
-        </Switch>
-    );
+    const content = tabsValue === LINKS_TAB_VALUE
+        ? <AttachmentLinkList chatId={chatId}/>
+        : <AttachmentList chatId={chatId}/>;
 
     return (
         <View

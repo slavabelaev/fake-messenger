@@ -53,16 +53,20 @@ function SendMessageToolbar({ onSubmit }: SendMessageToolbarProps) {
     };
 
     const sendButton = (
-        <Tooltip title="Send">
-            <IconButton
-                className={classes.sendButton}
-                edge="end"
-                color="primary"
-                disabled={!message}
-                onClick={handleSubmit}
-            >
-                <Send />
-            </IconButton>
+        <Tooltip
+            title="Send"
+        >
+            <span>
+                <IconButton
+                    className={classes.sendButton}
+                    edge="end"
+                    color="primary"
+                    disabled={!message}
+                    onClick={handleSubmit}
+                >
+                    <Send />
+                </IconButton>
+            </span>
         </Tooltip>
     );
 

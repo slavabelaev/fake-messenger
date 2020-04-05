@@ -15,6 +15,7 @@ export interface UserToolbarProps {
     avatarSrc?: AvatarProps['src'];
     avatarTo?: string;
     endAction?: ReactNode;
+    startAction?: ReactNode;
     SearchInputBaseProps?: SearchInputBaseProps
 }
 
@@ -71,6 +72,7 @@ function ListItemToolbar(props: UserToolbarProps) {
 
         return (
             <>
+                {props.startAction}
                 <ListItemAvatar>
                     {avatar}
                 </ListItemAvatar>

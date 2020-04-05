@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ContactList from "../../components/ContactList";
 import ListItemToolbar from "../../components/ListItemToolbar";
 import {Add, Settings} from "@material-ui/icons";
@@ -9,8 +9,8 @@ import {SETTINGS_ROUTE_PATH} from "../Settings";
 import {PROFILE_ROUTE_PATH} from "../Profile";
 import View from "../../layout/View";
 import {useDispatch, useSelector} from "react-redux";
-import {selectAuth} from "../../app/authSlice";
-import {addContactAsync, contactsSearchQuery} from '../../components/ContactList/contactsSlice';
+import {selectAuth} from "../../store/authSlice";
+import {addContactAsync, contactsSearchQuery} from '../../store/contactsSlice';
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
 import Typography from "@material-ui/core/Typography";

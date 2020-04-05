@@ -2,6 +2,7 @@ import React from 'react';
 import SettingList from "../../components/SettingList/SettingList";
 import View from "../../layout/View";
 import LayoutToolbar from "../../layout/LayoutToolbar";
+import BackButton from "../../layout/BackButton";
 
 export interface SettingsProps {}
 

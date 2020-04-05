@@ -2,7 +2,7 @@ import React from 'react';
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {Typography} from "@material-ui/core";
 import {useSelector} from "react-redux";
-import {selectAuth} from "../../app/authSlice";
+import {selectAuth} from "../../store/authSlice";
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
 import Avatar from "@material-ui/core/Avatar";

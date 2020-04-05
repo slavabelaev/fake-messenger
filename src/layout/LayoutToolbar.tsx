@@ -1,14 +1,12 @@
 import React, {ReactNode} from 'react';
-import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
-import {ArrowBack} from "@material-ui/icons";
 import Typography, {TypographyProps} from "@material-ui/core/Typography";
-import {createStyles, Theme, Toolbar} from "@material-ui/core";
-import {useHistory} from "react-router-dom";
+import {createStyles, Theme, Toolbar, useMediaQuery, useTheme} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import BackButton from "./BackButton";
 
 export interface ViewToolbarProps {
     title?: TypographyProps['children'];
+    startAction?: ReactNode;
     endAction?: ReactNode;
 }
 
@@ -23,18 +21,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function LayoutToolbar(props: ViewToolbarProps) {
     const classes = useStyles();
-    const history = useHistory();
-
-    const backButton = (
-        <Tooltip title="Back">
-            <IconButton
-                edge="start"
-                onClick={history.goBack}
-            >
-                <ArrowBack/>
-            </IconButton>
-        </Tooltip>
-    );
+    const theme = useTheme();
+    const isBreakpointSm = useMediaQuery(theme.breakpoints.down('sm'));
 
     const title = (
         <Typography className={classes.title}>
@@ -42,9 +30,12 @@ function LayoutToolbar(props: ViewToolbarProps) {
         </Typography>
     );
 
+    const startAction = props.startAction ? props.startAction : isBreakpointSm
+        ? <BackButton/> : null;
+
     return (
         <Toolbar className={classes.root}>
-            {backButton}
+            {startAction}
             {title}
             {props.endAction}
         </Toolbar>

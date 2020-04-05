@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     contactsSwitchBlackList,
     getContactByIdSelector
-} from "../../components/ContactList/contactsSlice";
+} from "../../store/contactsSlice";
 
 export interface BlackListContactSwitchProps {
     contactId: Contact['id'];

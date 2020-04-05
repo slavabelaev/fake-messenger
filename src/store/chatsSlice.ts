@@ -1,20 +1,22 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Message} from "../../models/Message";
+import {Message} from "../models/Message";
 import {Dispatch} from "react";
-import {removeMessages, fetchMessages, addMessage} from "../../services/messageService";
-import {Chat} from "../../models/Chat";
-import {RootState} from "../../app/rootReducer";
-import {ErrorResponse, FetchList} from "../../interfaces/Service";
-import {User} from "../../models/User";
-import {setStatusError} from "../../app/statusSlice";
-import {Attachment} from "../../models/Attachment";
-import {AttachmentLink} from "../../models/AttachmentLink";
+import {removeMessages, fetchMessages, addMessage} from "../services/messageService";
+import {Chat} from "../models/Chat";
+import {RootState} from "./rootReducer";
+import {ErrorResponse, FetchList} from "../interfaces/Service";
+import {User} from "../models/User";
+import {setStatusError} from "./statusSlice";
+import {Attachment} from "../models/Attachment";
+import {AttachmentLink} from "../models/AttachmentLink";
+import {fakerService} from "../services/fakerService";
 
 export interface ChatMessagesState {
     messages: Message[] | null;
     checkedIds: Message['id'][];
     searchQuery: string;
     checkModeEnabled: boolean;
+    prints: boolean;
     loading: boolean;
     error: boolean;
 }
@@ -28,6 +30,7 @@ const itemInitialState: ChatMessagesState = {
     messages: null,
     checkedIds: [],
     searchQuery: '',
+    prints: false,
     checkModeEnabled: false,
     loading: false,
     error: false
@@ -61,6 +64,13 @@ const chatsSlice = createSlice({
             state[chatId].error = true;
             state[chatId].loading = false;
         },
+        setPrints(state, action: PayloadAction<{
+            chatId: Chat['id'];
+            prints: boolean;
+        }>) {
+            const { chatId, prints } = action.payload;
+            state[chatId].prints = prints;
+        },
         setSearchQuery(state, action: PayloadAction<{
             chatId: Chat['id'];
             searchQuery: string;
@@ -68,9 +78,11 @@ const chatsSlice = createSlice({
             const { chatId, searchQuery } = action.payload;
             state[chatId].searchQuery = searchQuery;
         },
-        add(state, action: PayloadAction<Message>) {
-            const chatId = action.payload.createdBy as NonNullable<Message['createdBy']>;
-            const message = action.payload;
+        add(state, action: PayloadAction<{
+            chatId: Chat['id'];
+            message: Message;
+        }>) {
+            const {chatId, message} = action.payload;
             let messages = state[chatId].messages;
             if (!messages) messages = [];
             messages.push(message);
@@ -133,11 +145,11 @@ const chatsSlice = createSlice({
     }
 });
 
-export const selectChatMessages = (id: Chat['id']) => (state: RootState): ChatMessagesState => {
+export const selectChatById = (id: Chat['id']) => (state: RootState): ChatMessagesState => {
     return state.chats[id] || itemInitialState;
 };
 
-export const selectChatAttachments = (id: Chat['id']) => (state: RootState): Attachment[] => {
+export const selectChatByIdAttachments = (id: Chat['id']) => (state: RootState): Attachment[] => {
     const chat = state.chats[id];
     if (!chat) return [];
 
@@ -146,7 +158,7 @@ export const selectChatAttachments = (id: Chat['id']) => (state: RootState): Att
     return attachments as Attachment[];
 };
 
-export const selectChatAttachmentLinks = (id: Chat['id']) => (state: RootState): AttachmentLink[] => {
+export const selectChatByIdAttachmentLinks = (id: Chat['id']) => (state: RootState): AttachmentLink[] => {
     const chat = state.chats[id];
     if (!chat) return [];
 
@@ -166,17 +178,42 @@ export const {
     removeAll: removeAllMessages,
     toggleCheck: toggleCheckMessage,
     removeAttachmentFiles,
-    removeAttachmentLinks
+    removeAttachmentLinks,
+    setPrints: setMessagePrints
 } = chatsSlice.actions;
 
-export const addMessageAsync = (createdBy: User['id'], messageText: Message['text']) => (dispatch: Dispatch<any>) => {
-    addMessage(createdBy, messageText)
+export const sendFakeAnswerAsync = (chatId: Chat['id']) => (dispatch: Dispatch<any>) => {
+    const message = fakerService.message();
+    message.createdBy = chatId;
+    message.createdByMe = false;
+    message.createdAt = new Date();
+    const timeout = message.text.length * (Math.random() * 10 + 5);
+    const startPrintsTimeout = (Math.random() * 2000 + 1000);
+
+    const startMessageAwait = () => setTimeout(() => {
+        const action = addOneMessage({chatId, message});
+        dispatch(action);
+        const messagePrintsAction = setMessagePrints({chatId, prints: false});
+        dispatch(messagePrintsAction);
+    }, timeout);
+
+    setTimeout(() => {
+        const action = setMessagePrints({chatId, prints: true});
+        dispatch(action);
+        startMessageAwait();
+    }, startPrintsTimeout);
+};
+
+export const addMessageAsync = (chatId: Chat['id'], messageText: Message['text']) => (dispatch: Dispatch<any>) => {
+    addMessage(chatId, messageText)
         .then(response => {
             const errors = (response as ErrorResponse).errors;
             if (errors) throw new Error(errors[0]);
             const message = response as Message;
-            const action = addOneMessage(message);
+            const action = addOneMessage({chatId, message});
             dispatch(action);
+            // Send fake answer
+            sendFakeAnswerAsync(chatId)(dispatch);
         })
         .catch(error => {
             const statusAction = setStatusError(error);

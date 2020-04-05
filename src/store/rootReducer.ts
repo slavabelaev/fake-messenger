@@ -1,8 +1,8 @@
 import {combineReducers} from "@reduxjs/toolkit";
-import contactsReducer from "../components/ContactList/contactsSlice";
-import chatsReducer from "../components/MessageList/chatsSlice";
+import contactsReducer from "./contactsSlice";
+import chatsReducer from "./chatsSlice";
 import authSlice from "./authSlice";
-import settingsReducer from "../components/SettingList/settingsSlice";
+import settingsReducer from "./settingsSlice";
 import statusReducer from "./statusSlice";
 
 export const rootReducer = combineReducers({

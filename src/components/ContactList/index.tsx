@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import ContactList from "./ContactList";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchContactsAsync, selectContacts, selectFoundContacts, removeContactAsync} from "./contactsSlice";
+import {fetchContactsAsync, selectContacts, selectFoundContacts, removeContactAsync} from "../../store/contactsSlice";
 import {Contact} from "../../models/Contact";
 import {ContactListItemProps} from "./ContactListItem";
 import {CHAT_ROUTE_PATH} from "../../views/Chat";

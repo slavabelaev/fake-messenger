@@ -1,4 +1,4 @@
-import React, {Key, ReactElement} from "react";
+import React, {ReactElement} from "react";
 import bytes from "bytes";
 import {AvatarProps, createStyles, Theme} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
