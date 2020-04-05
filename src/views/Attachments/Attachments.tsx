@@ -1,15 +1,8 @@
 import React, {useState} from 'react';
-import {createStyles, Theme, Toolbar} from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import {makeStyles} from "@material-ui/core/styles";
 import View from "../../layout/View";
-import {Link, Route, Switch, useParams} from "react-router-dom";
-import {
-    CHAT_ATTACHMENTS_FILES_ROUTE_PATH,
-    CHAT_ATTACHMENTS_LINKS_ROUTE_PATH,
-} from "./index";
+import {useParams} from "react-router-dom";
 import ErrorMessage from "../../layout/ErrorMessage";
 import AttachmentList from "../../components/AttachmentList";
 import AttachmentLinkList from "../../components/AttachmentLinkList";
@@ -18,7 +11,6 @@ import List from "@material-ui/core/List";
 import MenuListItem from "../../components/MenuListItem";
 import {useDispatch} from "react-redux";
 import {removeAttachmentFiles, removeAttachmentLinks} from "../../store/chatsSlice";
-import BackButton from "../../layout/BackButton";
 import LayoutToolbar from "../../layout/LayoutToolbar";
 
 const FILES_TAB_VALUE = 0;

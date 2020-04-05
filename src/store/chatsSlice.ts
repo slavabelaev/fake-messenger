@@ -5,7 +5,6 @@ import {removeMessages, fetchMessages, addMessage} from "../services/messageServ
 import {Chat} from "../models/Chat";
 import {RootState} from "./rootReducer";
 import {ErrorResponse, FetchList} from "../interfaces/Service";
-import {User} from "../models/User";
 import {setStatusError} from "./statusSlice";
 import {Attachment} from "../models/Attachment";
 import {AttachmentLink} from "../models/AttachmentLink";
@@ -187,6 +186,8 @@ export const sendFakeAnswerAsync = (chatId: Chat['id']) => (dispatch: Dispatch<a
     message.createdBy = chatId;
     message.createdByMe = false;
     message.createdAt = new Date();
+    message.read = true;
+    message.delivered = true;
     const timeout = message.text.length * (Math.random() * 10 + 5);
     const startPrintsTimeout = (Math.random() * 2000 + 1000);
 

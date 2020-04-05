@@ -6,8 +6,9 @@ import IconButton from "@material-ui/core/IconButton";
 import {Search} from "@material-ui/icons";
 import Toolbar from "@material-ui/core/Toolbar";
 import SearchInputBase, {SearchInputBaseProps} from "./SearchInputBase";
-import {Tooltip} from "@material-ui/core";
+import {createStyles, Theme, Tooltip} from "@material-ui/core";
 import {Link} from "react-router-dom";
+import {makeStyles} from "@material-ui/core/styles";
 
 export interface UserToolbarProps {
     primary: ListItemTextProps['primary'];
@@ -22,7 +23,17 @@ export interface UserToolbarProps {
 type ViewName = 'search' | 'default';
 const ESCAPE_KEY_CODE = 27;
 
+const useStyles = makeStyles((theme: Theme) => createStyles({
+    primaryText: {
+        display: 'block',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    }
+}));
+
 function ListItemToolbar(props: UserToolbarProps) {
+    const classes = useStyles();
     const [viewName, setViewName] = useState<ViewName>('default');
 
     const handleBack = () => {
@@ -77,7 +88,11 @@ function ListItemToolbar(props: UserToolbarProps) {
                     {avatar}
                 </ListItemAvatar>
                 <ListItemText
-                    primary={props.primary}
+                    primary={
+                        <span className={classes.primaryText}>
+                            {props.primary}
+                        </span>
+                    }
                     secondary={props.secondary}
                 />
                 {searchButton}

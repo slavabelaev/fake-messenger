@@ -4,7 +4,6 @@ import EditProfile from "../../forms/EditProfile";
 import LayoutToolbar from "../../layout/LayoutToolbar";
 import {Container, createStyles, Theme} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import BackButton from "../../layout/BackButton";
 
 export interface ProfileProps {}
 

@@ -15,7 +15,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         background: theme.palette.background.paper
     },
     title: {
-        marginRight: 'auto'
+        marginRight: 'auto',
+        display: 'block',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
     }
 }));
 
