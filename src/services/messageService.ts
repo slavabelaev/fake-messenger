@@ -15,6 +15,8 @@ export const fetchMessages = async (skip = 0, limit = 12): Promise<FetchList<Mes
 export const addMessage = async (chatId: Chat['id'], messageText: Message['text']): Promise<Message | ErrorResponse> => {
     const message = fakerService.message();
     message.text = messageText;
+    message.attachmentFile = undefined;
+    message.attachmentLink = undefined;
     message.createdAt = new Date();
     message.createdByMe = true;
     return message;

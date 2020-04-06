@@ -186,6 +186,8 @@ export const sendFakeAnswerAsync = (chatId: Chat['id']) => (dispatch: Dispatch<a
     message.createdBy = chatId;
     message.createdByMe = false;
     message.createdAt = new Date();
+    message.attachmentLink = undefined;
+    message.attachmentFile = undefined;
     message.read = true;
     message.delivered = true;
     const timeout = message.text.length * (Math.random() * 10 + 5);
