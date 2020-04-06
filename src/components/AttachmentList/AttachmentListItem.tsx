@@ -6,10 +6,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import IconButton from "@material-ui/core/IconButton";
 import {
     Audiotrack,
-    MoreVert,
     PlayCircleOutline,
     Image,
     TextFields,
@@ -18,6 +16,9 @@ import {
     Attachment
 } from "@material-ui/icons";
 import {makeStyles} from "@material-ui/core/styles";
+import PopoverAction from "../PopoverAction";
+import List from "@material-ui/core/List";
+import MenuListItem from "../MenuListItem";
 
 export interface AttachmentListItemProps {
     name: File['name'];
@@ -52,7 +53,6 @@ function AttachmentListItem(props: AttachmentListItemProps) {
             <ListItemAvatar>
                 <Avatar
                     variant="rounded"
-                    //src={props.avatarSrc}
                     children={typeIcons[props.type] || <Attachment/>}
                 />
             </ListItemAvatar>
@@ -65,11 +65,18 @@ function AttachmentListItem(props: AttachmentListItemProps) {
                 secondary={bytes(props.size)}
             />
             <ListItemSecondaryAction>
-                <IconButton
-                    edge="end"
-                >
-                    <MoreVert/>
-                </IconButton>
+                <PopoverAction
+                    renderPopover={onClose => (
+                        <List>
+                            <MenuListItem
+                                primary="Download"
+                            />
+                            <MenuListItem
+                                primary="Delete"
+                            />
+                        </List>
+                    )}
+                />
             </ListItemSecondaryAction>
         </ListItem>
     );

@@ -149,7 +149,7 @@ function Chat() {
             </Button>
             <Button
                 className={classes.cancelButton}
-                onClick={handleDelete}
+                onClick={switchCheckMode}
             >
                 Cancel
             </Button>

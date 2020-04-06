@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2bced0f8-5b67-4547-8bea-bcee85b3aa46" name="Default Changelist" comment="" />
+    <list default="true" id="2bced0f8-5b67-4547-8bea-bcee85b3aa46" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AttachmentList/AttachmentListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachmentList/AttachmentListItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MenuListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MenuListItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Chat/Chat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Chat/Chat.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,23 +44,23 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/app" />
-      <recent name="E:\react\redux-saga\src\services" />
-      <recent name="E:\react\redux-saga\src\views\ContactProfile" />
-      <recent name="E:\react\redux-saga\src\components\Attachments" />
-      <recent name="E:\react\redux-saga\src\components\MessageList" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/previews" />
       <recent name="$PROJECT_DIR$/src/store" />
       <recent name="E:\react\redux-saga\src\components\SendMessageToolbar" />
       <recent name="E:\react\redux-saga\src\components\MessageList" />
       <recent name="E:\react\redux-saga\src\views\ContactProfile" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app" />
+      <recent name="E:\react\redux-saga\src\services" />
+      <recent name="E:\react\redux-saga\src\views\ContactProfile" />
+      <recent name="E:\react\redux-saga\src\components\Attachments" />
+      <recent name="E:\react\redux-saga\src\components\MessageList" />
     </key>
   </component>
   <component name="RunManager" selected="npm.npm start">
@@ -88,7 +93,9 @@
       <workItem from="1585305810967" duration="15519000" />
       <workItem from="1585419351186" duration="10208000" />
       <workItem from="1585573368996" duration="53322000" />
-      <workItem from="1585913183258" duration="66156000" />
+      <workItem from="1585913183258" duration="66519000" />
+      <workItem from="1586153162868" duration="686000" />
+      <workItem from="1586154287382" duration="1196000" />
     </task>
     <servers />
   </component>
@@ -118,50 +125,51 @@
     <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1585219343789" />
     <state x="468" y="182" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.811@0.23.1440.811" timestamp="1586037122131" />
     <state x="468" y="183" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1440.814@0.23.1440.814" timestamp="1585916364215" />
-    <state width="1379" height="167" key="GridCell.Tab.0.bottom" timestamp="1586114839051">
+    <state width="1379" height="167" key="GridCell.Tab.0.bottom" timestamp="1586116842196">
       <screen x="0" y="23" width="1440" height="811" />
     </state>
     <state width="1515" height="178" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585840503392" />
     <state width="1379" height="197" key="GridCell.Tab.0.bottom/0.23.1440.806@0.23.1440.806" timestamp="1585935148709" />
     <state width="1379" height="239" key="GridCell.Tab.0.bottom/0.23.1440.808@0.23.1440.808" timestamp="1586016091962" />
-    <state width="1379" height="167" key="GridCell.Tab.0.bottom/0.23.1440.811@0.23.1440.811" timestamp="1586114839051" />
+    <state width="1379" height="167" key="GridCell.Tab.0.bottom/0.23.1440.811@0.23.1440.811" timestamp="1586116842196" />
     <state width="1379" height="197" key="GridCell.Tab.0.bottom/0.23.1440.814@0.23.1440.814" timestamp="1585917723671" />
-    <state width="1379" height="167" key="GridCell.Tab.0.center" timestamp="1586114839050">
+    <state width="1379" height="167" key="GridCell.Tab.0.center" timestamp="1586116842195">
       <screen x="0" y="23" width="1440" height="811" />
     </state>
     <state width="1515" height="178" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585840503391" />
     <state width="1379" height="197" key="GridCell.Tab.0.center/0.23.1440.806@0.23.1440.806" timestamp="1585935148709" />
     <state width="1379" height="239" key="GridCell.Tab.0.center/0.23.1440.808@0.23.1440.808" timestamp="1586016091962" />
-    <state width="1379" height="167" key="GridCell.Tab.0.center/0.23.1440.811@0.23.1440.811" timestamp="1586114839050" />
+    <state width="1379" height="167" key="GridCell.Tab.0.center/0.23.1440.811@0.23.1440.811" timestamp="1586116842195" />
     <state width="1379" height="197" key="GridCell.Tab.0.center/0.23.1440.814@0.23.1440.814" timestamp="1585917723671" />
-    <state width="1379" height="167" key="GridCell.Tab.0.left" timestamp="1586114839049">
+    <state width="1379" height="167" key="GridCell.Tab.0.left" timestamp="1586116842184">
       <screen x="0" y="23" width="1440" height="811" />
     </state>
     <state width="1515" height="178" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585840503391" />
     <state width="1379" height="197" key="GridCell.Tab.0.left/0.23.1440.806@0.23.1440.806" timestamp="1585935148708" />
     <state width="1379" height="239" key="GridCell.Tab.0.left/0.23.1440.808@0.23.1440.808" timestamp="1586016091961" />
-    <state width="1379" height="167" key="GridCell.Tab.0.left/0.23.1440.811@0.23.1440.811" timestamp="1586114839049" />
+    <state width="1379" height="167" key="GridCell.Tab.0.left/0.23.1440.811@0.23.1440.811" timestamp="1586116842184" />
     <state width="1379" height="197" key="GridCell.Tab.0.left/0.23.1440.814@0.23.1440.814" timestamp="1585917723670" />
-    <state width="1379" height="167" key="GridCell.Tab.0.right" timestamp="1586114839050">
+    <state width="1379" height="167" key="GridCell.Tab.0.right" timestamp="1586116842196">
       <screen x="0" y="23" width="1440" height="811" />
     </state>
     <state width="1515" height="178" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585840503391" />
     <state width="1379" height="197" key="GridCell.Tab.0.right/0.23.1440.806@0.23.1440.806" timestamp="1585935148709" />
     <state width="1379" height="239" key="GridCell.Tab.0.right/0.23.1440.808@0.23.1440.808" timestamp="1586016091962" />
-    <state width="1379" height="167" key="GridCell.Tab.0.right/0.23.1440.811@0.23.1440.811" timestamp="1586114839050" />
+    <state width="1379" height="167" key="GridCell.Tab.0.right/0.23.1440.811@0.23.1440.811" timestamp="1586116842196" />
     <state width="1379" height="197" key="GridCell.Tab.0.right/0.23.1440.814@0.23.1440.814" timestamp="1585917723671" />
-    <state x="262" y="80" key="SettingsEditor" timestamp="1585928409038">
-      <screen x="0" y="23" width="1440" height="806" />
+    <state x="262" y="80" key="SettingsEditor" timestamp="1586153826434">
+      <screen x="0" y="23" width="1440" height="811" />
     </state>
     <state x="279" y="58" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585139706244" />
     <state x="262" y="80" key="SettingsEditor/0.23.1440.806@0.23.1440.806" timestamp="1585928409038" />
-    <state x="444" y="188" width="837" height="555" key="find.popup" timestamp="1586112932971">
+    <state x="262" y="80" key="SettingsEditor/0.23.1440.811@0.23.1440.811" timestamp="1586153826434" />
+    <state x="444" y="188" width="837" height="555" key="find.popup" timestamp="1586155468343">
       <screen x="0" y="23" width="1440" height="811" />
     </state>
     <state x="474" y="168" width="711" height="546" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1585830789006" />
     <state x="444" y="187" width="837" height="550" key="find.popup/0.23.1440.806@0.23.1440.806" timestamp="1585954661055" />
     <state x="444" y="187" width="837" height="552" key="find.popup/0.23.1440.808@0.23.1440.808" timestamp="1586016041233" />
-    <state x="444" y="188" width="837" height="555" key="find.popup/0.23.1440.811@0.23.1440.811" timestamp="1586112932971" />
+    <state x="444" y="188" width="837" height="555" key="find.popup/0.23.1440.811@0.23.1440.811" timestamp="1586155468343" />
     <state x="425" y="187" key="run.anything.popup" timestamp="1585774461938">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

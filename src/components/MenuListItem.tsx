@@ -3,35 +3,37 @@ import {ListItem, ListItemIconProps, ListItemProps, ListItemTextProps} from "@ma
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 
-export interface MenuListItemProps {
-    dense?: ListItemProps['dense'];
+export type MenuListItemProps = Omit<ListItemProps, 'children' | 'button'> & {
     primary?: ListItemTextProps['primary'];
     secondary?: ListItemTextProps['secondary'];
-    onClick?: VoidFunction;
     icon?: ListItemIconProps['children'];
-    disabled?: ListItemProps['disabled'];
-    selected?: ListItemProps['selected'];
+    button?: ListItemProps['button'];
 }
 
-function MenuListItem(props: MenuListItemProps) {
-    const listItemIcon = props.icon && (
+function MenuListItem({
+    icon,
+    primary,
+    secondary,
+    button,
+    ...otherProps
+
+}: MenuListItemProps) {
+    const listItemIcon = icon && (
         <ListItemIcon>
-            {props.icon}
+            {icon}
         </ListItemIcon>
     );
 
     return (
+        // @ts-ignore
         <ListItem
-            dense={props.dense}
             button
-            onClick={props.onClick}
-            disabled={props.disabled}
-            selected={props.selected}
+            {...otherProps}
         >
             {listItemIcon}
             <ListItemText
-                primary={props.primary}
-                secondary={props.secondary}
+                primary={primary}
+                secondary={secondary}
             />
         </ListItem>
     )
