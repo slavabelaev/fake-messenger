@@ -47,9 +47,11 @@ function* fetchContactsWorker() {
     const errors = (response as ErrorResponse).errors;
     if (errors) {
         const action = contactsFailure();
-        yield put(action);
         const statusAction = setStatusError(errors[0]);
-        yield put(statusAction);
+        yield all([
+            put(action),
+            put(statusAction)
+        ])
     } else {
         const contacts = (response as FetchList<Contact>).items;
         const action = contactsSuccess(contacts);

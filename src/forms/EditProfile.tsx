@@ -3,7 +3,7 @@ import {Grid} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {selectAuth, updateUserProfileAsync} from "../store/authSlice";
+import {selectAuth, updateProfile} from "../store/authSlice";
 import Avatar from "@material-ui/core/Avatar";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import {UserProfile} from "../models/AuthUser";
@@ -32,7 +32,8 @@ function EditProfile(props: EditProfileProps) {
     return (
         <form onSubmit={event => {
             event.preventDefault();
-            updateUserProfileAsync(profile)(dispatch);
+            const action = updateProfile(profile);
+            dispatch(action);
         }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
