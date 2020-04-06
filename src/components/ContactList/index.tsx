@@ -7,7 +7,7 @@ import {ContactListItemProps} from "./ContactListItem";
 import {CHAT_ROUTE_PATH} from "../../views/Chat";
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
-import Empty from "../Empty";
+import Empty from "../../layout/Empty";
 
 export const mapContactToItemProps = (contact: Contact): ContactListItemProps => ({
     fullName: `${contact.firstName} ${contact.lastName}`,

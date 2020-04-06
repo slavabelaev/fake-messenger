@@ -5,7 +5,7 @@ import {AttachmentLinkListItemProps} from "./AttachmentLinkListItem";
 import {useSelector} from "react-redux";
 import {Chat} from "../../models/Chat";
 import {selectChatByIdAttachmentLinks} from "../../store/chatsSlice";
-import Empty from "../Empty";
+import Empty from "../../layout/Empty";
 
 const mapLinkToItemProps = (link: AttachmentLink): AttachmentLinkListItemProps => ({
     primary: link.title,

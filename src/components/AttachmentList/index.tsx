@@ -5,7 +5,7 @@ import {AttachmentListItemProps} from "./AttachmentListItem";
 import {useSelector} from "react-redux";
 import {Chat} from "../../models/Chat";
 import {selectChatByIdAttachments} from "../../store/chatsSlice";
-import Empty from "../Empty";
+import Empty from "../../layout/Empty";
 
 const mapAttachmentToItemProps = (attachment: Attachment): AttachmentListItemProps => ({
     name: attachment.name,

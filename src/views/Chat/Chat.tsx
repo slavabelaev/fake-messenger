@@ -44,7 +44,6 @@ function Chat() {
         const action = switchMessagesCheckMode({chatId});
         dispatch(action);
     };
-
     if (!chatId || !contact) return <Redirect to="/"/>;
 
     const renderPopover = (onClose: VoidFunction) => (
