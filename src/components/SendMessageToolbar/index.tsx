@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-import {addMessageAsync} from "../../store/chatsSlice";
+import {addMessageRequest} from "../../store/chatsSlice";
 import SendMessageToolbar from "./SendMessageToolbar";
 import {Chat} from "../../models/Chat";
 
@@ -13,7 +13,10 @@ function SendMessageToolbarContainer({ chatId }: SendMessageToolbarContainerProp
 
     return (
         <SendMessageToolbar
-            onSubmit={message => addMessageAsync(chatId, message)(dispatch)}
+            onSubmit={messageText => {
+                const action = addMessageRequest({chatId, messageText});
+                dispatch(action);
+            }}
         />
     );
 }

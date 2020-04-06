@@ -2,7 +2,7 @@ import React, {ChangeEvent, useEffect} from 'react';
 import MessageList, {MessageListProps} from "./MessageList";
 import {useDispatch, useSelector} from "react-redux";
 import {Message} from "../../models/Message";
-import {toggleCheckMessage, fetchMessagesAsync, selectChatById} from "../../store/chatsSlice";
+import {toggleCheckMessage, selectChatById, messagesRequest} from "../../store/chatsSlice";
 import {MessageListItemProps} from "./MessageListItem";
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
@@ -30,11 +30,15 @@ function MessageListContainer({ chatId }: MessageListContainerProps) {
     const { error, searchQuery, checkModeEnabled, checkedIds, messages: allMessages, loading } = useSelector(selectChatById(chatId));
     const messagesFilter = getMessagesFilter(searchQuery);
     const messages = searchQuery ? allMessages?.filter(messagesFilter) : allMessages;
+    const messagesFetched = Boolean(allMessages);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!allMessages) fetchMessagesAsync(chatId)(dispatch);
-    }, [allMessages, dispatch, chatId]);
+        if (!messagesFetched) {
+            const action = messagesRequest({chatId});
+            dispatch(action);
+        }
+    }, [messagesFetched, dispatch, chatId]);
 
     if (loading || !messages) return <Loading/>;
     if (error) return <ErrorMessage/>;

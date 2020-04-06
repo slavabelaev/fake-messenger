@@ -9,7 +9,7 @@ import {Attachment, Delete} from "@material-ui/icons";
 import Tooltip from "@material-ui/core/Tooltip";
 import View from "../../layout/View";
 import {getContactByIdSelector} from "../../store/contactsSlice";
-import {switchMessagesCheckMode, messagesSearchQuery, selectChatById, removeMessagesAsync} from "../../store/chatsSlice";
+import {switchMessagesCheckMode, messagesSearchQuery, selectChatById, removeManyMessages} from "../../store/chatsSlice";
 import PopoverAction from "../../components/PopoverAction";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
@@ -39,7 +39,10 @@ function Chat() {
     const selectContact = getContactByIdSelector(chatId);
     const contact = useSelector(selectContact);
     const dispatch = useDispatch();
-    const removeAllMessages = () => removeMessagesAsync(chatId)(dispatch);
+    const removeAllMessages = () => {
+        const action = removeManyMessages({chatId});
+        dispatch(action);
+    };
     const switchCheckMode = () => {
         const action = switchMessagesCheckMode({chatId});
         dispatch(action);
@@ -133,7 +136,13 @@ function Chat() {
         />
     );
 
-    const handleDelete = () => removeMessagesAsync(chatId, checkedIds)(dispatch);
+    const handleDelete = () => {
+        const action = removeManyMessages({
+            chatId,
+            messageIds: checkedIds
+        });
+        dispatch(action);
+    };
 
     const footer = checkModeEnabled ? (
         <Toolbar>

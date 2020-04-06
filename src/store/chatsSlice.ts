@@ -1,14 +1,9 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Message} from "../models/Message";
-import {Dispatch} from "react";
-import {removeMessages, fetchMessages, addMessage} from "../services/messageService";
 import {Chat} from "../models/Chat";
 import {RootState} from "./rootReducer";
-import {ErrorResponse, FetchList} from "../interfaces/Service";
-import {setStatusError} from "./statusSlice";
 import {Attachment} from "../models/Attachment";
 import {AttachmentLink} from "../models/AttachmentLink";
-import {fakerService} from "../services/fakerService";
 
 export interface ChatMessagesState {
     messages: Message[] | null;
@@ -77,6 +72,12 @@ const chatsSlice = createSlice({
             const { chatId, searchQuery } = action.payload;
             state[chatId].searchQuery = searchQuery;
         },
+        addMessageRequest(state, action: PayloadAction<{
+            chatId: Chat['id'];
+            messageText: Message['text'];
+        }>) {
+            // do nothing
+        },
         add(state, action: PayloadAction<{
             chatId: Chat['id'];
             message: Message;
@@ -100,20 +101,15 @@ const chatsSlice = createSlice({
         },
         removeMany(state, action: PayloadAction<{
             chatId: Chat['id'];
-            messageIds: Message['id'][];
+            messageIds?: Message['id'][];
         }>) {
             const { chatId, messageIds } = action.payload;
             const chat = state[chatId];
-            chat.messages = (chat.messages || []).filter(item => !messageIds.includes(item.id));
-            chat.checkedIds = [];
-            chat.checkModeEnabled = false;
-        },
-        removeAll(state, action: PayloadAction<{
-            chatId: Chat['id'];
-        }>) {
-            const {chatId} = action.payload;
-            const chat = state[chatId];
-            chat.messages = [];
+            if (messageIds) {
+                chat.messages = (chat.messages || []).filter(item => !messageIds.includes(item.id));
+            } else {
+                chat.messages = [];
+            }
             chat.checkedIds = [];
             chat.checkModeEnabled = false;
         },
@@ -172,93 +168,14 @@ export const {
     failure: messagesFailure,
     setSearchQuery: messagesSearchQuery,
     add: addOneMessage,
+    addMessageRequest,
     switchCheckMode: switchMessagesCheckMode,
     removeMany: removeManyMessages,
-    removeAll: removeAllMessages,
     toggleCheck: toggleCheckMessage,
     removeAttachmentFiles,
     removeAttachmentLinks,
     setPrints: setMessagePrints
 } = chatsSlice.actions;
-
-export const sendFakeAnswerAsync = (chatId: Chat['id']) => (dispatch: Dispatch<any>) => {
-    const message = fakerService.message();
-    message.createdBy = chatId;
-    message.createdByMe = false;
-    message.createdAt = new Date();
-    message.attachmentLink = undefined;
-    message.attachmentFile = undefined;
-    message.read = true;
-    message.delivered = true;
-    const timeout = message.text.length * (Math.random() * 10 + 5);
-    const startPrintsTimeout = (Math.random() * 2000 + 1000);
-
-    const startMessageAwait = () => setTimeout(() => {
-        const action = addOneMessage({chatId, message});
-        dispatch(action);
-        const messagePrintsAction = setMessagePrints({chatId, prints: false});
-        dispatch(messagePrintsAction);
-    }, timeout);
-
-    setTimeout(() => {
-        const action = setMessagePrints({chatId, prints: true});
-        dispatch(action);
-        startMessageAwait();
-    }, startPrintsTimeout);
-};
-
-export const addMessageAsync = (chatId: Chat['id'], messageText: Message['text']) => (dispatch: Dispatch<any>) => {
-    addMessage(chatId, messageText)
-        .then(response => {
-            const errors = (response as ErrorResponse).errors;
-            if (errors) throw new Error(errors[0]);
-            const message = response as Message;
-            const action = addOneMessage({chatId, message});
-            dispatch(action);
-            // Send fake answer
-            sendFakeAnswerAsync(chatId)(dispatch);
-        })
-        .catch(error => {
-            const statusAction = setStatusError(error);
-            dispatch(statusAction);
-        })
-};
-
-export const removeMessagesAsync = (chatId: Chat['id'], messageIds?: Message['id'][]) => (dispatch: Dispatch<any>) => {
-    removeMessages(messageIds)
-        .then((response) => {
-            const errors = (response as ErrorResponse).errors;
-            if (errors) throw new Error(errors[0]);
-
-            const action = (messageIds?.length)
-                ? removeManyMessages({chatId, messageIds})
-                : removeAllMessages({chatId});
-            dispatch(action);
-        })
-        .catch(error => {
-            const statusAction = setStatusError(error);
-            dispatch(statusAction);
-        })
-};
-
-export const fetchMessagesAsync = (chatId: Chat['id']) => (dispatch: Dispatch<any>) => {
-    const action = messagesRequest({chatId});
-    dispatch(action);
-    fetchMessages()
-        .then(response => {
-            const errors = (response as ErrorResponse).errors;
-            if (errors) throw new Error(errors[0]);
-            const messages = (response as FetchList<Message>).items;
-            const action = messagesSuccess({chatId, messages});
-            dispatch(action);
-        })
-        .catch(error => {
-            const action = messagesFailure({chatId});
-            dispatch(action);
-            const statusAction = setStatusError(error);
-            dispatch(statusAction);
-        })
-};
 
 const chatsReducer = chatsSlice.reducer;
 
