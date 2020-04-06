@@ -4,7 +4,7 @@ import {signInWithLoginAndPassword, updateUserProfile} from "../services/authSer
 import {ErrorResponse} from "../interfaces/Service";
 import {Dispatch} from "react";
 import {RootState} from "./rootReducer";
-import {setStatusError} from "./statusSlice";
+import {setStatusError, setStatusMessage} from "./statusSlice";
 
 export interface AuthState {
     loading: boolean;
@@ -79,6 +79,8 @@ export const updateUserProfileAsync = (changes: UserProfile) => async (dispatch:
             if (errors) throw new Error(errors[0]);
             const action = updateProfile(changes);
             dispatch(action);
+            const statusAction = setStatusMessage('Profile updated');
+            dispatch(statusAction);
         })
         .catch(error => {
             const action = authFailure();

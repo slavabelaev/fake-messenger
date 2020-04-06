@@ -58,6 +58,7 @@ function EditProfile(props: EditProfileProps) {
                                         size="small"
                                         component="label"
                                         htmlFor="avatar"
+                                        disabled={true}
                                     >
                                         Choose
                                     </Button>
@@ -105,6 +106,7 @@ function EditProfile(props: EditProfileProps) {
                         size="small"
                         label="Date of Birth"
                         type="date"
+                        disabled={true}
                         InputLabelProps={{
                             shrink: true
                         }}

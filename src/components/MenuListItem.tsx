@@ -3,19 +3,25 @@ import {ListItem, ListItemIconProps, ListItemProps, ListItemTextProps} from "@ma
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 
-export type MenuListItemProps = Omit<ListItemProps, 'children' | 'button'> & {
+export type MenuListItemProps = {
     primary?: ListItemTextProps['primary'];
     secondary?: ListItemTextProps['secondary'];
     icon?: ListItemIconProps['children'];
     button?: ListItemProps['button'];
+    selected?: ListItemProps['selected'];
+    disabled?: ListItemProps['disabled'];
+    dense?: ListItemProps['dense'];
+    onClick?: VoidFunction;
 }
 
 function MenuListItem({
     icon,
     primary,
     secondary,
-    button,
-    ...otherProps
+    selected,
+    disabled,
+    dense,
+    onClick
 
 }: MenuListItemProps) {
     const listItemIcon = icon && (
@@ -25,10 +31,12 @@ function MenuListItem({
     );
 
     return (
-        // @ts-ignore
         <ListItem
             button
-            {...otherProps}
+            selected={selected}
+            disabled={disabled}
+            dense={dense}
+            onClick={onClick}
         >
             {listItemIcon}
             <ListItemText
