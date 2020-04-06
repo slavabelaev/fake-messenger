@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import ContactList from "./ContactList";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchContactsAsync, selectContacts, selectFoundContacts, removeContactAsync} from "../../store/contactsSlice";
+import {contactsRequest, selectContacts, selectFoundContacts, removeContactById} from "../../store/contactsSlice";
 import {Contact} from "../../models/Contact";
 import {ContactListItemProps} from "./ContactListItem";
 import {CHAT_ROUTE_PATH} from "../../views/Chat";
@@ -29,7 +29,8 @@ function ContactListContainer() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        fetchContactsAsync()(dispatch);
+        const action = contactsRequest();
+        dispatch(action);
     }, [dispatch]);
 
     if (loading) return <Loading/>;
@@ -43,7 +44,10 @@ function ContactListContainer() {
             getItem={index => {
                 const contact = contacts[index];
                 const itemProps = mapContactToItemProps(contact);
-                const handleDelete = () => removeContactAsync(contact.id)(dispatch);
+                const handleDelete = () => {
+                    const action = removeContactById(contact.id);
+                    dispatch(action);
+                };
                 return {
                     ...itemProps,
                     onDelete: handleDelete

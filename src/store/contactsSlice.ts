@@ -1,11 +1,6 @@
 import {createEntityAdapter, createSelector, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Contact} from "../models/Contact";
-import {removeContact, fetchContacts, addContact} from "../services/contactService";
-import {Dispatch} from "react";
-import {ErrorResponse, FetchList} from "../interfaces/Service";
 import {RootState} from "./rootReducer";
-import {fakerService} from "../services/fakerService";
-import {setStatusMessage, setStatusError} from "./statusSlice";
 
 const contactsAdapter = createEntityAdapter<Contact>();
 
@@ -101,56 +96,6 @@ export const {
     switchFavorite: contactsSwitchBlackList,
     switchNotifications: contactsSwitchNotifications,
 } = contactsSlice.actions;
-
-export const addContactAsync = (id: Contact['id']) => (dispatch: Dispatch<any>) => {
-    addContact(id)
-        .then(response => {
-            const errors = (response as ErrorResponse).errors;
-            if (errors) throw new Error(errors[0]);
-            const contact = fakerService.contact();
-            const action = addOneContact(contact);
-            dispatch(action);
-            const statusMessage = `${contact.firstName} ${contact.lastName} added to contacts`;
-            const statusAction = setStatusMessage(statusMessage);
-            dispatch(statusAction);
-        })
-        .catch(error => {
-            const statusAction = setStatusError(error);
-            dispatch(statusAction);
-        })
-};
-
-export const removeContactAsync = (id: Contact['id']) => (dispatch: Dispatch<any>) => {
-    removeContact(id)
-        .then(response => {
-            const errors = (response as ErrorResponse).errors;
-            if (errors) throw new Error(errors[0]);
-            const action = removeContactById(id);
-            dispatch(action);
-        })
-        .catch(error => {
-            const statusAction = setStatusError(error);
-            dispatch(statusAction);
-        })
-};
-
-export const fetchContactsAsync = () => (dispatch: Dispatch<any>) => {
-    dispatch(contactsRequest());
-    fetchContacts()
-        .then(response => {
-            const errors = (response as ErrorResponse).errors;
-            if (errors) throw new Error(errors[0]);
-            const successResponse = response as FetchList<Contact>;
-            const action = contactsSuccess(successResponse.items);
-            dispatch(action);
-        })
-        .catch(error => {
-            const action = contactsFailure();
-            dispatch(action);
-            const statusAction = setStatusError(error);
-            dispatch(statusAction);
-        })
-};
 
 const contactsReducer = contactsSlice.reducer;
 

@@ -10,11 +10,12 @@ import {PROFILE_ROUTE_PATH} from "../Profile";
 import View from "../../layout/View";
 import {useDispatch, useSelector} from "react-redux";
 import {selectAuth} from "../../store/authSlice";
-import {addContactAsync, contactsSearchQuery} from '../../store/contactsSlice';
+import {addOneContact, contactsSearchQuery} from '../../store/contactsSlice';
 import ErrorMessage from "../../layout/ErrorMessage";
 import Loading from "../../layout/Loading";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
+import {fakerService} from "../../services/fakerService";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
@@ -88,8 +89,9 @@ function Contacts() {
             className={classes.fab}
             color="primary"
             onClick={() => {
-                const userId = Math.random().toString(16);
-                addContactAsync(userId)(dispatch);
+                const contact = fakerService.contact();
+                const action = addOneContact(contact);
+                dispatch(action);
             }}
         >
             <Add/>
