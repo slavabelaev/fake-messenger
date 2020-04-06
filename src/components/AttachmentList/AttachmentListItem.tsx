@@ -13,12 +13,11 @@ import {
     TextFields,
     Message,
     FontDownload,
-    Attachment
+    Attachment, GetApp
 } from "@material-ui/icons";
 import {makeStyles} from "@material-ui/core/styles";
-import PopoverAction from "../PopoverAction";
-import List from "@material-ui/core/List";
-import MenuListItem from "../MenuListItem";
+import Link from "@material-ui/core/Link";
+import IconButton from "@material-ui/core/IconButton";
 
 export interface AttachmentListItemProps {
     name: File['name'];
@@ -65,18 +64,14 @@ function AttachmentListItem(props: AttachmentListItemProps) {
                 secondary={bytes(props.size)}
             />
             <ListItemSecondaryAction>
-                <PopoverAction
-                    renderPopover={onClose => (
-                        <List>
-                            <MenuListItem
-                                primary="Download"
-                            />
-                            <MenuListItem
-                                primary="Delete"
-                            />
-                        </List>
-                    )}
-                />
+                <IconButton
+                    edge="end"
+                    component={Link}
+                    href={`data:text/plain;`}
+                    download={props.name}
+                >
+                    <GetApp/>
+                </IconButton>
             </ListItemSecondaryAction>
         </ListItem>
     );
