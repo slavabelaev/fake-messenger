@@ -5,7 +5,7 @@ import {ErrorResponse} from "../interfaces/Service";
 import {setStatusError, setStatusMessage} from "../store/statusSlice";
 import {AuthUser} from "../models/AuthUser";
 
-function* signInWorker(action: ReturnType<typeof authRequest>) {
+function* signInSaga(action: ReturnType<typeof authRequest>) {
     const { login, password } = action.payload;
     const request = () => signInWithLoginAndPassword(login, password);
     const response = yield call(request);
@@ -28,11 +28,7 @@ function* signInWorker(action: ReturnType<typeof authRequest>) {
     }
 }
 
-function* signInWatch() {
-    yield takeEvery(authRequest.type, signInWorker);
-}
-
-function* updateProfileWorker(action: ReturnType<typeof updateProfile>) {
+function* updateProfileSaga(action: ReturnType<typeof updateProfile>) {
     const profileChanges = action.payload;
     const request = () => updateUserProfile(profileChanges);
     const response = yield call(request);
@@ -46,15 +42,11 @@ function* updateProfileWorker(action: ReturnType<typeof updateProfile>) {
     }
 }
 
-function* updateProfileWatch() {
-    yield takeEvery(updateProfile.type, updateProfileWorker);
-}
-
-function* authSaga() {
+function* watchAuthSaga() {
     yield all([
-        updateProfileWatch(),
-        signInWatch()
+        takeEvery(authRequest.type, signInSaga),
+        takeEvery(updateProfile.type, updateProfileSaga)
     ])
 }
 
-export default authSaga;
+export default watchAuthSaga;

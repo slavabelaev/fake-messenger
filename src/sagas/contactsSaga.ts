@@ -1,11 +1,11 @@
-import {all, call, put, takeEvery} from "redux-saga/effects";
+import {all, call, put, takeEvery, delay} from "redux-saga/effects";
 import {addContact, fetchContacts, removeContact} from "../services/contactService";
 import {ErrorResponse, FetchList} from "../interfaces/Service";
 import {Contact} from "../models/Contact";
 import {contactsFailure, contactsRequest, contactsSuccess, addOneContact, removeContactById} from "../store/contactsSlice";
 import {setStatusError, setStatusMessage} from "../store/statusSlice";
 
-function* removeContactWorker(action: ReturnType<typeof removeContactById>) {
+function* removeContactSaga(action: ReturnType<typeof removeContactById>) {
     const id = action.payload as string;
     const request = () => removeContact(id);
     const response = yield call(request);
@@ -19,11 +19,7 @@ function* removeContactWorker(action: ReturnType<typeof removeContactById>) {
     }
 }
 
-function* removeContactWatch() {
-    yield takeEvery(removeContactById.type, removeContactWorker);
-}
-
-function* addContactWorker(action: ReturnType<typeof addOneContact>) {
+function* addContactSaga(action: ReturnType<typeof addOneContact>) {
     const contact = action.payload;
     const request = () => addContact(contact.id);
     const response = yield call(request);
@@ -38,11 +34,8 @@ function* addContactWorker(action: ReturnType<typeof addOneContact>) {
     }
 }
 
-function* addContactWatch() {
-    yield takeEvery(addOneContact.type, addContactWorker);
-}
-
-function* fetchContactsWorker() {
+function* fetchContactsSaga() {
+    yield delay(240);
     const response = yield call(fetchContacts);
     const errors = (response as ErrorResponse).errors;
     if (errors) {
@@ -59,16 +52,12 @@ function* fetchContactsWorker() {
     }
 }
 
-function* fetchContactsWatch() {
-    yield takeEvery(contactsRequest.type, fetchContactsWorker);
-}
-
-function* contactsSaga() {
+function* watchContactsSaga() {
     yield all([
-        fetchContactsWatch(),
-        addContactWatch(),
-        removeContactWatch()
+        takeEvery(removeContactById.type, removeContactSaga),
+        takeEvery(addOneContact.type, addContactSaga),
+        takeEvery(contactsRequest.type, fetchContactsSaga)
     ])
 }
 
-export default contactsSaga;
+export default watchContactsSaga;

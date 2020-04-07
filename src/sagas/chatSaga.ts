@@ -15,7 +15,7 @@ import {Message} from "../models/Message";
 import {Chat} from "../models/Chat";
 import {fakerService} from "../services/fakerService";
 
-function* removeMessageWorker(action: ReturnType<typeof removeManyMessages>) {
+function* removeMessageSaga(action: ReturnType<typeof removeManyMessages>) {
     const { messageIds } = action.payload;
     const request = () => removeMessages(messageIds);
     const response = yield call(request);
@@ -26,11 +26,7 @@ function* removeMessageWorker(action: ReturnType<typeof removeManyMessages>) {
     }
 }
 
-function* removeMessageWatch() {
-    yield takeEvery(removeManyMessages.type, removeMessageWorker);
-}
-
-function* sendFakeAnswerWorker(chatId: Chat['id']) {
+function* sendFakeAnswerSaga(chatId: Chat['id']) {
     const message = fakerService.message();
     message.createdBy = chatId;
     message.createdByMe = false;
@@ -55,7 +51,7 @@ function* sendFakeAnswerWorker(chatId: Chat['id']) {
     ]);
 }
 
-function* addMessageWorker(action: ReturnType<typeof addMessageRequest>) {
+function* addMessageSaga(action: ReturnType<typeof addMessageRequest>) {
     const { chatId, messageText } = action.payload;
     const request = () => addMessage(chatId, messageText);
     const response = yield call(request);
@@ -68,16 +64,13 @@ function* addMessageWorker(action: ReturnType<typeof addMessageRequest>) {
         const action = addOneMessage({chatId, message});
         yield all([
             put(action),
-            sendFakeAnswerWorker(chatId)
+            sendFakeAnswerSaga(chatId)
         ]);
     }
 }
 
-function* addMessageWatch() {
-    yield takeEvery(addMessageRequest.type, addMessageWorker);
-}
-
-function* fetchMessagesWorker(action: ReturnType<typeof messagesRequest>) {
+function* fetchMessagesSaga(action: ReturnType<typeof messagesRequest>) {
+    yield delay(240);
     const { chatId } = action.payload;
     const request = () => fetchMessages();
     const response = yield call(request);
@@ -96,16 +89,12 @@ function* fetchMessagesWorker(action: ReturnType<typeof messagesRequest>) {
     }
 }
 
-function* fetchMessagesWatch() {
-    yield takeEvery(messagesRequest.type, fetchMessagesWorker);
-}
-
-function* chatSaga() {
+function* watchChatSaga() {
     yield all([
-        fetchMessagesWatch(),
-        addMessageWatch(),
-        removeMessageWatch()
+        takeEvery(removeManyMessages.type, removeMessageSaga),
+        takeEvery(addMessageRequest.type, addMessageSaga),
+        takeEvery(messagesRequest.type, fetchMessagesSaga)
     ])
 }
 
-export default chatSaga;
+export default watchChatSaga;

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         overflow: 'auto',
         borderRightWidth: 1,
         borderRightStyle: 'solid',
-        borderRightColor: theme.palette.grey.A100,
+        borderRightColor: theme.palette.divider,
     },
     rightSide: {
         minWidth: 360,
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         overflow: 'auto',
         borderLeftWidth: 1,
         borderLeftStyle: 'solid',
-        borderLeftColor: theme.palette.grey.A100,
+        borderLeftColor: theme.palette.divider,
     },
     main: {
         flex: 'auto',
