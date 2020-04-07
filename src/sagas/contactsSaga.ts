@@ -1,4 +1,4 @@
-import {all, call, put, takeEvery, delay} from "redux-saga/effects";
+import {all, call, put, takeEvery, takeLatest, delay} from "redux-saga/effects";
 import {addContact, fetchContacts, removeContact} from "../services/contactService";
 import {ErrorResponse, FetchList} from "../interfaces/Service";
 import {Contact} from "../models/Contact";
@@ -56,7 +56,7 @@ function* watchContactsSaga() {
     yield all([
         takeEvery(removeContactById.type, removeContactSaga),
         takeEvery(addOneContact.type, addContactSaga),
-        takeEvery(contactsRequest.type, fetchContactsSaga)
+        takeLatest(contactsRequest.type, fetchContactsSaga)
     ])
 }
 

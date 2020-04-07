@@ -1,4 +1,4 @@
-import {call, all, takeEvery, put} from "redux-saga/effects";
+import {call, all, takeEvery, put, takeLatest} from "redux-saga/effects";
 import {authRequest, authSuccess, authFailure, updateProfile} from "../store/authSlice";
 import {signInWithLoginAndPassword, updateUserProfile} from "../services/authService";
 import {ErrorResponse} from "../interfaces/Service";
@@ -44,7 +44,7 @@ function* updateProfileSaga(action: ReturnType<typeof updateProfile>) {
 
 function* watchAuthSaga() {
     yield all([
-        takeEvery(authRequest.type, signInSaga),
+        takeLatest(authRequest.type, signInSaga),
         takeEvery(updateProfile.type, updateProfileSaga)
     ])
 }
