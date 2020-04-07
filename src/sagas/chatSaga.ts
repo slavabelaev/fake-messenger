@@ -21,9 +21,9 @@ function* removeMessageSaga(action: ReturnType<typeof removeManyMessages>) {
         const request = () => removeMessages(messageIds);
         const response = yield call(request);
         const errors = (response as ErrorResponse).errors;
-        if (errors) throw errors;
-    } catch (errors) {
-        const statusAction = setStatusError(errors[0]);
+        if (errors) throw new Error(errors[0]);
+    } catch (error) {
+        const statusAction = setStatusError(error.message);
         yield put(statusAction);
     }
 }
@@ -59,15 +59,15 @@ function* addMessageSaga(action: ReturnType<typeof addMessageRequest>) {
         const request = () => addMessage(chatId, messageText);
         const response = yield call(request);
         const errors = (response as ErrorResponse).errors;
-        if (errors) throw errors;
+        if (errors) throw new Error(errors[0]);
         const message = response as Message;
         const action = addOneMessage({chatId, message});
         yield all([
             put(action),
             fork(sendFakeAnswerSaga, chatId),
         ]);
-    } catch (errors) {
-        const statusAction = setStatusError(errors[0]);
+    } catch (error) {
+        const statusAction = setStatusError(error.message);
         yield put(statusAction);
     }
 }
@@ -79,13 +79,13 @@ function* fetchMessagesSaga(action: ReturnType<typeof messagesRequest>) {
         const request = () => fetchMessages();
         const response = yield call(request);
         const errors = (response as ErrorResponse).errors;
-        if (errors) throw errors;
+        if (errors) throw new Error(errors[0]);
         const messages = (response as FetchList<Message>).items;
         const action = messagesSuccess({chatId, messages});
         yield put(action);
-    } catch (errors) {
+    } catch (error) {
         const action = messagesFailure({chatId});
-        const statusAction = setStatusError(errors[0]);
+        const statusAction = setStatusError(error.message);
         yield all([
             put(action),
             put(statusAction)

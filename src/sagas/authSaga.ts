@@ -11,7 +11,7 @@ function* signInSaga(action: ReturnType<typeof authRequest>) {
         const request = () => signInWithLoginAndPassword(login, password);
         const response = yield call(request);
         const errors = (response as ErrorResponse).errors;
-        if (errors) throw errors;
+        if (errors) throw new Error(errors[0]);
         const user = response as AuthUser;
         const action = authSuccess(user);
         const statusAction = setStatusMessage(`Authorized as ${user.firstName} ${user.lastName}`);
@@ -19,9 +19,9 @@ function* signInSaga(action: ReturnType<typeof authRequest>) {
             put(action),
             put(statusAction)
         ]);
-    } catch(errors) {
+    } catch(error) {
         const action = authFailure();
-        const statusAction = setStatusError(errors[0]);
+        const statusAction = setStatusError(error.message);
         yield all([
             put(action),
             put(statusAction)
@@ -35,11 +35,11 @@ function* updateProfileSaga(action: ReturnType<typeof updateProfile>) {
         const request = () => updateUserProfile(profileChanges);
         const response = yield call(request);
         const errors = (response as ErrorResponse).errors;
-        if (errors) throw errors;
+        if (errors) throw new Error(errors[0]);
         const statusAction = setStatusMessage('Profile updated');
         yield put(statusAction);
-    } catch(errors) {
-        const statusAction = setStatusError(errors[0]);
+    } catch(error) {
+        const statusAction = setStatusError(error.message);
         yield put(statusAction);
     }
 }
