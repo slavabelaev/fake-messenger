@@ -1,11 +1,11 @@
 import React from "react";
 import {Switch, Route} from "react-router-dom";
-import Chat, {CHAT_ROUTE_PATH} from "../views/Chat";
-import Settings, {SETTINGS_ROUTE_PATH} from "../views/Settings";
-import Profile, {PROFILE_ROUTE_PATH} from "../views/Profile";
-import Contacts, {CONTACTS_ROUTE_PATH} from "../views/Contacts";
-import ContactProfile, {CONTACT_PROFILE_ROUTE_PATH} from "../views/ContactProfile";
-import Attachments, {CHAT_ATTACHMENTS_ROUTE_PATH} from "../views/Attachments";
+import Chat, {CHAT_ROUTE_PATH} from "../features/views/Chat";
+import Settings, {SETTINGS_ROUTE_PATH} from "../features/views/Settings";
+import Profile, {PROFILE_ROUTE_PATH} from "../features/views/Profile";
+import Contacts, {CONTACTS_ROUTE_PATH} from "../features/views/Contacts";
+import ContactProfile, {CONTACT_PROFILE_ROUTE_PATH} from "../features/views/ContactProfile";
+import Attachments, {CHAT_ATTACHMENTS_ROUTE_PATH} from "../features/views/Attachments";
 
 function MobileRoutes() {
     return (

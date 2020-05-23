@@ -3,7 +3,7 @@ import {Snackbar, SnackbarProps} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {Close} from "@material-ui/icons";
 import {useDispatch, useSelector} from "react-redux";
-import {selectStatus, resetStatus} from "../store/statusSlice";
+import {selectStatus, resetStatus} from "./statusSlice";
 
 function ActionSnackbar() {
     const {message, autoHideDuration} = useSelector(selectStatus);

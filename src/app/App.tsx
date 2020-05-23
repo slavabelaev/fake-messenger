@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
 import Routes from "./Routes";
-import Layout from "../layout/Layout";
-import Contacts from "../views/Contacts";
+import Layout from "../common/components/layout/Layout";
+import Contacts from "../features/views/Contacts";
 import {useDispatch, useSelector} from "react-redux";
-import {selectAuth, authRequest} from "../store/authSlice";
-import ErrorMessage from "../layout/ErrorMessage";
-import Loading from "../layout/Loading";
+import {selectAuth, authRequest} from "../features/auth/authSlice";
+import ErrorMessage from "../common/components/layout/ErrorMessage";
+import Loading from "../common/components/layout/Loading";
 import ActionSnackbar from "./ActionSnackbar";
 import MobileRoutes from "./MobileRoutes";
 import {useMediaQuery, useTheme} from "@material-ui/core";

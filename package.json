@@ -2,6 +2,8 @@
   "name": "redux-saga",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://fake-messenger-web.web.app/",
+  "main": "electron/index.js",
   "dependencies": {
     "@material-ui/core": "^4.9.7",
     "@material-ui/icons": "^4.9.1",
@@ -22,7 +24,9 @@
     "@types/redux-saga": "^0.10.5",
     "bytes": "^3.1.0",
     "date-fns": "^2.11.1",
+    "electron": "^8.2.1",
     "faker": "^4.1.0",
+    "gh-pages": "^2.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
@@ -37,7 +41,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
