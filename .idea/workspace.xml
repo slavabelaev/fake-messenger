@@ -2,46 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2bced0f8-5b67-4547-8bea-bcee85b3aa46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/ThemeProvider/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/components/AttachmentList/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/components/ContactList/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/components/LinkList/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/components/MessageList/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/components/SendMessageToolbar/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/components/layout/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/features/contacts/ContactList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/features/links/LinkList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Root.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Root.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/components/AttachmentLinkList/AttachmentLinkList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/components/LinkList/LinkList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/components/AttachmentLinkList/AttachmentLinkListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/components/LinkList/LinkListItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/components/AttachmentLinkList/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/components/AttachmentList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/attachments/AttachmentList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/components/ContactList/ContactList.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/components/ContactList/ContactList.test.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/components/ContactList/ContactListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/components/ContactList/ContactListItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/components/ContactList/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/components/MessageList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/messages/MessageList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/components/SendMessageToolbar/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/components/layout/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/interfaces/Service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/interfaces/Service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/ThemeProvider/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/ThemeProvider/ThemeProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/ThemeProvider/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/ThemeProvider/theme.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/attachments/AttachmentLink.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/links/AttachmentLink.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/attachments/attachmentLinkService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/links/attachmentLinkService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/attachments/attachmentService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/attachments/attachmentService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/attachments/generateAttachmentLink.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/links/generateAttachmentLink.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/chat/chatSaga.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/chat/chatSaga.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/chat/chatsSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/chat/chatsSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/contacts/contactService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/contacts/contactService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/contacts/contactsSaga.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/contacts/contactsSaga.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/messages/Message.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/messages/Message.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/ThemeProvider/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/ThemeProvider/theme.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/features/messages/generateMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/messages/generateMessage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/messages/messageService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/messages/messageService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/views/Attachments/Attachments.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/views/Attachments/Attachments.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/features/views/Chat/Chat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/views/Chat/Chat.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/views/Chat/ChatRoutes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/views/Chat/ChatRoutes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/views/ContactProfile/ContactProfile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/views/ContactProfile/ContactProfile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/views/Contacts/Contacts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/views/Contacts/Contacts.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,7 +176,7 @@
       <workItem from="1586331995984" duration="333000" />
       <workItem from="1586343260908" duration="5104000" />
       <workItem from="1586505977563" duration="5248000" />
-      <workItem from="1590256589602" duration="13677000" />
+      <workItem from="1590256589602" duration="16124000" />
     </task>
     <servers />
   </component>
@@ -293,12 +257,12 @@
     <state x="279" y="58" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585139706244" />
     <state x="262" y="80" key="SettingsEditor/0.23.1440.806@0.23.1440.806" timestamp="1585928409038" />
     <state x="262" y="80" key="SettingsEditor/0.23.1440.811@0.23.1440.811" timestamp="1586153826434" />
-    <state x="444" y="187" width="837" height="552" key="find.popup" timestamp="1590313894329">
+    <state x="444" y="187" width="837" height="552" key="find.popup" timestamp="1590316038188">
       <screen x="0" y="23" width="1440" height="808" />
     </state>
     <state x="474" y="168" width="711" height="546" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1585830789006" />
     <state x="444" y="187" width="837" height="550" key="find.popup/0.23.1440.806@0.23.1440.806" timestamp="1586345470794" />
-    <state x="444" y="187" width="837" height="552" key="find.popup/0.23.1440.808@0.23.1440.808" timestamp="1590313894329" />
+    <state x="444" y="187" width="837" height="552" key="find.popup/0.23.1440.808@0.23.1440.808" timestamp="1590316038188" />
     <state x="444" y="188" width="837" height="555" key="find.popup/0.23.1440.811@0.23.1440.811" timestamp="1586175817503" />
     <state x="425" y="187" key="run.anything.popup" timestamp="1585774461938">
       <screen x="0" y="0" width="1536" height="824" />

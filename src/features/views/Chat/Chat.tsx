@@ -171,6 +171,8 @@ function Chat() {
     ) : (
         <SendMessageToolbar
             onSubmit={messageText => {
+                messageText = messageText.trim();
+                if (!messageText) return;
                 const action = addMessageRequest({chatId, messageText});
                 dispatch(action);
             }}
