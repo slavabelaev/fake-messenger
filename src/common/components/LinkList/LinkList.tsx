@@ -1,5 +1,5 @@
 import React, {Key} from 'react';
-import AttachmentLinkListItem, {AttachmentLinkListItemProps} from "./AttachmentLinkListItem";
+import LinkListItem, {AttachmentLinkListItemProps} from "./LinkListItem";
 import ListView from "../ListView";
 
 export interface AttachmentLinkListProps {
@@ -8,7 +8,7 @@ export interface AttachmentLinkListProps {
     getItemKey?: (index: number) => Key;
 }
 
-function AttachmentLinkList({
+function LinkList({
     itemCount,
     getItem,
     getItemKey
@@ -17,7 +17,7 @@ function AttachmentLinkList({
         const itemProps = getItem(index);
         const itemKey = getItemKey ? getItemKey(index) : index;
         return (
-            <AttachmentLinkListItem
+            <LinkListItem
                 key={itemKey}
                 {...itemProps}
             />
@@ -32,4 +32,4 @@ function AttachmentLinkList({
     );
 }
 
-export default AttachmentLinkList;
+export default LinkList;

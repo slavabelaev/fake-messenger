@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
+import {useDispatch} from "react-redux";
+import {useParams} from "react-router-dom";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import View from "../../../common/components/layout/View";
-import {useParams} from "react-router-dom";
-import ErrorMessage from "../../../common/components/layout/ErrorMessage";
-import AttachmentList from "../../../common/components/AttachmentList";
-import AttachmentLinkList from "../../../common/components/AttachmentLinkList";
-import PopoverAction from "../../../common/components/PopoverAction";
 import List from "@material-ui/core/List";
+import View from "../../../common/components/layout/View";
+import ErrorMessage from "../../../common/components/layout/ErrorMessage";
+import AttachmentList from "../../attachments/AttachmentList";
+import AttachmentLinkList from "../../links/LinkList";
+import PopoverAction from "../../../common/components/PopoverAction";
 import MenuListItem from "../../../common/components/MenuListItem";
-import {useDispatch} from "react-redux";
-import {removeAttachmentFiles, removeAttachmentLinks} from "../../chat/chatsSlice";
+import {removeAttachmentsSuccess, removeLinksSuccess} from "../../chat/chatsSlice";
 import LayoutToolbar from "../../../common/components/layout/LayoutToolbar";
 
 const FILES_TAB_VALUE = 0;
@@ -30,7 +30,7 @@ function Attachments() {
                     <MenuListItem
                         primary="Delete all files"
                         onClick={() => {
-                            const action = removeAttachmentFiles({chatId});
+                            const action = removeAttachmentsSuccess({chatId});
                             dispatch(action);
                             onClose();
                         }}
@@ -38,7 +38,7 @@ function Attachments() {
                     <MenuListItem
                         primary="Delete all links"
                         onClick={() => {
-                            const action = removeAttachmentLinks({chatId});
+                            const action = removeLinksSuccess({chatId});
                             dispatch(action);
                             onClose();
                         }}

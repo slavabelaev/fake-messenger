@@ -3,7 +3,7 @@ import {Message} from "../messages/Message";
 import {Chat} from "./Chat";
 import {RootState} from "../../app/rootReducer";
 import {Attachment} from "../attachments/Attachment";
-import {AttachmentLink} from "../attachments/AttachmentLink";
+import {AttachmentLink} from "../links/AttachmentLink";
 
 export interface ChatMessagesState {
     messages: Message[] | null;
@@ -34,7 +34,7 @@ const chatsSlice = createSlice({
     name: 'chats',
     initialState,
     reducers: {
-        request(state, action: PayloadAction<{
+        fetchRequest(state, action: PayloadAction<{
             chatId: Chat['id'];
         }>) {
             const { chatId } = action.payload;
@@ -42,7 +42,7 @@ const chatsSlice = createSlice({
             state[chatId].loading = true;
             state[chatId].error = false;
         },
-        success(state, action: PayloadAction<{
+        fetchSuccess(state, action: PayloadAction<{
             chatId: Chat['id'];
             messages: Message[];
         }>) {
@@ -51,7 +51,7 @@ const chatsSlice = createSlice({
             state[chatId].loading = false;
             state[chatId].messages = messages;
         },
-        failure(state, action: PayloadAction<{
+        fetchFailure(state, action: PayloadAction<{
             chatId: Chat['id'];
         }>) {
             const { chatId } = action.payload;
@@ -72,21 +72,6 @@ const chatsSlice = createSlice({
             const { chatId, searchQuery } = action.payload;
             state[chatId].searchQuery = searchQuery;
         },
-        addMessageRequest(state, action: PayloadAction<{
-            chatId: Chat['id'];
-            messageText: Message['text'];
-        }>) {
-            // do nothing
-        },
-        add(state, action: PayloadAction<{
-            chatId: Chat['id'];
-            message: Message;
-        }>) {
-            const {chatId, message} = action.payload;
-            let messages = state[chatId].messages;
-            if (!messages) messages = [];
-            messages.push(message);
-        },
         switchCheckMode(state, action: PayloadAction<{
             chatId: Chat['id'];
             enabled?: boolean;
@@ -99,7 +84,22 @@ const chatsSlice = createSlice({
             chat.checkModeEnabled = checkModeEnabled;
             if (!checkModeEnabled) chat.checkedIds = [];
         },
-        removeMany(state, action: PayloadAction<{
+        addMessageRequest(state, action: PayloadAction<{
+            chatId: Chat['id'];
+            messageText: string;
+        }>) {
+
+        },
+        addMessageSuccess(state, action: PayloadAction<{
+            chatId: Chat['id'];
+            message: Message;
+        }>) {
+            const {chatId, message} = action.payload;
+            let messages = state[chatId].messages;
+            if (!messages) messages = [];
+            messages.push(message);
+        },
+        removeMessagesSuccess(state, action: PayloadAction<{
             chatId: Chat['id'];
             messageIds?: Message['id'][];
         }>) {
@@ -123,14 +123,14 @@ const chatsSlice = createSlice({
             if (checked) chat.checkedIds = chat.checkedIds.filter(id => id !== messageId);
             else chat.checkedIds.push(messageId);
         },
-        removeAttachmentFiles(state, action: PayloadAction<{
+        removeAttachmentsSuccess(state, action: PayloadAction<{
             chatId: Chat['id'];
         }>) {
             const {chatId} = action.payload;
             const chat = state[chatId];
             chat.messages?.forEach(item => item.attachmentFile = undefined);
         },
-        removeAttachmentLinks(state, action: PayloadAction<{
+        removeLinksSuccess(state, action: PayloadAction<{
             chatId: Chat['id'];
         }>) {
             const {chatId} = action.payload;
@@ -144,18 +144,18 @@ export const selectChatById = (id: Chat['id']) => (state: RootState): ChatMessag
     return state.chats[id] || itemInitialState;
 };
 
-export const selectChatByIdAttachments = (id: Chat['id']) => (state: RootState): Attachment[] => {
+export const selectChatAttachmentsById = (id: Chat['id']) => (state: RootState): Attachment[] | null => {
     const chat = state.chats[id];
-    if (!chat) return [];
+    if (!chat || !chat.messages) return null;
 
     const messagesWithAttachments = chat.messages?.filter(item => item.attachmentFile !== undefined);
     const attachments = messagesWithAttachments?.map(item => item.attachmentFile);
     return attachments as Attachment[];
 };
 
-export const selectChatByIdAttachmentLinks = (id: Chat['id']) => (state: RootState): AttachmentLink[] => {
+export const selectChatLinksById = (id: Chat['id']) => (state: RootState): AttachmentLink[] | null => {
     const chat = state.chats[id];
-    if (!chat) return [];
+    if (!chat || !chat.messages) return null;
 
     const messagesWithAttachments = chat.messages?.filter(item => item.attachmentLink !== undefined);
     const attachments = messagesWithAttachments?.map(item => item.attachmentLink);
@@ -163,17 +163,17 @@ export const selectChatByIdAttachmentLinks = (id: Chat['id']) => (state: RootSta
 };
 
 export const {
-    request: messagesRequest,
-    success: messagesSuccess,
-    failure: messagesFailure,
-    setSearchQuery: messagesSearchQuery,
-    add: addOneMessage,
+    fetchRequest: fetchMessagesRequest,
+    fetchSuccess: fetchMessagesSuccess,
+    fetchFailure: fetchMessagesFailure,
+    removeMessagesSuccess,
     addMessageRequest,
-    switchCheckMode: switchMessagesCheckMode,
-    removeMany: removeManyMessages,
+    addMessageSuccess,
+    removeAttachmentsSuccess,
+    removeLinksSuccess,
     toggleCheck: toggleCheckMessage,
-    removeAttachmentFiles,
-    removeAttachmentLinks,
+    setSearchQuery: messagesSearchQuery,
+    switchCheckMode: switchMessagesCheckMode,
     setPrints: setMessagePrints
 } = chatsSlice.actions;
 

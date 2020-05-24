@@ -1,5 +1,5 @@
 import React from 'react';
-import ContactList from "../../../common/components/ContactList";
+import ContactList from "../../contacts/ContactList";
 import ToolbarListItem from "../../../common/components/ToolbarListItem";
 import {Add, Settings} from "@material-ui/icons";
 import {createStyles, Fab, IconButton, Theme} from "@material-ui/core";

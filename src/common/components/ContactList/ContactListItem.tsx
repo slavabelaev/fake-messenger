@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactNode} from "react";
 import {AvatarProps, createStyles, ListItem, ListItemTextProps, Theme} from "@material-ui/core";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -7,10 +7,9 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import {makeStyles} from "@material-ui/core/styles";
 import {NavLink} from "react-router-dom";
 import Badge from "@material-ui/core/Badge";
+import {InfoOutlined} from "@material-ui/icons";
+import IconButton from "@material-ui/core/IconButton";
 import MessageReadStatus, {MessageReadStatusProps} from "../MessageList/MessageReadStatus";
-import PopoverAction from "../PopoverAction";
-import List from "@material-ui/core/List";
-import MenuListItem from "../MenuListItem";
 
 export interface ContactListItemProps {
     avatarSrc: AvatarProps['src'];
@@ -23,12 +22,12 @@ export interface ContactListItemProps {
     };
     isOnline: boolean;
     to?: string;
-    onDelete?: VoidFunction;
+    toProfile?: string;
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     messageText: {
-        display: 'flex',
+        display: 'block',
         alignItems: 'center',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
@@ -36,33 +35,44 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }));
 
-function ContactListItem(props: ContactListItemProps) {
+function ContactListItem({
+    avatarSrc,
+    fullName,
+    lastMessage,
+    isOnline,
+    to,
+    toProfile
+}: ContactListItemProps) {
     const classes = useStyles();
 
-    const secondaryAction = (
+    const listItemSecondaryAction = toProfile ? (
         <ListItemSecondaryAction>
-            <PopoverAction
-                renderPopover={(onClose) => (
-                    <List>
-                        <MenuListItem
-                            primary="Delete"
-                            onClick={() => {
-                                props.onDelete && props.onDelete();
-                                onClose();
-                            }}
-                        />
-                    </List>
-                )}
-            />
+            <IconButton
+                component={NavLink}
+                to={toProfile}
+            >
+                <InfoOutlined/>
+            </IconButton>
         </ListItemSecondaryAction>
-    );
+    ) : null;
+
+    const secondaryText = lastMessage ? (
+        <span className={classes.messageText}>
+            <MessageReadStatus
+                delivered={lastMessage.delivered}
+                read={lastMessage.read}
+                gutterRight
+            />
+            {lastMessage.text}
+        </span>
+    ) : null;
 
     return (
         <ListItem
             button
             component={NavLink}
             activeClassName="Mui-selected"
-            to={props.to || '/'}
+            to={to || '/'}
         >
             <ListItemAvatar>
                 <Badge
@@ -73,27 +83,18 @@ function ContactListItem(props: ContactListItemProps) {
                         vertical: 'bottom'
                     }}
                     color="primary"
-                    invisible={!props.isOnline}
+                    invisible={!isOnline}
                 >
                     <Avatar
-                        src={props.avatarSrc}
+                        src={avatarSrc}
                     />
                 </Badge>
             </ListItemAvatar>
             <ListItemText
-                primary={props.fullName}
-                secondary={props.lastMessage &&
-                    <span className={classes.messageText}>
-                        <MessageReadStatus
-                            delivered={props.lastMessage.delivered}
-                            read={props.lastMessage.read}
-                            gutterRight
-                        />
-                        {props.lastMessage.text}
-                    </span>
-                }
+                primary={fullName}
+                secondary={secondaryText}
             />
-            {secondaryAction}
+            {listItemSecondaryAction}
         </ListItem>
     )
 }

@@ -1,5 +1,5 @@
 import faker from "faker";
-import {generateAttachmentLink} from "../attachments/generateAttachmentLink";
+import {generateAttachmentLink} from "../links/generateAttachmentLink";
 import {generateAttachment} from "../attachments/generateAttachment";
 import {Message} from "./Message";
 

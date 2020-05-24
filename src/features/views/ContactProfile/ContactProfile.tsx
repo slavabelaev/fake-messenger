@@ -2,8 +2,8 @@ import React from 'react';
 import View from "../../../common/components/layout/View";
 import LayoutToolbar from "../../../common/components/layout/LayoutToolbar";
 import { useParams } from 'react-router-dom';
-import {useSelector} from "react-redux";
-import {getContactByIdSelector} from "../../contacts/contactsSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {getContactByIdSelector, removeContactById} from "../../contacts/contactsSlice";
 import {List} from "@material-ui/core";
 import ErrorMessage from "../../../common/components/layout/ErrorMessage";
 import DetailListItem from "../../../common/components/DetailListItem";
@@ -11,11 +11,20 @@ import Divider from "@material-ui/core/Divider";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import NotificationsContactSwitch from "./NotificationsContactSwitch";
 import Link from "@material-ui/core/Link";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import {Delete} from "@material-ui/icons";
 
 function ContactProfile() {
     const {id: contactId = ''} = useParams();
+    const dispatch = useDispatch();
     const selectContact = getContactByIdSelector(contactId);
     const contact = useSelector(selectContact);
+    const removeContact = () => {
+        const action = removeContactById(contactId);
+        dispatch(action);
+    }
 
     if (!contactId) return <ErrorMessage text="No data" />;
 
@@ -23,6 +32,17 @@ function ContactProfile() {
         <LayoutToolbar
             title={`${contact?.firstName} ${contact?.lastName}`}
         />
+    );
+
+    const removeListItem = (
+        <ListItem button onClick={removeContact}>
+            <ListItemIcon>
+                <Delete/>
+            </ListItemIcon>
+            <ListItemText
+                primary="Remove from contacts"
+            />
+        </ListItem>
     );
 
     return (
@@ -63,6 +83,10 @@ function ContactProfile() {
                     primary="Bio"
                     secondary={contact?.bio}
                 />
+            </List>
+            <Divider/>
+            <List>
+                {removeListItem}
             </List>
         </View>
     );

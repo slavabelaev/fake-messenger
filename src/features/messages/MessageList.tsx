@@ -1,12 +1,12 @@
 import React, {ChangeEvent, useEffect} from 'react';
-import MessageList, {MessageListProps} from "./MessageList";
+import MessageList, {MessageListProps} from "../../common/components/MessageList/MessageList";
 import {useDispatch, useSelector} from "react-redux";
-import {Message} from "../../../features/messages/Message";
-import {toggleCheckMessage, selectChatById, messagesRequest} from "../../../features/chat/chatsSlice";
-import {MessageListItemProps} from "./MessageListItem";
-import ErrorMessage from "../layout/ErrorMessage";
-import Loading from "../layout/Loading";
-import {Chat} from "../../../features/chat/Chat";
+import {Message} from "./Message";
+import {toggleCheckMessage, selectChatById, fetchMessagesRequest} from "../chat/chatsSlice";
+import {MessageListItemProps} from "../../common/components/MessageList/MessageListItem";
+import ErrorMessage from "../../common/components/layout/ErrorMessage";
+import Loading from "../../common/components/layout/Loading";
+import {Chat} from "../chat/Chat";
 
 export interface MessageListContainerProps {
     chatId: Chat['id'];
@@ -35,7 +35,7 @@ function MessageListContainer({ chatId }: MessageListContainerProps) {
 
     useEffect(() => {
         if (!messagesFetched) {
-            const action = messagesRequest({chatId});
+            const action = fetchMessagesRequest({chatId});
             dispatch(action);
         }
     }, [messagesFetched, dispatch, chatId]);

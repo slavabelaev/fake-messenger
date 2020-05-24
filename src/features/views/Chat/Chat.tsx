@@ -1,6 +1,6 @@
 import React from "react";
 import formatDistance from "date-fns/formatDistance";
-import MessageList from "../../../common/components/MessageList";
+import MessageList from "../../messages/MessageList";
 import ToolbarListItem from "../../../common/components/ToolbarListItem";
 import {useParams, Link, Redirect} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -9,7 +9,13 @@ import {Attachment, Delete} from "@material-ui/icons";
 import Tooltip from "@material-ui/core/Tooltip";
 import View from "../../../common/components/layout/View";
 import {getContactByIdSelector} from "../../contacts/contactsSlice";
-import {switchMessagesCheckMode, messagesSearchQuery, selectChatById, removeManyMessages} from "../../chat/chatsSlice";
+import {
+    switchMessagesCheckMode,
+    messagesSearchQuery,
+    selectChatById,
+    removeMessagesSuccess,
+    addMessageRequest
+} from "../../chat/chatsSlice";
 import PopoverAction from "../../../common/components/PopoverAction";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
@@ -40,7 +46,7 @@ function Chat() {
     const contact = useSelector(selectContact);
     const dispatch = useDispatch();
     const removeAllMessages = () => {
-        const action = removeManyMessages({chatId});
+        const action = removeMessagesSuccess({chatId});
         dispatch(action);
     };
     const switchCheckMode = () => {
@@ -137,7 +143,7 @@ function Chat() {
     );
 
     const handleDelete = () => {
-        const action = removeManyMessages({
+        const action = removeMessagesSuccess({
             chatId,
             messageIds: checkedIds
         });
@@ -164,7 +170,10 @@ function Chat() {
         </Toolbar>
     ) : (
         <SendMessageToolbar
-            chatId={chatId}
+            onSubmit={messageText => {
+                const action = addMessageRequest({chatId, messageText});
+                dispatch(action);
+            }}
         />
     );
 

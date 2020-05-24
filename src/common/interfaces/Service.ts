@@ -2,7 +2,7 @@ export interface ErrorResponse {
     errors: string[];
 }
 
-export interface FetchList<T> {
+export interface SuccessResponse<T> {
     items: T[];
     count: number;
 }

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }));
 
-function AttachmentLinkListItem(props: AttachmentLinkListItemProps) {
+function LinkListItem(props: AttachmentLinkListItemProps) {
     const classes = useStyles();
 
     return (
@@ -69,4 +69,4 @@ function AttachmentLinkListItem(props: AttachmentLinkListItemProps) {
     );
 }
 
-export default AttachmentLinkListItem;
+export default LinkListItem;

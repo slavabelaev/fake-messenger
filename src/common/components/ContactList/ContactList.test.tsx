@@ -3,7 +3,7 @@ import {BrowserRouter as Router} from "react-router-dom";
 import {render, unmountComponentAtNode} from "react-dom";
 import {act} from "react-dom/test-utils";
 import ContactList from "./ContactList";
-import {mapContactToItemProps} from "./index";
+import {mapContactToItemProps} from "../../../features/contacts/ContactList";
 import {generateContact} from "../../../features/contacts/generateContact";
 
 describe('<ContactList/>', () => {

@@ -1,6 +1,6 @@
 import {all, call, put, takeEvery, takeLatest, delay} from "redux-saga/effects";
 import {addContact, fetchContacts, removeContact} from "./contactService";
-import {ErrorResponse, FetchList} from "../../common/interfaces/Service";
+import {ErrorResponse, SuccessResponse} from "../../common/interfaces/Service";
 import {Contact} from "./Contact";
 import {contactsFailure, contactsRequest, contactsSuccess, addOneContact, removeContactById} from "./contactsSlice";
 import {setStatusError, setStatusMessage} from "../../app/statusSlice";
@@ -42,7 +42,7 @@ function* fetchContactsSaga() {
         const response = yield call(fetchContacts);
         const errors = (response as ErrorResponse).errors;
         if (errors) throw new Error(errors[0]);
-        const contacts = (response as FetchList<Contact>).items;
+        const contacts = (response as SuccessResponse<Contact>).items;
         const action = contactsSuccess(contacts);
         yield put(action);
     } catch(error) {

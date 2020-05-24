@@ -1,21 +1,21 @@
 import {all, call, put, delay, fork, takeEvery} from "redux-saga/effects";
-import {ErrorResponse, FetchList} from "../../common/interfaces/Service";
+import {ErrorResponse, SuccessResponse} from "../../common/interfaces/Service";
 import {setStatusError} from "../../app/statusSlice";
 import {addMessage, fetchMessages, removeMessages} from "../messages/messageService";
 import {
-    addOneMessage,
-    removeManyMessages,
+    addMessageSuccess,
+    removeMessagesSuccess,
     addMessageRequest,
-    messagesFailure,
-    messagesRequest,
-    messagesSuccess,
+    fetchMessagesFailure,
+    fetchMessagesRequest,
+    fetchMessagesSuccess,
     setMessagePrints
 } from "./chatsSlice";
 import {Message} from "../messages/Message";
 import {Chat} from "./Chat";
 import {generateMessage} from "../messages/generateMessage";
 
-function* removeMessageSaga(action: ReturnType<typeof removeManyMessages>) {
+function* removeMessageSaga(action: ReturnType<typeof removeMessagesSuccess>) {
     const { messageIds } = action.payload;
     try {
         const request = () => removeMessages(messageIds);
@@ -45,7 +45,7 @@ function* sendFakeAnswerSaga(chatId: Chat['id']) {
 
     const timeout = message.text.length * (Math.random() * 10 + 5);
     yield delay(timeout);
-    const addMessageAction = addOneMessage({chatId, message});
+    const addMessageAction = addMessageSuccess({chatId, message});
     const endsPrintsAction = setMessagePrints({chatId, prints: false});
     yield all([
         put(addMessageAction),
@@ -61,7 +61,7 @@ function* addMessageSaga(action: ReturnType<typeof addMessageRequest>) {
         const errors = (response as ErrorResponse).errors;
         if (errors) throw new Error(errors[0]);
         const message = response as Message;
-        const action = addOneMessage({chatId, message});
+        const action = addMessageSuccess({chatId, message});
         yield all([
             put(action),
             fork(sendFakeAnswerSaga, chatId),
@@ -72,7 +72,7 @@ function* addMessageSaga(action: ReturnType<typeof addMessageRequest>) {
     }
 }
 
-function* fetchMessagesSaga(action: ReturnType<typeof messagesRequest>) {
+function* fetchMessagesSaga(action: ReturnType<typeof fetchMessagesRequest>) {
     yield delay(240); // need remove in production
     const { chatId } = action.payload;
     try {
@@ -80,11 +80,11 @@ function* fetchMessagesSaga(action: ReturnType<typeof messagesRequest>) {
         const response = yield call(request);
         const errors = (response as ErrorResponse).errors;
         if (errors) throw new Error(errors[0]);
-        const messages = (response as FetchList<Message>).items;
-        const action = messagesSuccess({chatId, messages});
+        const messages = (response as SuccessResponse<Message>).items;
+        const action = fetchMessagesSuccess({chatId, messages});
         yield put(action);
     } catch (error) {
-        const action = messagesFailure({chatId});
+        const action = fetchMessagesFailure({chatId});
         const statusAction = setStatusError(error.message);
         yield all([
             put(action),
@@ -95,9 +95,9 @@ function* fetchMessagesSaga(action: ReturnType<typeof messagesRequest>) {
 
 function* watchChatSaga() {
     yield all([
-        takeEvery(removeManyMessages.type, removeMessageSaga),
+        takeEvery(removeMessagesSuccess.type, removeMessageSaga),
         takeEvery(addMessageRequest.type, addMessageSaga),
-        takeEvery(messagesRequest.type, fetchMessagesSaga)
+        takeEvery(fetchMessagesRequest.type, fetchMessagesSaga)
     ])
 }
 

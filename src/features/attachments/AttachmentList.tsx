@@ -1,11 +1,12 @@
-import React from 'react';
-import AttachmentList from "./AttachmentList";
-import {Attachment} from "../../../features/attachments/Attachment";
-import {AttachmentListItemProps} from "./AttachmentListItem";
+import React from "react";
 import {useSelector} from "react-redux";
-import {Chat} from "../../../features/chat/Chat";
-import {selectChatByIdAttachments} from "../../../features/chat/chatsSlice";
-import Empty from "../layout/Empty";
+import AttachmentList from "../../common/components/AttachmentList/AttachmentList";
+import {Attachment} from "./Attachment";
+import {AttachmentListItemProps} from "../../common/components/AttachmentList/AttachmentListItem";
+import {Chat} from "../chat/Chat";
+import {selectChatAttachmentsById} from "../chat/chatsSlice";
+import Empty from "../../common/components/layout/Empty";
+import Loading from "../../common/components/layout/Loading";
 
 const mapAttachmentToItemProps = (attachment: Attachment): AttachmentListItemProps => ({
     name: attachment.name,
@@ -20,9 +21,10 @@ export interface AttachmentListContainerProps {
 }
 
 function AttachmentListContainer({ chatId }: AttachmentListContainerProps) {
-    const selectAttachments = selectChatByIdAttachments(chatId);
+    const selectAttachments = selectChatAttachmentsById(chatId);
     const attachments = useSelector(selectAttachments);
 
+    if (!attachments) return <Loading/>;
     if (!attachments.length) return <Empty/>;
 
     return (

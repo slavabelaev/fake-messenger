@@ -1,6 +1,6 @@
 import {Contact} from "../contacts/Contact";
 import {Attachment} from "../attachments/Attachment";
-import {AttachmentLink} from "../attachments/AttachmentLink";
+import {AttachmentLink} from "../links/AttachmentLink";
 
 export interface Message {
     id: string;
