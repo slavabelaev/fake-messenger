@@ -142,7 +142,7 @@ function Chat() {
         />
     );
 
-    const handleDelete = () => {
+    const handleRemove = () => {
         const action = removeMessagesSuccess({
             chatId,
             messageIds: checkedIds
@@ -154,12 +154,12 @@ function Chat() {
         <Toolbar>
             <Button
                 disabled={!checkedIds.length}
-                onClick={handleDelete}
+                onClick={handleRemove}
                 startIcon={<Delete/>}
                 variant="outlined"
                 color="secondary"
             >
-                Delete
+                Remove
             </Button>
             <Button
                 className={classes.cancelButton}

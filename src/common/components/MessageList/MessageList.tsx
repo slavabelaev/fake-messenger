@@ -16,6 +16,7 @@ function MessageList({
     const renderItem = (index: number) => {
         const itemProps = getItem(index);
         const itemKey = getItemKey ? getItemKey(index) : index;
+
         return (
             <MessageListItem
                 key={itemKey}

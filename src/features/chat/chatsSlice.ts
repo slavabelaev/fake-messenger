@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createReducer, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Message} from "../messages/Message";
 import {Chat} from "./Chat";
 import {RootState} from "../../app/rootReducer";
@@ -20,7 +20,7 @@ export interface MessagesState {
 }
 
 const initialState: MessagesState = {};
-const itemInitialState: ChatMessagesState = {
+export const itemInitialState: ChatMessagesState = {
     messages: null,
     checkedIds: [],
     searchQuery: '',

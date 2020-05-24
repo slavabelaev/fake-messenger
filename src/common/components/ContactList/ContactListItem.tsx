@@ -10,6 +10,7 @@ import Badge from "@material-ui/core/Badge";
 import {InfoOutlined} from "@material-ui/icons";
 import IconButton from "@material-ui/core/IconButton";
 import MessageReadStatus, {MessageReadStatusProps} from "../MessageList/MessageReadStatus";
+import Tooltip from "@material-ui/core/Tooltip";
 
 export interface ContactListItemProps {
     avatarSrc: AvatarProps['src'];
@@ -47,12 +48,17 @@ function ContactListItem({
 
     const listItemSecondaryAction = toProfile ? (
         <ListItemSecondaryAction>
-            <IconButton
-                component={NavLink}
-                to={toProfile}
+            <Tooltip
+                title="Profile"
+                placement="left"
             >
-                <InfoOutlined/>
-            </IconButton>
+                <IconButton
+                    component={NavLink}
+                    to={toProfile}
+                >
+                    <InfoOutlined/>
+                </IconButton>
+            </Tooltip>
         </ListItemSecondaryAction>
     ) : null;
 

@@ -28,7 +28,7 @@ function Attachments() {
             renderPopover={onClose => (
                 <List>
                     <MenuListItem
-                        primary="Delete all files"
+                        primary="Remove all files"
                         onClick={() => {
                             const action = removeAttachmentsSuccess({chatId});
                             dispatch(action);
@@ -36,7 +36,7 @@ function Attachments() {
                         }}
                     />
                     <MenuListItem
-                        primary="Delete all links"
+                        primary="Remove all links"
                         onClick={() => {
                             const action = removeLinksSuccess({chatId});
                             dispatch(action);
