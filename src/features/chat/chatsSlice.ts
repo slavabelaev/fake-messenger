@@ -1,4 +1,4 @@
-import {createReducer, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Message} from "../messages/Message";
 import {Chat} from "./Chat";
 import {RootState} from "../../app/rootReducer";
@@ -34,9 +34,9 @@ const chatsSlice = createSlice({
     name: 'chats',
     initialState,
     reducers: {
-        fetchRequest(state, action: PayloadAction<{
+        fetchRequest: (state, action: PayloadAction<{
             chatId: Chat['id'];
-        }>) {
+        }>) => {
             const { chatId } = action.payload;
             if (!state[chatId]) state[chatId] = {...itemInitialState};
             state[chatId].loading = true;
