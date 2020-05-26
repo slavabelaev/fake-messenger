@@ -17,14 +17,14 @@ const statusSlice = createSlice({
     name: 'status',
     initialState,
     reducers: {
-        setStatusMessage(state, action: PayloadAction<StatusState['message']>) {
+        setMessage(state, action: PayloadAction<StatusState['message']>) {
             state.message = action.payload;
         },
-        setStatusError(state, action: PayloadAction<StatusState['message']>) {
+        setError(state, action: PayloadAction<StatusState['message']>) {
             state.message = action.payload;
             state.error = true;
         },
-        resetStatus(state) {
+        reset(state) {
             state.message = null;
             state.error = false;
         }
@@ -34,9 +34,9 @@ const statusSlice = createSlice({
 export const selectStatus = (state: RootState) => state.status;
 
 export const {
-    setStatusMessage,
-    setStatusError,
-    resetStatus
+    setMessage: setStatusMessage,
+    setError: setStatusError,
+    reset: resetStatus
 } = statusSlice.actions;
 
 const statusReducer = statusSlice.reducer;

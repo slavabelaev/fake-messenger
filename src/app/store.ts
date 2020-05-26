@@ -1,16 +1,23 @@
-import {createStore, applyMiddleware} from "redux";
+import {configureStore, getDefaultMiddleware} from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import {composeWithDevTools} from "redux-devtools-extension";
 import {rootReducer} from "./rootReducer";
 import rootSaga from "./rootSaga";
 
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(
-    rootReducer,
-    composeWithDevTools(
-        applyMiddleware(sagaMiddleware)
-    )
-);
+const defaultMiddleware = getDefaultMiddleware({
+    thunk: true,
+    immutableCheck: true,
+    serializableCheck: true
+});
+
+const store = configureStore({
+    reducer: rootReducer,
+    devTools: process.env.NODE_ENV !== 'production',
+    middleware: [
+        ...defaultMiddleware,
+        sagaMiddleware
+    ],
+});
 
 sagaMiddleware.run(rootSaga);
 
