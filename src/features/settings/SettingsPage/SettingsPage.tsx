@@ -1,14 +1,14 @@
 import React from 'react';
-import SettingList from "../../settings/SettingList";
+import SettingList from "../SettingList";
 import View from "../../../common/components/layout/View";
 import LayoutToolbar from "../../../common/components/layout/LayoutToolbar";
 
 export interface SettingsProps {}
 
-function Settings(props: SettingsProps) {
+function SettingsPage(props: SettingsProps) {
     const toolbar = (
         <LayoutToolbar
-            title="Settings"
+            title="SettingsPage"
         />
     );
 
@@ -21,4 +21,4 @@ function Settings(props: SettingsProps) {
     )
 }
 
-export default Settings;
+export default SettingsPage;

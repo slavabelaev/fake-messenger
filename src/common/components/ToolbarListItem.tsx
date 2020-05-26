@@ -52,7 +52,7 @@ function ToolbarListItem(props: UserToolbarProps) {
 
     const defaultView = () => {
         const avatar = props.avatarTo ? (
-            <Tooltip title="Profile">
+            <Tooltip title="ProfilePage">
                 <IconButton
                     edge="start"
                     size="small"

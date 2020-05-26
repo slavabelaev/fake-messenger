@@ -3,7 +3,7 @@ import View from "../../../common/components/layout/View";
 import LayoutToolbar from "../../../common/components/layout/LayoutToolbar";
 import { useParams } from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
-import {getContactByIdSelector, removeContactById} from "../../contacts/contactsSlice";
+import {getContactByIdSelector, removeContactById} from "../contactsSlice";
 import {List} from "@material-ui/core";
 import ErrorMessage from "../../../common/components/layout/ErrorMessage";
 import DetailListItem from "../../../common/components/DetailListItem";
@@ -16,7 +16,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import {Delete} from "@material-ui/icons";
 
-function ContactProfile() {
+function ContactProfilePage() {
     const {id: contactId = ''} = useParams();
     const dispatch = useDispatch();
     const selectContact = getContactByIdSelector(contactId);
@@ -92,4 +92,4 @@ function ContactProfile() {
     );
 }
 
-export default ContactProfile;
+export default ContactProfilePage;

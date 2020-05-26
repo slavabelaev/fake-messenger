@@ -1,11 +1,11 @@
 import React from 'react';
 import SwitchListItem from "../../../common/components/SwitchListItem";
-import {Contact} from "../../contacts/Contact";
+import {Contact} from "../Contact";
 import {useDispatch, useSelector} from "react-redux";
 import {
     contactsSwitchNotifications,
     getContactByIdSelector
-} from "../../contacts/contactsSlice";
+} from "../contactsSlice";
 
 export interface NotificationsContactSwitchProps {
     contactId: Contact['id'];

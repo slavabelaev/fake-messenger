@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import Routes from "./Routes";
 import Layout from "../common/components/layout/Layout";
-import Contacts from "../features/views/Contacts";
+import ContactsPage from "../features/contacts/ContactsPage";
 import {useDispatch, useSelector} from "react-redux";
 import {selectAuth, authRequest} from "../features/auth/authSlice";
 import ErrorMessage from "../common/components/layout/ErrorMessage";
@@ -37,7 +37,7 @@ function App() {
     return (
         <Layout
             title="Fake Messenger"
-            leftSide={<Contacts/>}
+            leftSide={<ContactsPage/>}
         >
             <Routes />
             <ActionSnackbar/>

@@ -6,7 +6,7 @@ import Tab from "@material-ui/core/Tab";
 import List from "@material-ui/core/List";
 import View from "../../../common/components/layout/View";
 import ErrorMessage from "../../../common/components/layout/ErrorMessage";
-import AttachmentList from "../../attachments/AttachmentList";
+import AttachmentList from "../AttachmentList";
 import AttachmentLinkList from "../../links/LinkList";
 import PopoverAction from "../../../common/components/PopoverAction";
 import MenuListItem from "../../../common/components/MenuListItem";
@@ -16,7 +16,7 @@ import LayoutToolbar from "../../../common/components/layout/LayoutToolbar";
 const FILES_TAB_VALUE = 0;
 const LINKS_TAB_VALUE = 1;
 
-function Attachments() {
+function AttachmentsPage() {
     const { id: chatId } = useParams();
     const [tabsValue, setTabsValue] = useState(FILES_TAB_VALUE);
     const dispatch = useDispatch();
@@ -50,7 +50,7 @@ function Attachments() {
 
     const toolbar = (
         <LayoutToolbar
-            title="Attachments"
+            title="AttachmentsPage"
             endAction={popoverMenuButton}
         />
     );
@@ -92,4 +92,4 @@ function Attachments() {
     )
 }
 
-export default Attachments;
+export default AttachmentsPage;

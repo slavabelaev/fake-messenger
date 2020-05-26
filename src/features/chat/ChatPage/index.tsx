@@ -1,6 +1,6 @@
-import Chat from "./Chat";
+import ChatPage from "./ChatPage";
 import Layout from "../../../common/components/layout";
-import ChatRoutes from "./ChatRoutes";
+import ChatPageRoutes from "./ChatPageRoutes";
 import React from "react";
 import {useMediaQuery, useTheme} from "@material-ui/core";
 
@@ -10,13 +10,13 @@ function ChatContainer() {
     const theme = useTheme();
     const isBreakpointSm = useMediaQuery(theme.breakpoints.down('sm'));
 
-    if (isBreakpointSm) return <Chat/>;
+    if (isBreakpointSm) return <ChatPage/>;
 
     return (
         <Layout
-            rightSide={<ChatRoutes/>}
+            rightSide={<ChatPageRoutes/>}
         >
-            <Chat/>
+            <ChatPage/>
         </Layout>
     );
 }

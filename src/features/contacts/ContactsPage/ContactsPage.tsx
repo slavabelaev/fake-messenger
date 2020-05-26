@@ -1,21 +1,21 @@
 import React from 'react';
-import ContactList from "../../contacts/ContactList";
+import ContactList from "../ContactList";
 import ToolbarListItem from "../../../common/components/ToolbarListItem";
 import {Add, Settings} from "@material-ui/icons";
 import {createStyles, Fab, IconButton, Theme} from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import {NavLink} from "react-router-dom";
-import {SETTINGS_ROUTE_PATH} from "../Settings";
-import {PROFILE_ROUTE_PATH} from "../Profile";
+import {SETTINGS_ROUTE_PATH} from "../../settings/SettingsPage";
+import {PROFILE_ROUTE_PATH} from "../../auth/ProfilePage";
 import View from "../../../common/components/layout/View";
 import {useDispatch, useSelector} from "react-redux";
 import {selectAuth} from "../../auth/authSlice";
-import {addOneContact, contactsSearchQuery} from '../../contacts/contactsSlice';
+import {addOneContact, contactsSearchQuery} from '../contactsSlice';
 import ErrorMessage from "../../../common/components/layout/ErrorMessage";
 import Loading from "../../../common/components/layout/Loading";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
-import {generateContact} from "../../contacts/generateContact";
+import {generateContact} from "../generateContact";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }));
 
-function Contacts() {
+function ContactsPage() {
     const classes = useStyles();
     const { error, loading, user } = useSelector(selectAuth);
     const dispatch = useDispatch();
@@ -37,7 +37,7 @@ function Contacts() {
     if (error) return <ErrorMessage/>;
 
     const settingsButton = (
-        <Tooltip title="Settings">
+        <Tooltip title="SettingsPage">
             <IconButton
                 edge="end"
                 component={NavLink}
@@ -109,4 +109,4 @@ function Contacts() {
     )
 }
 
-export default Contacts;
+export default ContactsPage;

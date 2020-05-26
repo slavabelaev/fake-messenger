@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {contactsRequest, selectContacts, selectFoundContacts} from "./contactsSlice";
 import {Contact} from "./Contact";
 import {ContactListItemProps} from "../../common/components/ContactList/ContactListItem";
-import {CHAT_ROUTE_PATH} from "../views/Chat";
+import {CHAT_ROUTE_PATH} from "../chat/ChatPage";
 import ErrorMessage from "../../common/components/layout/ErrorMessage";
 import Loading from "../../common/components/layout/Loading";
 import Empty from "../../common/components/layout/Empty";

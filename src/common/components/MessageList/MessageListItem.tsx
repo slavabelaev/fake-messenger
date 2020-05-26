@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import {makeStyles} from "@material-ui/core/styles";
 import MessageReadStatus, {MessageReadStatusProps} from "./MessageReadStatus";
-import AttachmentListItem from "../AttachmentList/AttachmentListItem";
 
 export interface MessageListItemProps {
     variant?: 'default' | 'checkbox';

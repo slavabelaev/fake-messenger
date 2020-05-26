@@ -1,4 +1,4 @@
-import React, {ReactNode} from "react";
+import React from "react";
 import {AvatarProps, createStyles, ListItem, ListItemTextProps, Theme} from "@material-ui/core";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -49,7 +49,7 @@ function ContactListItem({
     const listItemSecondaryAction = toProfile ? (
         <ListItemSecondaryAction>
             <Tooltip
-                title="Profile"
+                title="ProfilePage"
                 placement="left"
             >
                 <IconButton

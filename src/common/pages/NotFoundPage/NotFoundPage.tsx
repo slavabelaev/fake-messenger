@@ -2,6 +2,8 @@ import React from "react";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import {Typography} from "@material-ui/core";
 
+export const NOT_FOUND_ROUTE_PATH = '/not-found';
+
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         display: 'flex',
@@ -14,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }));
 
-function NotFound() {
+function NotFoundPage() {
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -34,4 +36,4 @@ function NotFound() {
     )
 }
 
-export default NotFound;
+export default NotFoundPage;

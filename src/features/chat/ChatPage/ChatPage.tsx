@@ -15,19 +15,19 @@ import {
     selectChatById,
     removeMessagesSuccess,
     addMessageRequest
-} from "../../chat/chatsSlice";
+} from "../chatsSlice";
 import PopoverAction from "../../../common/components/PopoverAction";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
-import {CONTACT_PROFILE_ROUTE_PATH} from "../ContactProfile";
-import {CHAT_ATTACHMENTS_ROUTE_PATH} from "../Attachments";
+import {CONTACT_PROFILE_ROUTE_PATH} from "../../contacts/ContactProfilePage";
+import {CHAT_ATTACHMENTS_ROUTE_PATH} from "../../attachments/AttachmentsPage";
 import MenuListItem from "../../../common/components/MenuListItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import SendMessageToolbar from "../../../common/components/SendMessageToolbar";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
-import {CONTACTS_ROUTE_PATH} from "../Contacts";
+import {CONTACTS_ROUTE_PATH} from "../../contacts/ContactsPage";
 import BackButton from "../../../common/components/layout/BackButton";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }));
 
-function Chat() {
+function ChatPage() {
     const classes = useStyles();
     const { id: chatId = '' } = useParams();
     const theme = useTheme();
@@ -76,7 +76,7 @@ function Chat() {
 
     const endAction = (
         <>
-            <Tooltip title="Attachments">
+            <Tooltip title="AttachmentsPage">
                 <IconButton
                     component={Link}
                     to={CHAT_ATTACHMENTS_ROUTE_PATH.replace(':id', chatId)}
@@ -197,4 +197,4 @@ function Chat() {
     );
 }
 
-export default Chat;
+export default ChatPage;

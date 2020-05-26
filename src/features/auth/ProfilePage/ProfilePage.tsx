@@ -14,11 +14,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }));
 
-function Profile(props: ProfileProps) {
+function ProfilePage(props: ProfileProps) {
     const classes = useStyles();
     const toolbar = (
         <LayoutToolbar
-            title="Edit Profile"
+            title="Edit ProfilePage"
         />
     );
 
@@ -40,4 +40,4 @@ function Profile(props: ProfileProps) {
     );
 }
 
-export default Profile;
+export default ProfilePage;
