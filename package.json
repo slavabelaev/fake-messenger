@@ -1,8 +1,8 @@
 {
-  "name": "redux-saga",
+  "name": "fake-messenger",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://fake-messenger-web.web.app/",
+  "homepage": "https://slavabelaev.github.io/fake-messenger",
   "main": "electron/index.js",
   "dependencies": {
     "@material-ui/core": "^4.9.7",
