@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/fake-messenger/static/js/main.2fd176c1.chunk.js",
-    "main.js.map": "/fake-messenger/static/js/main.2fd176c1.chunk.js.map",
+    "main.js": "/fake-messenger/static/js/main.61ecbd1b.chunk.js",
+    "main.js.map": "/fake-messenger/static/js/main.61ecbd1b.chunk.js.map",
     "runtime-main.js": "/fake-messenger/static/js/runtime-main.01fde139.js",
     "runtime-main.js.map": "/fake-messenger/static/js/runtime-main.01fde139.js.map",
-    "static/js/2.3f6b212e.chunk.js": "/fake-messenger/static/js/2.3f6b212e.chunk.js",
-    "static/js/2.3f6b212e.chunk.js.map": "/fake-messenger/static/js/2.3f6b212e.chunk.js.map",
+    "static/js/2.af21869c.chunk.js": "/fake-messenger/static/js/2.af21869c.chunk.js",
+    "static/js/2.af21869c.chunk.js.map": "/fake-messenger/static/js/2.af21869c.chunk.js.map",
     "index.html": "/fake-messenger/index.html",
-    "precache-manifest.d03c5c2660853ddbdcaf163ddc65c3e9.js": "/fake-messenger/precache-manifest.d03c5c2660853ddbdcaf163ddc65c3e9.js",
+    "precache-manifest.730814c8966b3d84655b5c675be3f6ee.js": "/fake-messenger/precache-manifest.730814c8966b3d84655b5c675be3f6ee.js",
     "service-worker.js": "/fake-messenger/service-worker.js",
-    "static/js/2.3f6b212e.chunk.js.LICENSE.txt": "/fake-messenger/static/js/2.3f6b212e.chunk.js.LICENSE.txt"
+    "static/js/2.af21869c.chunk.js.LICENSE.txt": "/fake-messenger/static/js/2.af21869c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.01fde139.js",
-    "static/js/2.3f6b212e.chunk.js",
-    "static/js/main.2fd176c1.chunk.js"
+    "static/js/2.af21869c.chunk.js",
+    "static/js/main.61ecbd1b.chunk.js"
   ]
 }
